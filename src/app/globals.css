@@ -3,20 +3,95 @@
 @tailwind utilities;
 
 :root {
-  --background: #faf8f5;
-  --foreground: #1a1918;
+  /* Primary Dark Palette */
+  --color-deep-black: #080706;
+  --color-rich-black: #0D0B09;
+  --color-dark-espresso: #17110C;
+  --color-chocolate-black: #21160E;
+
+  /* Gold Tokens */
+  --color-gold-primary: #C8A45D;
+  --color-gold-champagne: #E2C78D;
+  --color-gold-soft: #AE8847;
+  --color-gold-muted: #80633B;
+
+  /* Neutral Tokens */
+  --color-warm-ivory: #F4EFE5;
+  --color-soft-white: #EAE4D9;
+  --color-muted-text: #AFA497;
+  --color-subtle-border: rgba(200, 164, 93, 0.22);
+  --color-gold-glow: rgba(200, 164, 93, 0.18);
+
+  /* App Canvas Defaults */
+  --background: var(--color-deep-black);
+  --foreground: var(--color-warm-ivory);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #121212;
-    --foreground: #ededed;
+@layer base {
+  * {
+    border-color: var(--color-subtle-border);
+  }
+
+  body {
+    background-color: var(--color-deep-black);
+    color: var(--color-warm-ivory);
+    font-family: var(--font-sans), sans-serif;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  /* Selection styling with gold sheen */
+  ::selection {
+    background-color: rgba(200, 164, 93, 0.3);
+    color: #F4EFE5;
+  }
+
+  /* Headings inherit luxury serif */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-serif), serif;
+    letter-spacing: -0.01em;
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  letter-spacing: -0.01em;
+/* Custom Luxury Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #080706;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #21160E;
+  border-radius: 3px;
+  border: 1px solid rgba(200, 164, 93, 0.2);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #C8A45D;
+}
+
+/* Luxury Utilities */
+@layer utilities {
+  .text-gold-gradient {
+    background: linear-gradient(135deg, #E2C78D 0%, #C8A45D 50%, #AE8847 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .border-gold-subtle {
+    border-color: rgba(200, 164, 93, 0.22);
+  }
+
+  .bg-ambient-glow {
+    background: radial-gradient(circle at 50% 0%, rgba(200, 164, 93, 0.08) 0%, transparent 60%);
+  }
+
+  .bg-vignette {
+    box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.8);
+  }
 }
