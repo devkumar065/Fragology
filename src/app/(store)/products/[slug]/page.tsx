@@ -2,15 +2,15 @@
 
 import React, { useState, use } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { notFound } from "next/navigation";
 import {
   ChevronRight,
   ShieldCheck,
-  Package,
   Heart,
-  X,
   Plus,
   Minus,
+  Sparkles,
 } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
@@ -18,14 +18,20 @@ import { Badge } from "@/components/ui/badge";
 import { ProductCard } from "@/components/product/product-card";
 import { getProductBySlug, getRelatedProducts } from "@/data/products";
 import { ProductVariant } from "@/types/product";
+import { useCart } from "@/context/cart-context";
+import { useWishlist } from "@/context/wishlist-context";
 
 interface ProductPageProps {
   params: Promise<{ slug: string }>;
 }
 
 export default function ProductDetailsPage({ params }: ProductPageProps) {
+  const router = useRouter();
   const { slug } = use(params);
   const product = getProductBySlug(slug);
+
+  const { addItem, openCart } = useCart();
+  const { isInWishlist, toggleWishlist } = useWishlist();
 
   if (!product) {
     notFound();
@@ -47,11 +53,10 @@ export default function ProductDetailsPage({ params }: ProductPageProps) {
   // Quantity state
   const [quantity, setQuantity] = useState(1);
 
-  // Phase 4 notice modal state
-  const [phaseModalNotice, setPhaseModalNotice] = useState<string | null>(null);
+  // Toast feedback state
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
 
-  // Wishlist toggle
-  const [isWishlisted, setIsWishlisted] = useState(false);
+  const isWishlisted = isInWishlist(product.id);
 
   const galleryAngles = [
     { label: "Front Flacon", desc: "Architectural Glass Silhouette" },
@@ -63,12 +68,26 @@ export default function ProductDetailsPage({ params }: ProductPageProps) {
     setQuantity((prev) => Math.max(1, Math.min(10, prev + delta)));
   };
 
-  const handlePurchaseAction = (action: "bag" | "buy") => {
-    setPhaseModalNotice(
-      action === "bag"
-        ? `Added ${quantity} x ${product.name} (${selectedVariant.size}) to pending bag. Full shopping bag operations will be enabled in Phase 4.`
-        : `Instant checkout for ${product.name} will be enabled in Phase 4 with encrypted payment gateways.`
+  const handleAddToBag = () => {
+    addItem(product, selectedVariant, quantity);
+    openCart();
+    setToastMessage(`Added ${quantity} x ${product.name} (${selectedVariant.size}) to your bag.`);
+    setTimeout(() => setToastMessage(null), 3000);
+  };
+
+  const handleBuyNow = () => {
+    addItem(product, selectedVariant, quantity);
+    router.push("/checkout");
+  };
+
+  const handleToggleWishlist = () => {
+    const added = toggleWishlist(product);
+    setToastMessage(
+      added
+        ? `Added "${product.name}" to your private wishlist.`
+        : `Removed "${product.name}" from your wishlist.`
     );
+    setTimeout(() => setToastMessage(null), 3000);
   };
 
   const relatedProducts = getRelatedProducts(product.slug, 4);
@@ -111,56 +130,48 @@ export default function ProductDetailsPage({ params }: ProductPageProps) {
                 </span>
               </div>
 
-              {/* Central Luxury Perfume Flacon Model */}
-              <div className="relative z-10 flex flex-col items-center justify-center transition-all duration-300">
+              {/* Stylized Architectural Flacon Art Component */}
+              <div className="relative z-10 flex flex-col items-center justify-center transform transition-transform duration-700 hover:scale-105">
                 {/* Heavy Gold Stopper */}
-                <div className="h-10 w-16 bg-gradient-to-b from-gold-champagne via-gold-primary to-gold-soft border border-gold-champagne/60 rounded-xs shadow-gold-glow flex items-center justify-center">
-                  <span className="font-serif text-xs text-brand-deep font-semibold">F</span>
-                </div>
-                {/* Flacon Neck */}
-                <div className="h-3 w-8 bg-gradient-to-r from-gold-muted via-gold-primary to-gold-soft border-x border-gold-champagne/50" />
-                {/* Flacon Shoulder */}
-                <div className="w-52 h-4 bg-gradient-to-r from-brand-espresso via-gold-primary/20 to-brand-espresso border-t border-x border-gold-primary/40 rounded-t-xs" />
-                {/* Architectural Heavy Glass Flacon Body */}
-                <div className="relative w-52 h-72 rounded-b-xs border-b border-x border-gold-primary/40 bg-gradient-to-b from-brand-deep/80 via-gold-primary/10 to-brand-espresso/90 backdrop-blur-sm p-6 flex flex-col items-center justify-between shadow-2xl">
-                  {/* Internal Liquid Core Sheen */}
-                  <div className="absolute inset-x-3 top-2 bottom-6 rounded-xs bg-gradient-to-b from-gold-primary/20 via-gold-champagne/25 to-gold-soft/10 opacity-75" />
-
-                  {/* Watermark Label */}
-                  <span className="relative z-10 text-[8px] font-mono uppercase tracking-[0.3em] text-gold-champagne/80">
-                    {product.concentration}
+                <div className="h-10 w-14 bg-gradient-to-b from-gold-champagne via-gold-primary to-gold-soft border border-gold-champagne/60 rounded-xs shadow-gold-glow flex items-center justify-center">
+                  <span className="font-serif text-[10px] tracking-widest text-brand-deep uppercase font-bold">
+                    F
                   </span>
+                </div>
 
-                  {/* Brand Flacon Label */}
-                  <div className="relative z-10 my-auto w-full border border-gold-primary/50 bg-brand-deep/95 py-4 px-3 text-center shadow-lg">
-                    <span className="block font-serif text-base tracking-[0.3em] uppercase text-neutral-ivory font-light">
+                {/* Neck Collar */}
+                <div className="h-3 w-6 bg-gold-primary/80" />
+
+                {/* Glass Flacon Base */}
+                <div className="relative h-72 w-52 rounded-xs border-2 border-gold-primary/40 bg-gradient-to-b from-brand-deep/60 via-gold-primary/10 to-brand-espresso/90 backdrop-blur-md flex flex-col items-center justify-between p-6 shadow-2xl">
+                  {/* Flacon internal golden liquid shimmer */}
+                  <div className="absolute inset-x-3 top-3 bottom-10 bg-gradient-to-b from-gold-primary/15 via-gold-champagne/20 to-transparent rounded-xs opacity-70" />
+
+                  {/* Embossed Paper Label */}
+                  <div className="relative z-10 mt-10 border border-gold-primary/50 bg-brand-deep/95 py-3 px-4 text-center w-full shadow-lg">
+                    <span className="block font-serif text-sm font-light text-neutral-ivory tracking-widest uppercase">
                       {product.name}
                     </span>
-                    <span className="block text-[8px] font-sans tracking-[0.25em] text-gold-primary uppercase mt-1">
-                      {product.family}
+                    <span className="block text-[8px] font-sans tracking-[0.3em] text-gold-champagne uppercase mt-0.5">
+                      {product.concentration}
                     </span>
                   </div>
 
-                  {/* Flacon Volume Meta */}
-                  <div className="relative z-10 flex items-center justify-between w-full text-[9px] font-mono text-neutral-muted/80 tracking-widest uppercase pt-2 border-t border-gold-primary/20">
-                    <span>{selectedVariant.size}</span>
-                    <span>FLACON</span>
-                  </div>
+                  {/* Volume Stamp */}
+                  <span className="relative z-10 text-[9px] font-mono tracking-widest text-neutral-muted uppercase">
+                    {selectedVariant.volumeDisplay}
+                  </span>
                 </div>
-
-                {/* Soft Shadow Base */}
-                <div className="w-40 h-3 bg-gold-primary/20 rounded-full blur-md mt-3" />
               </div>
 
-              {/* Angle Description Subtitle */}
-              <div className="absolute bottom-6 z-20 text-center">
-                <p className="text-[10px] font-sans text-neutral-muted/70 tracking-wider">
-                  {galleryAngles[activeGalleryIndex].desc}
-                </p>
-              </div>
+              {/* Accent Color Atmosphere Bar */}
+              <div
+                className="absolute inset-x-0 bottom-0 h-1"
+                style={{ backgroundColor: product.accentColor || "#C8A45D" }}
+              />
             </div>
 
-            {/* Thumbnail Gallery Navigation */}
+            {/* Thumbnail Angle Selectors */}
             <div className="grid grid-cols-3 gap-4">
               {galleryAngles.map((angle, idx) => (
                 <button
@@ -168,12 +179,14 @@ export default function ProductDetailsPage({ params }: ProductPageProps) {
                   onClick={() => setActiveGalleryIndex(idx)}
                   className={`p-3 text-left border rounded-xs transition-all ${
                     activeGalleryIndex === idx
-                      ? "border-gold-primary bg-brand-espresso/80 text-neutral-ivory"
-                      : "border-border-subtle bg-brand-rich/50 text-neutral-muted hover:border-gold-primary/50"
+                      ? "border-gold-primary bg-brand-espresso text-neutral-ivory shadow-gold-subtle"
+                      : "border-border-subtle bg-brand-rich/50 text-neutral-muted hover:border-gold-primary/40"
                   }`}
                 >
-                  <span className="block font-serif text-xs text-neutral-ivory">{angle.label}</span>
-                  <span className="block text-[9px] font-sans text-neutral-muted truncate mt-0.5">
+                  <span className="block font-sans text-xs uppercase tracking-wider text-gold-champagne">
+                    {angle.label}
+                  </span>
+                  <span className="block text-[11px] font-light text-neutral-muted truncate mt-0.5">
                     {angle.desc}
                   </span>
                 </button>
@@ -181,18 +194,18 @@ export default function ProductDetailsPage({ params }: ProductPageProps) {
             </div>
           </div>
 
-          {/* Section 3–6: Product Details, Variant Selection & Actions (Right Column) */}
+          {/* Section 3: Product Narrative & Configuration (Right Column) */}
           <div className="lg:col-span-5 space-y-8">
-            {/* Header info */}
+            {/* Category / Badge / Title */}
             <div className="space-y-3">
               <div className="flex items-center space-x-3">
-                <span className="text-[10px] font-mono uppercase tracking-[0.3em] text-gold-champagne">
-                  {product.family} • {product.concentration}
+                <span className="text-[10px] font-mono uppercase tracking-[0.3em] text-gold-muted font-medium">
+                  {product.family} Collection
                 </span>
                 {product.badge && <Badge variant="bestseller">{product.badge}</Badge>}
               </div>
 
-              <h1 className="font-serif text-3xl sm:text-5xl font-light text-neutral-ivory tracking-wide leading-tight">
+              <h1 className="font-serif text-4xl sm:text-5xl font-light text-neutral-ivory tracking-wide leading-tight">
                 {product.name}
               </h1>
 
@@ -202,13 +215,13 @@ export default function ProductDetailsPage({ params }: ProductPageProps) {
                 </p>
               )}
 
-              {/* Price Display: dynamically updates with selected variant */}
+              {/* Price Display */}
               <div className="pt-2 flex items-baseline space-x-3">
                 <span className="text-2xl sm:text-3xl font-light text-neutral-ivory font-sans">
                   {selectedVariant.price}
                 </span>
-                <span className="text-[11px] font-mono uppercase tracking-wider text-neutral-muted/70">
-                  Complimentary Insulated Delivery
+                <span className="text-[11px] font-mono uppercase tracking-wider text-gold-champagne/80">
+                  Complimentary Insured Delivery Included
                 </span>
               </div>
             </div>
@@ -280,27 +293,27 @@ export default function ProductDetailsPage({ params }: ProductPageProps) {
               </div>
             </div>
 
-            {/* Section 6: Purchase Action Area (Phase 4 notice) */}
+            {/* Section 6: Purchase Action Area */}
             <div className="space-y-3 pt-2">
               <div className="flex flex-col sm:flex-row gap-3">
                 <Button
                   variant="primary"
                   size="md"
                   className="flex-1"
-                  onClick={() => handlePurchaseAction("bag")}
+                  onClick={handleAddToBag}
                 >
-                  Add to Bag • {selectedVariant.price}
+                  Add to Bag &bull; {selectedVariant.price}
                 </Button>
                 <Button
                   variant="secondary"
                   size="md"
                   className="flex-1"
-                  onClick={() => handlePurchaseAction("buy")}
+                  onClick={handleBuyNow}
                 >
                   Buy Now
                 </Button>
                 <button
-                  onClick={() => setIsWishlisted(!isWishlisted)}
+                  onClick={handleToggleWishlist}
                   className={`p-3.5 border rounded-xs flex items-center justify-center transition-colors ${
                     isWishlisted
                       ? "border-gold-primary bg-gold-primary text-brand-deep"
@@ -316,7 +329,7 @@ export default function ProductDetailsPage({ params }: ProductPageProps) {
               <div className="p-3 bg-brand-espresso/60 border border-border-subtle/50 rounded-xs flex items-start space-x-2.5 text-[11px] text-neutral-muted leading-relaxed">
                 <ShieldCheck size={14} className="text-gold-primary flex-shrink-0 mt-0.5" />
                 <span>
-                  Includes matching exterior 2ml test vial. Unopened cellophane may be returned within 30 days.
+                  Includes matching exterior 2ml test vial. Unopened cellophane may be returned within 14 days for a full refund.
                 </span>
               </div>
             </div>
@@ -334,162 +347,76 @@ export default function ProductDetailsPage({ params }: ProductPageProps) {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center relative">
-            {/* Top Notes */}
-            <div className="p-6 border border-border-subtle/50 bg-brand-deep/80 rounded-xs space-y-3">
-              <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-gold-champagne block">
-                TOP NOTES (0–15 MIN)
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="p-6 bg-brand-espresso/70 border border-border-subtle rounded-xs space-y-3">
+              <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-gold-primary">
+                Top Notes (Opening 15 mins)
               </span>
-              <h3 className="font-serif text-xl text-neutral-ivory font-light">
+              <h3 className="font-serif text-xl font-light text-neutral-ivory">
                 {product.notes.top}
               </h3>
               <p className="text-xs text-neutral-muted font-light leading-relaxed">
-                The immediate introduction—sparkling and radiant botanical volatility awakening the senses.
+                The initial luminous aura that greets the senses upon atomization.
               </p>
             </div>
 
-            {/* Heart Notes */}
-            <div className="p-6 border border-gold-primary/40 bg-brand-espresso/70 rounded-xs space-y-3 shadow-gold-subtle">
-              <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-gold-primary block">
-                HEART NOTES (2–6 HOURS)
+            <div className="p-6 bg-brand-espresso/70 border border-border-subtle rounded-xs space-y-3">
+              <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-gold-champagne">
+                Heart Notes (Hours 1 - 4)
               </span>
-              <h3 className="font-serif text-xl text-neutral-ivory font-light">
+              <h3 className="font-serif text-xl font-light text-neutral-ivory">
                 {product.notes.heart}
               </h3>
               <p className="text-xs text-neutral-muted font-light leading-relaxed">
-                The emotional signature of the fragrance, providing rich floral, resinous, or spiced character.
+                The enduring core personality that melds with skin chemistry throughout the day.
               </p>
             </div>
 
-            {/* Base Notes */}
-            <div className="p-6 border border-border-subtle/50 bg-brand-deep/80 rounded-xs space-y-3">
-              <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-gold-champagne block">
-                BASE NOTES (8–24+ HOURS)
+            <div className="p-6 bg-brand-espresso/70 border border-border-subtle rounded-xs space-y-3">
+              <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-gold-muted">
+                Base Notes (Hours 4 - 14+)
               </span>
-              <h3 className="font-serif text-xl text-neutral-ivory font-light">
+              <h3 className="font-serif text-xl font-light text-neutral-ivory">
                 {product.notes.base}
               </h3>
               <p className="text-xs text-neutral-muted font-light leading-relaxed">
-                Deep architectural foundations anchored in rare woods and resins that linger close to skin.
+                The sensual sillage of rare woods, resins, and ambers that lingers into the evening.
               </p>
             </div>
           </div>
         </section>
 
-        {/* Section 8 & 9: Product Story & Additional Product Information */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 mb-24 items-start">
-          {/* Section 8: Story */}
-          <div className="lg:col-span-7 space-y-6">
-            <span className="text-[10px] font-mono uppercase tracking-[0.3em] text-gold-champagne">
-              THE STORY BEHIND THE FLACON
-            </span>
-            <h2 className="font-serif text-3xl sm:text-4xl font-light text-neutral-ivory leading-tight">
-              An Architectural Study in {product.family} Olfaction
-            </h2>
-            <div className="space-y-4 text-xs sm:text-sm text-neutral-muted font-light leading-relaxed">
-              <p>{product.story.inspiration}</p>
-              <p>{product.story.personality}</p>
-              <div className="pt-2">
-                <span className="text-xs font-medium text-neutral-soft uppercase tracking-wider block mb-1">
-                  Recommended Occasions:
-                </span>
-                <p className="text-xs text-neutral-muted">{product.story.recommendedOccasions}</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Section 9: Additional Specifications */}
-          <div className="lg:col-span-5 p-6 sm:p-8 border border-border-subtle bg-brand-rich/60 rounded-xs space-y-4">
-            <h3 className="font-serif text-xl text-neutral-ivory font-light border-b border-border-subtle pb-3">
-              Flacon Specifications
-            </h3>
-            <dl className="space-y-3 text-xs">
-              <div className="flex justify-between py-1 border-b border-border-subtle/30">
-                <dt className="text-neutral-muted uppercase tracking-wider">Fragrance Family</dt>
-                <dd className="text-neutral-ivory font-medium">{product.family}</dd>
-              </div>
-              <div className="flex justify-between py-1 border-b border-border-subtle/30">
-                <dt className="text-neutral-muted uppercase tracking-wider">Concentration</dt>
-                <dd className="text-neutral-ivory font-medium">{product.concentration}</dd>
-              </div>
-              <div className="flex justify-between py-1 border-b border-border-subtle/30">
-                <dt className="text-neutral-muted uppercase tracking-wider">Available Volumes</dt>
-                <dd className="text-neutral-ivory font-medium">30ml, 50ml, 100ml</dd>
-              </div>
-              <div className="flex justify-between py-1 border-b border-border-subtle/30">
-                <dt className="text-neutral-muted uppercase tracking-wider">Maceration Time</dt>
-                <dd className="text-neutral-ivory font-medium">90 Days Micro-Batch</dd>
-              </div>
-              <div className="flex justify-between py-1 border-b border-border-subtle/30">
-                <dt className="text-neutral-muted uppercase tracking-wider">Presentation Box</dt>
-                <dd className="text-neutral-ivory font-medium">Rigid Architectural Box</dd>
-              </div>
-              <div className="py-2 text-[11px] text-neutral-muted/70 leading-relaxed font-light">
-                <strong>Ingredients Placeholder:</strong> Alcohol Denat., Parfum (Fragrance), Aqua (Water), Limonene, Linalool, Citronellol, Coumarin. Full allergy disclosures will be stamped on final production cartons.
-              </div>
-            </dl>
-          </div>
-        </div>
-
-        {/* Section 10: Related Fragrances */}
-        <section className="border-t border-border-subtle pt-16">
-          <div className="flex items-center justify-between mb-10">
+        {/* Section 8: Related Fragrance Recommendations */}
+        <section className="space-y-8">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between border-b border-border-subtle pb-4 gap-4">
             <div>
-              <span className="text-[10px] font-mono uppercase tracking-[0.3em] text-gold-champagne">
-                COMPLEMENTARY COMPOSITIONS
+              <span className="text-[10px] font-mono uppercase tracking-[0.3em] text-gold-primary">
+                HARMONIC COMPANIONS
               </span>
-              <h2 className="font-serif text-3xl font-light text-neutral-ivory mt-1">
-                You May Also Admire
+              <h2 className="font-serif text-2xl sm:text-3xl font-light text-neutral-ivory mt-1">
+                You May Also Appreciate
               </h2>
             </div>
             <Link
               href="/shop"
-              className="text-xs uppercase tracking-widest text-gold-champagne hover:underline"
+              className="text-xs uppercase tracking-wider text-gold-champagne hover:underline"
             >
-              All Flacons
+              Explore Full Wardrobe &rarr;
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {relatedProducts.map((rel) => (
               <ProductCard key={rel.id} product={rel} />
             ))}
           </div>
         </section>
 
-        {/* Phase 4 Notice Modal */}
-        {phaseModalNotice && (
-          <div
-            role="dialog"
-            aria-modal="true"
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-xs animate-in fade-in duration-200"
-          >
-            <div className="relative w-full max-w-md bg-brand-espresso border border-gold-primary/50 p-6 sm:p-8 rounded-xs shadow-gold-glow text-center space-y-4">
-              <button
-                onClick={() => setPhaseModalNotice(null)}
-                className="absolute top-4 right-4 text-neutral-muted hover:text-neutral-ivory"
-                aria-label="Dismiss notice"
-              >
-                <X size={18} />
-              </button>
-              <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-full bg-gold-primary/10 border border-gold-primary/30 text-gold-champagne">
-                <Package size={18} />
-              </div>
-              <h3 className="font-serif text-xl text-neutral-ivory font-light tracking-wide">
-                Phase 4 Acquisition Notice
-              </h3>
-              <p className="text-xs sm:text-sm text-neutral-muted leading-relaxed font-light">
-                {phaseModalNotice}
-              </p>
-              <div className="pt-2">
-                <button
-                  onClick={() => setPhaseModalNotice(null)}
-                  className="px-6 py-2.5 bg-gold-primary text-brand-deep text-xs font-sans uppercase tracking-[0.2em] font-medium hover:bg-gold-champagne transition-colors"
-                >
-                  Understood
-                </button>
-              </div>
-            </div>
+        {/* Floating Toast Notice */}
+        {toastMessage && (
+          <div className="fixed bottom-6 right-6 z-50 bg-brand-espresso border border-gold-primary text-neutral-ivory px-5 py-3 rounded-xs shadow-gold-glow flex items-center space-x-3 animate-in fade-in slide-in-from-bottom-2 text-xs">
+            <Sparkles size={16} className="text-gold-primary" />
+            <span>{toastMessage}</span>
           </div>
         )}
       </Container>

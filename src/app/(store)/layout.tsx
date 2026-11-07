@@ -1,6 +1,7 @@
 import React from "react";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
+import { StoreProviders } from "@/components/providers/store-providers";
 
 export default function StoreLayout({
   children,
@@ -8,10 +9,12 @@ export default function StoreLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen flex flex-col bg-brand-deep text-neutral-ivory">
-      <Header />
-      <main className="flex-1">{children}</main>
-      <Footer />
-    </div>
+    <StoreProviders>
+      <div className="min-h-screen flex flex-col bg-brand-deep text-neutral-ivory">
+        <Header />
+        <main className="flex-1">{children}</main>
+        <Footer />
+      </div>
+    </StoreProviders>
   );
 }

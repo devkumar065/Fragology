@@ -2,17 +2,27 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { Search, Heart, User, ShoppingBag, Menu, Sparkles, X } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { Search, Heart, User, ShoppingBag, Menu, X } from "lucide-react";
 import { NAV_ITEMS } from "@/data/navigation";
 import { IconButton } from "@/components/ui/icon-button";
 import { Container } from "@/components/ui/container";
 import { MobileNavigation } from "./mobile-navigation";
 import { AnnouncementBar } from "./announcement-bar";
+import { useCart } from "@/context/cart-context";
+import { useWishlist } from "@/context/wishlist-context";
+import { useAuth } from "@/context/auth-context";
 
 export function Header() {
+  const router = useRouter();
+  const { cartCount, openCart } = useCart();
+  const { wishlistCount } = useWishlist();
+  const { user } = useAuth();
+
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [featureModalMessage, setFeatureModalMessage] = useState<string | null>(null);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -22,12 +32,6 @@ export function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const handleActionClick = (featureName: string) => {
-    setFeatureModalMessage(
-      `${featureName} is reserved for future implementation phases (Phase 3 customer authentication & Phase 4 shopping bag).`
-    );
-  };
-
   const handleNavAnchor = (e: React.MouseEvent<HTMLAnchorElement>, href: string, isAnchor?: boolean) => {
     if (isAnchor && href.startsWith("#")) {
       e.preventDefault();
@@ -35,6 +39,15 @@ export function Header() {
       if (targetElement) {
         targetElement.scrollIntoView({ behavior: "smooth" });
       }
+    }
+  };
+
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      router.push(`/shop?q=${encodeURIComponent(searchQuery.trim())}`);
+      setSearchOpen(false);
+      setSearchQuery("");
     }
   };
 
@@ -92,34 +105,37 @@ export function Header() {
           <div className="flex items-center justify-end space-x-1 sm:space-x-3 lg:w-1/4">
             <IconButton
               icon={<Search size={18} strokeWidth={1.5} />}
-              label="Search fragrances (Phase 3)"
-              onClick={() => handleActionClick("Instant Search")}
+              label="Search fragrances"
+              onClick={() => setSearchOpen(true)}
               variant="ghost"
               size="sm"
             />
 
-            <IconButton
-              icon={<Heart size={18} strokeWidth={1.5} />}
-              label="Saved fragrances (Phase 3)"
-              onClick={() => handleActionClick("Wishlist")}
-              variant="ghost"
-              size="sm"
-              className="hidden sm:inline-flex"
-            />
+            <Link href="/wishlist">
+              <IconButton
+                icon={<Heart size={18} strokeWidth={1.5} />}
+                label="Saved fragrances"
+                badgeCount={wishlistCount > 0 ? wishlistCount : undefined}
+                variant="ghost"
+                size="sm"
+                className="hidden sm:inline-flex"
+              />
+            </Link>
 
-            <IconButton
-              icon={<User size={18} strokeWidth={1.5} />}
-              label="Client Concierge (Phase 3)"
-              onClick={() => handleActionClick("Account Concierge")}
-              variant="ghost"
-              size="sm"
-            />
+            <Link href={user ? "/my-account" : "/auth/login"}>
+              <IconButton
+                icon={<User size={18} strokeWidth={1.5} />}
+                label={user ? "Client Account Portal" : "Client Sign In"}
+                variant="ghost"
+                size="sm"
+              />
+            </Link>
 
             <IconButton
               icon={<ShoppingBag size={18} strokeWidth={1.5} />}
-              label="Shopping Bag (Phase 4)"
-              onClick={() => handleActionClick("Shopping Bag")}
-              badgeCount={0}
+              label="Shopping Bag"
+              onClick={openCart}
+              badgeCount={cartCount > 0 ? cartCount : undefined}
               variant="ghost"
               size="sm"
             />
@@ -127,51 +143,57 @@ export function Header() {
         </Container>
       </header>
 
+      {/* Instant Search Bar Overlay */}
+      {searchOpen && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          className="fixed inset-0 z-50 flex items-start justify-center pt-24 px-4 bg-brand-deep/85 backdrop-blur-md animate-in fade-in duration-200"
+        >
+          <div className="w-full max-w-2xl bg-brand-rich border border-gold-primary/50 p-6 sm:p-8 rounded-xs shadow-2xl relative">
+            <button
+              onClick={() => setSearchOpen(false)}
+              className="absolute top-5 right-5 text-neutral-muted hover:text-neutral-ivory"
+              aria-label="Close search overlay"
+            >
+              <X size={20} />
+            </button>
+
+            <form onSubmit={handleSearchSubmit} className="space-y-4">
+              <span className="text-[10px] uppercase tracking-[0.25em] text-gold-primary font-medium block">
+                Atelier Catalog Search
+              </span>
+              <div className="relative">
+                <input
+                  type="text"
+                  autoFocus
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="Search by note, scent family, or flacon name (e.g. Amber, Rose, Oud)..."
+                  className="w-full bg-brand-espresso border border-border-subtle px-4 py-3 pl-11 text-sm text-neutral-ivory placeholder-neutral-muted/50 focus:outline-hidden focus:border-gold-primary transition-colors"
+                />
+                <Search size={18} className="absolute left-3.5 top-3.5 text-neutral-muted" />
+              </div>
+
+              <div className="flex items-center justify-between text-xs text-neutral-muted pt-2">
+                <span className="text-[11px]">Popular: Saffron, Sandalwood, Bergamot, Extrait</span>
+                <button
+                  type="submit"
+                  className="px-5 py-2 bg-gold-primary text-brand-deep text-xs uppercase tracking-wider font-medium hover:bg-gold-champagne transition-colors"
+                >
+                  Explore
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
       {/* Mobile Drawer Navigation */}
       <MobileNavigation
         isOpen={mobileMenuOpen}
         onClose={() => setMobileMenuOpen(false)}
-        onActionClick={(action) => {
-          setMobileMenuOpen(false);
-          handleActionClick(action);
-        }}
       />
-
-      {/* Information Modal for Future Phase Affordances */}
-      {featureModalMessage && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-xs animate-in fade-in duration-200"
-        >
-          <div className="relative w-full max-w-md bg-brand-espresso border border-gold-primary/50 p-6 sm:p-8 rounded-xs shadow-gold-glow text-center space-y-4">
-            <button
-              onClick={() => setFeatureModalMessage(null)}
-              className="absolute top-4 right-4 text-neutral-muted hover:text-neutral-ivory"
-              aria-label="Dismiss notification"
-            >
-              <X size={18} />
-            </button>
-            <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-full bg-gold-primary/10 border border-gold-primary/30 text-gold-champagne">
-              <Sparkles size={18} />
-            </div>
-            <h3 className="font-serif text-xl text-neutral-ivory font-light tracking-wide">
-              Maison Notice
-            </h3>
-            <p className="text-xs sm:text-sm text-neutral-muted leading-relaxed font-light">
-              {featureModalMessage}
-            </p>
-            <div className="pt-2">
-              <button
-                onClick={() => setFeatureModalMessage(null)}
-                className="px-6 py-2.5 bg-gold-primary text-brand-deep text-xs font-sans uppercase tracking-[0.2em] font-medium hover:bg-gold-champagne transition-colors"
-              >
-                Understood
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </>
   );
 }

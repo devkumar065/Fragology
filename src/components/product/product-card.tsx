@@ -2,31 +2,46 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { Heart, Eye, Sparkles, X, ArrowRight } from "lucide-react";
+import { Heart, Eye, Sparkles, X, ShoppingBag } from "lucide-react";
 import { type Product } from "@/types/product";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { useWishlist } from "@/context/wishlist-context";
+import { useCart } from "@/context/cart-context";
 
 export interface ProductCardProps {
   product: Product;
 }
 
 export function ProductCard({ product }: ProductCardProps) {
-  const [isWishlisted, setIsWishlisted] = useState(false);
+  const { isInWishlist, toggleWishlist: toggleWish } = useWishlist();
+  const { addItem, openCart } = useCart();
+
   const [quickViewOpen, setQuickViewOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
+  const isWishlisted = isInWishlist(product.id);
   const productUrl = `/products/${product.slug || product.id}`;
 
-  const toggleWishlist = (e: React.MouseEvent) => {
+  const handleToggleWishlist = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    setIsWishlisted(!isWishlisted);
+    const added = toggleWish(product);
     setToastMessage(
-      !isWishlisted
-        ? `Added "${product.name}" to demonstration wishlist.`
-        : `Removed "${product.name}" from demonstration wishlist.`
+      added
+        ? `Added "${product.name}" to your private wishlist.`
+        : `Removed "${product.name}" from your wishlist.`
     );
+    setTimeout(() => setToastMessage(null), 3000);
+  };
+
+  const handleQuickAdd = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const defaultVariant = product.variants[product.variants.length - 1];
+    addItem(product, defaultVariant, 1);
+    openCart();
+    setToastMessage(`Added "${product.name}" to your shopping bag.`);
     setTimeout(() => setToastMessage(null), 3000);
   };
 
@@ -98,58 +113,68 @@ export function ProductCard({ product }: ProductCardProps) {
           {/* Quick Action Overlays */}
           <div className="absolute top-3 right-3 z-20 flex flex-col space-y-2">
             <button
-              onClick={toggleWishlist}
+              onClick={handleToggleWishlist}
               className={`h-8 w-8 rounded-full border border-border-subtle backdrop-blur-md flex items-center justify-center transition-all ${
                 isWishlisted
                   ? "bg-gold-primary text-brand-deep border-gold-primary"
-                  : "bg-brand-deep/80 text-neutral-ivory hover:text-gold-champagne hover:border-gold-primary"
+                  : "bg-brand-deep/80 text-neutral-muted hover:text-gold-champagne hover:border-gold-primary"
               }`}
               aria-label={isWishlisted ? "Remove from wishlist" : "Add to wishlist"}
             >
               <Heart size={14} fill={isWishlisted ? "currentColor" : "none"} />
             </button>
+
             <button
               onClick={openQuickView}
-              className="h-8 w-8 rounded-full border border-border-subtle bg-brand-deep/80 text-neutral-ivory hover:text-gold-champagne hover:border-gold-primary backdrop-blur-md flex items-center justify-center transition-all opacity-0 group-hover:opacity-100"
-              aria-label="Quick View Product"
+              className="h-8 w-8 rounded-full border border-border-subtle bg-brand-deep/80 text-neutral-muted hover:text-gold-champagne hover:border-gold-primary backdrop-blur-md flex items-center justify-center transition-all opacity-0 group-hover:opacity-100"
+              aria-label="Quick olfactory notes preview"
             >
               <Eye size={14} />
             </button>
           </div>
+
+          {/* Hover Overlay "Quick Acquire" Action */}
+          <div className="absolute inset-x-0 bottom-0 p-4 bg-gradient-to-t from-brand-deep via-brand-deep/90 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 flex justify-center">
+            <button
+              onClick={handleQuickAdd}
+              className="w-full py-2.5 px-4 bg-gold-primary text-brand-deep text-[11px] font-sans uppercase tracking-[0.18em] font-medium hover:bg-gold-champagne transition-colors flex items-center justify-center space-x-2"
+            >
+              <ShoppingBag size={13} />
+              <span>Acquire Flacon</span>
+            </button>
+          </div>
         </Link>
 
-        {/* Card Info Section */}
-        <div className="flex flex-col flex-1 p-5 space-y-2 border-t border-border-subtle/40 bg-brand-rich">
-          <div className="flex items-center justify-between">
-            <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-gold-champagne">
-              {product.family}
+        {/* Card Details Body */}
+        <div className="p-5 flex flex-col flex-1 justify-between bg-brand-rich">
+          <div>
+            {/* Olfactory Family Tag */}
+            <span className="text-[9px] font-sans uppercase tracking-[0.25em] text-gold-muted font-medium block">
+              {product.family} &bull; {product.concentration}
             </span>
-            <span className="text-xs font-medium text-neutral-ivory font-sans">
-              {product.price}
-            </span>
+
+            {/* Product Name */}
+            <Link href={productUrl} className="group-hover:text-gold-champagne transition-colors">
+              <h3 className="font-serif text-lg font-light text-neutral-ivory tracking-wide mt-1">
+                {product.name}
+              </h3>
+            </Link>
+
+            {/* Olfactory Notes Capsule */}
+            <p className="text-[11px] font-sans text-neutral-muted line-clamp-1 mt-1 font-light">
+              {product.notes.top} &bull; {product.notes.heart}
+            </p>
           </div>
 
-          <Link href={productUrl}>
-            <h3 className="font-serif text-xl font-light text-neutral-ivory tracking-wide group-hover:text-gold-champagne transition-colors">
-              {product.name}
-            </h3>
-          </Link>
+          {/* Price & Action Bottom Strip */}
+          <div className="mt-4 pt-3 border-t border-border-subtle flex items-center justify-between">
+            <span className="font-serif text-base text-gold-champagne font-light">
+              {product.price}
+            </span>
 
-          <p className="text-xs text-neutral-muted font-light line-clamp-2 leading-relaxed">
-            {product.description}
-          </p>
-
-          <div className="pt-3 mt-auto flex items-center justify-between border-t border-border-subtle/30">
-            <Link
-              href={productUrl}
-              className="text-[10px] uppercase tracking-[0.2em] font-sans text-neutral-soft hover:text-gold-champagne transition-colors flex items-center gap-1"
-            >
-              <span>View Flacon</span>
-              <ArrowRight size={10} />
-            </Link>
             <button
               onClick={openQuickView}
-              className="text-[10px] uppercase tracking-[0.2em] font-sans text-gold-primary hover:text-gold-champagne transition-colors underline-offset-4 hover:underline"
+              className="text-[10px] font-sans uppercase tracking-[0.15em] text-neutral-muted hover:text-gold-champagne transition-colors underline-offset-4 hover:underline"
             >
               Quick Notes
             </button>
@@ -197,7 +222,7 @@ export function ProductCard({ product }: ProductCardProps) {
                     {product.name}
                   </h3>
                   <p className="text-xs font-mono uppercase tracking-[0.2em] text-gold-champagne mt-0.5">
-                    {product.family} • {product.price}
+                    {product.family} &bull; {product.price}
                   </p>
                 </div>
 
@@ -229,18 +254,18 @@ export function ProductCard({ product }: ProductCardProps) {
                       className="w-full"
                       onClick={() => setQuickViewOpen(false)}
                     >
-                      View Full Details
+                      View Details
                     </Button>
                   </Link>
                   <Button
                     variant="secondary"
                     size="sm"
-                    onClick={() => {
+                    onClick={(e) => {
                       setQuickViewOpen(false);
-                      setToastMessage("Cart and checkout functions will be integrated in Phase 4.");
+                      handleQuickAdd(e);
                     }}
                   >
-                    Acquire (Phase 4)
+                    Acquire Flacon
                   </Button>
                 </div>
               </div>

@@ -2,7 +2,7 @@ import React from "react";
 import { cn } from "@/lib/utils";
 
 export interface ContainerProps extends React.HTMLAttributes<HTMLDivElement> {
-  size?: "default" | "narrow" | "wide" | "full";
+  size?: "default" | "narrow" | "tight" | "wide" | "full";
   as?: React.ElementType;
 }
 
@@ -14,6 +14,7 @@ export function Container({
   ...props
 }: ContainerProps) {
   const sizeStyles = {
+    tight: "max-w-2xl",
     narrow: "max-w-4xl",
     default: "max-w-7xl",
     wide: "max-w-[1440px]",

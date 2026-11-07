@@ -343,3 +343,6 @@ export function getRelatedProducts(currentSlug: string, count = 3): Product[] {
     })
     .slice(0, count);
 }
+
+// Export alias for Phase 4 E-commerce & database synchronization
+export const PRODUCTS = PRODUCTS_CATALOG;

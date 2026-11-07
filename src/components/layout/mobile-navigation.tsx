@@ -6,18 +6,24 @@ import { X, Search, Heart, User, ShoppingBag } from "lucide-react";
 import { NAV_ITEMS } from "@/data/navigation";
 import { IconButton } from "@/components/ui/icon-button";
 import { Divider } from "@/components/ui/divider";
+import { useCart } from "@/context/cart-context";
+import { useWishlist } from "@/context/wishlist-context";
+import { useAuth } from "@/context/auth-context";
 
 export interface MobileNavigationProps {
   isOpen: boolean;
   onClose: () => void;
-  onActionClick: (featureName: string) => void;
+  onActionClick?: (featureName: string) => void;
 }
 
 export function MobileNavigation({
   isOpen,
   onClose,
-  onActionClick,
 }: MobileNavigationProps) {
+  const { cartCount, openCart } = useCart();
+  const { wishlistCount } = useWishlist();
+  const { user } = useAuth();
+
   // Prevent background scroll when mobile menu is open
   useEffect(() => {
     if (isOpen) {
@@ -94,49 +100,79 @@ export function MobileNavigation({
               {item.label}
             </Link>
           ))}
+          <Link
+            href="/order-tracking"
+            onClick={onClose}
+            className="font-serif text-xl font-light tracking-wider text-neutral-muted hover:text-gold-champagne transition-colors duration-200 pt-2"
+          >
+            Track Consignment
+          </Link>
         </nav>
 
         {/* Action icons row */}
         <div className="space-y-6 pt-8 border-t border-border-subtle">
           <div className="grid grid-cols-4 gap-4 text-center">
-            <button
-              onClick={() => onActionClick("Search")}
+            <Link
+              href="/shop"
+              onClick={onClose}
               className="flex flex-col items-center space-y-2 text-neutral-muted hover:text-gold-champagne p-2"
               aria-label="Search Fragrances"
             >
               <Search size={18} />
               <span className="text-[10px] uppercase tracking-wider font-sans">Search</span>
-            </button>
-            <button
-              onClick={() => onActionClick("Wishlist")}
-              className="flex flex-col items-center space-y-2 text-neutral-muted hover:text-gold-champagne p-2"
+            </Link>
+
+            <Link
+              href="/wishlist"
+              onClick={onClose}
+              className="flex flex-col items-center space-y-2 text-neutral-muted hover:text-gold-champagne p-2 relative"
               aria-label="Saved Wishlist"
             >
               <Heart size={18} />
+              {wishlistCount > 0 && (
+                <span className="absolute top-1 right-3 w-4 h-4 bg-gold-primary text-brand-deep rounded-full text-[9px] font-bold flex items-center justify-center">
+                  {wishlistCount}
+                </span>
+              )}
               <span className="text-[10px] uppercase tracking-wider font-sans">Saved</span>
-            </button>
-            <button
-              onClick={() => onActionClick("Account Concierge")}
+            </Link>
+
+            <Link
+              href={user ? "/my-account" : "/auth/login"}
+              onClick={onClose}
               className="flex flex-col items-center space-y-2 text-neutral-muted hover:text-gold-champagne p-2"
               aria-label="Account Concierge"
             >
               <User size={18} />
-              <span className="text-[10px] uppercase tracking-wider font-sans">Account</span>
-            </button>
+              <span className="text-[10px] uppercase tracking-wider font-sans">
+                {user ? "Account" : "Sign In"}
+              </span>
+            </Link>
+
             <button
-              onClick={() => onActionClick("Shopping Bag")}
-              className="flex flex-col items-center space-y-2 text-neutral-muted hover:text-gold-champagne p-2"
+              onClick={() => {
+                onClose();
+                openCart();
+              }}
+              className="flex flex-col items-center space-y-2 text-neutral-muted hover:text-gold-champagne p-2 relative"
               aria-label="Shopping Bag"
             >
               <ShoppingBag size={18} />
-              <span className="text-[10px] uppercase tracking-wider font-sans">Bag (0)</span>
+              {cartCount > 0 && (
+                <span className="absolute top-1 right-3 w-4 h-4 bg-gold-primary text-brand-deep rounded-full text-[9px] font-bold flex items-center justify-center">
+                  {cartCount}
+                </span>
+              )}
+              <span className="text-[10px] uppercase tracking-wider font-sans">
+                Bag ({cartCount})
+              </span>
             </button>
           </div>
 
           <Divider variant="subtle" />
 
           <p className="text-[11px] font-sans font-light text-neutral-muted text-center tracking-wider">
-            Maison de Haute Parfumerie • Paris & Grasse
+            Maison de Haute Parfumerie &bull; Paris &amp; Grasse
           </p>
         </div>
       </div>
