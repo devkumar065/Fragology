@@ -1,50 +1,80 @@
+"use client";
+
+import React, { useState } from "react";
+import { AdminAuthProvider, useAdminAuth } from "@/context/admin-auth-context";
+import { AdminSidebar } from "@/components/admin/AdminSidebar";
+import { AdminHeader } from "@/components/admin/AdminHeader";
 import Link from "next/link";
-import React from "react";
+import { Lock } from "lucide-react";
+
+function AdminPanelContent({ children }: { children: React.ReactNode }) {
+  const { adminUser, isLoading } = useAdminAuth();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-brand-deep flex items-center justify-center text-xs text-neutral-muted">
+        <div className="flex flex-col items-center space-y-3">
+          <div className="w-8 h-8 border-2 border-gold-primary border-t-transparent rounded-full animate-spin" />
+          <span className="font-mono uppercase tracking-[0.2em] text-[10px] text-gold-champagne">
+            Authenticating Atelier Clearance...
+          </span>
+        </div>
+      </div>
+    );
+  }
+
+  if (!adminUser) {
+    return (
+      <div className="min-h-screen bg-brand-deep flex items-center justify-center p-6 text-center">
+        <div className="max-w-md w-full bg-brand-rich border border-border-subtle p-8 rounded-xs space-y-4 shadow-2xl">
+          <div className="w-12 h-12 mx-auto rounded-full bg-gold-primary/10 border border-gold-primary/30 flex items-center justify-center text-gold-champagne">
+            <Lock size={20} />
+          </div>
+          <h2 className="font-serif text-2xl font-light text-neutral-ivory">
+            Authentication Required
+          </h2>
+          <p className="text-xs text-neutral-muted leading-relaxed font-light">
+            You must be an authorized Fragology administrative staff member with active credentials to access the atelier operations platform.
+          </p>
+          <div className="pt-2">
+            <Link
+              href="/admin/login"
+              className="inline-block px-8 py-3 bg-gold-primary text-brand-deep text-xs font-sans uppercase tracking-[0.2em] font-medium hover:bg-gold-champagne transition-colors"
+            >
+              Authenticate at Portal
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen flex bg-brand-deep text-neutral-ivory overflow-hidden">
+      {/* Desktop / Mobile Protected Sidebar */}
+      <AdminSidebar
+        isOpen={mobileMenuOpen}
+        onClose={() => setMobileMenuOpen(false)}
+      />
+
+      {/* Main Content Area */}
+      <div className="flex-1 flex flex-col min-w-0 h-screen overflow-y-auto">
+        <AdminHeader onOpenMobileMenu={() => setMobileMenuOpen(true)} />
+        <main className="flex-1 p-4 sm:p-8 bg-brand-deep">{children}</main>
+      </div>
+    </div>
+  );
+}
 
 export default function AdminPanelLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const navItems = [
-    { label: "Dashboard", href: "/admin" },
-    { label: "Products", href: "/admin/products" },
-    { label: "Categories", href: "/admin/categories" },
-    { label: "Collections", href: "/admin/collections" },
-    { label: "Inventory", href: "/admin/inventory" },
-    { label: "Orders", href: "/admin/orders" },
-    { label: "Customers", href: "/admin/customers" },
-    { label: "Coupons", href: "/admin/coupons" },
-    { label: "Reviews", href: "/admin/reviews" },
-    { label: "Content", href: "/admin/content" },
-    { label: "Marketing", href: "/admin/marketing" },
-    { label: "Settings", href: "/admin/settings" },
-  ];
-
   return (
-    <div className="min-h-screen flex bg-stone-100 text-stone-900">
-      <aside className="w-64 bg-stone-900 text-stone-200 flex flex-col p-6 space-y-6">
-        <div>
-          <span className="text-[10px] font-mono uppercase tracking-[0.3em] text-stone-400">Fragology</span>
-          <h2 className="text-xl font-serif text-white mt-1">Management</h2>
-        </div>
-        <nav className="flex-1 space-y-1 text-xs uppercase tracking-wider">
-          {navItems.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="block px-3 py-2 rounded text-stone-400 hover:text-white hover:bg-stone-800 transition"
-            >
-              {item.label}
-            </Link>
-          ))}
-        </nav>
-        <div className="pt-4 border-t border-stone-800 text-[11px] text-stone-500">
-          Admin Logged In
-        </div>
-      </aside>
-
-      <main className="flex-1 p-8 overflow-auto">{children}</main>
-    </div>
+    <AdminAuthProvider>
+      <AdminPanelContent>{children}</AdminPanelContent>
+    </AdminAuthProvider>
   );
 }

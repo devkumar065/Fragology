@@ -2,6 +2,8 @@ import { CartItem } from "./cart";
 import { CustomerAddress } from "./customer";
 import { PaymentProvider, PaymentStatus } from "./payment";
 
+export type { PaymentProvider, PaymentStatus };
+
 export type OrderStatus =
   | "pending"
   | "confirmed"
