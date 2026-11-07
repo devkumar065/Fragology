@@ -1,13 +1,14 @@
 "use client";
 
 import React, { useState } from "react";
-import { Heart, Eye, Sparkles, X } from "lucide-react";
-import { type ProductDemo } from "@/data/products";
+import Link from "next/link";
+import { Heart, Eye, Sparkles, X, ArrowRight } from "lucide-react";
+import { type Product } from "@/types/product";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
 export interface ProductCardProps {
-  product: ProductDemo;
+  product: Product;
 }
 
 export function ProductCard({ product }: ProductCardProps) {
@@ -15,7 +16,10 @@ export function ProductCard({ product }: ProductCardProps) {
   const [quickViewOpen, setQuickViewOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
+  const productUrl = `/products/${product.slug || product.id}`;
+
   const toggleWishlist = (e: React.MouseEvent) => {
+    e.preventDefault();
     e.stopPropagation();
     setIsWishlisted(!isWishlisted);
     setToastMessage(
@@ -24,6 +28,12 @@ export function ProductCard({ product }: ProductCardProps) {
         : `Removed "${product.name}" from demonstration wishlist.`
     );
     setTimeout(() => setToastMessage(null), 3000);
+  };
+
+  const openQuickView = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setQuickViewOpen(true);
   };
 
   const getBadgeVariant = (badgeText?: string | null) => {
@@ -39,7 +49,11 @@ export function ProductCard({ product }: ProductCardProps) {
     <>
       <div className="group relative flex flex-col border border-border-subtle bg-brand-rich/70 hover:border-gold-primary/60 transition-all duration-300 rounded-xs overflow-hidden shadow-luxury-card">
         {/* Card Visual / Bottle Presentation Canvas */}
-        <div className="relative aspect-[3/4] w-full overflow-hidden bg-gradient-to-b from-brand-espresso via-brand-chocolate to-brand-deep flex items-center justify-center p-8 select-none">
+        <Link
+          href={productUrl}
+          className="relative aspect-[3/4] w-full overflow-hidden bg-gradient-to-b from-brand-espresso via-brand-chocolate to-brand-deep flex items-center justify-center p-8 select-none block"
+          aria-label={`View ${product.name} details`}
+        >
           {/* Subtle Ambient Radial Lighting */}
           <div className="absolute inset-0 bg-radial-luxury opacity-70 pointer-events-none" />
           <div className="absolute inset-0 bg-gradient-to-t from-brand-deep/90 via-transparent to-gold-primary/5 pointer-events-none" />
@@ -54,7 +68,7 @@ export function ProductCard({ product }: ProductCardProps) {
             <div className="relative h-44 w-32 rounded-xs border border-gold-primary/30 bg-gradient-to-b from-brand-deep/60 via-gold-primary/5 to-brand-espresso/80 backdrop-blur-xs flex flex-col items-center justify-between p-4 shadow-luxury-card">
               {/* Bottle internal golden sheen */}
               <div className="absolute inset-x-2 top-2 bottom-6 bg-gradient-to-b from-gold-primary/10 via-gold-champagne/15 to-transparent rounded-xs opacity-60" />
-              
+
               {/* Flacon Label */}
               <div className="relative z-10 mt-6 border border-gold-primary/40 bg-brand-deep/90 py-2.5 px-3 text-center w-full">
                 <span className="block font-serif text-xs font-light text-neutral-ivory tracking-wider uppercase">
@@ -67,7 +81,7 @@ export function ProductCard({ product }: ProductCardProps) {
 
               {/* Volume indication */}
               <span className="relative z-10 text-[8px] font-mono tracking-widest text-neutral-muted/70 uppercase">
-                100 ML
+                {product.volume || "100 ML"}
               </span>
             </div>
           </div>
@@ -95,14 +109,14 @@ export function ProductCard({ product }: ProductCardProps) {
               <Heart size={14} fill={isWishlisted ? "currentColor" : "none"} />
             </button>
             <button
-              onClick={() => setQuickViewOpen(true)}
+              onClick={openQuickView}
               className="h-8 w-8 rounded-full border border-border-subtle bg-brand-deep/80 text-neutral-ivory hover:text-gold-champagne hover:border-gold-primary backdrop-blur-md flex items-center justify-center transition-all opacity-0 group-hover:opacity-100"
               aria-label="Quick View Product"
             >
               <Eye size={14} />
             </button>
           </div>
-        </div>
+        </Link>
 
         {/* Card Info Section */}
         <div className="flex flex-col flex-1 p-5 space-y-2 border-t border-border-subtle/40 bg-brand-rich">
@@ -115,23 +129,29 @@ export function ProductCard({ product }: ProductCardProps) {
             </span>
           </div>
 
-          <h3 className="font-serif text-xl font-light text-neutral-ivory tracking-wide group-hover:text-gold-champagne transition-colors">
-            {product.name}
-          </h3>
+          <Link href={productUrl}>
+            <h3 className="font-serif text-xl font-light text-neutral-ivory tracking-wide group-hover:text-gold-champagne transition-colors">
+              {product.name}
+            </h3>
+          </Link>
 
           <p className="text-xs text-neutral-muted font-light line-clamp-2 leading-relaxed">
             {product.description}
           </p>
 
           <div className="pt-3 mt-auto flex items-center justify-between border-t border-border-subtle/30">
-            <span className="text-[9px] font-mono uppercase tracking-widest text-neutral-muted/70">
-              Demo Flacon
-            </span>
+            <Link
+              href={productUrl}
+              className="text-[10px] uppercase tracking-[0.2em] font-sans text-neutral-soft hover:text-gold-champagne transition-colors flex items-center gap-1"
+            >
+              <span>View Flacon</span>
+              <ArrowRight size={10} />
+            </Link>
             <button
-              onClick={() => setQuickViewOpen(true)}
+              onClick={openQuickView}
               className="text-[10px] uppercase tracking-[0.2em] font-sans text-gold-primary hover:text-gold-champagne transition-colors underline-offset-4 hover:underline"
             >
-              Examine Accord
+              Quick Notes
             </button>
           </div>
         </div>
@@ -201,17 +221,26 @@ export function ProductCard({ product }: ProductCardProps) {
                   </p>
                 </div>
 
-                <div className="pt-2">
+                <div className="pt-2 flex flex-col sm:flex-row gap-3">
+                  <Link href={productUrl} className="flex-1">
+                    <Button
+                      variant="primary"
+                      size="sm"
+                      className="w-full"
+                      onClick={() => setQuickViewOpen(false)}
+                    >
+                      View Full Details
+                    </Button>
+                  </Link>
                   <Button
-                    variant="primary"
+                    variant="secondary"
                     size="sm"
-                    className="w-full"
                     onClick={() => {
                       setQuickViewOpen(false);
                       setToastMessage("Cart and checkout functions will be integrated in Phase 4.");
                     }}
                   >
-                    Acquire Flacon (Phase 4)
+                    Acquire (Phase 4)
                   </Button>
                 </div>
               </div>

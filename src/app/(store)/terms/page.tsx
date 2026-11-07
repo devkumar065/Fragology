@@ -1,11 +1,13 @@
+import React from "react";
+import type { Metadata } from "next";
+import { PolicyLayout } from "@/components/policies/policy-layout";
+import { POLICIES_DATA } from "@/data/policies";
+
+export const metadata: Metadata = {
+  title: "Terms of Service | Fragology Maison",
+  description: "Terms and conditions governing the access and utilization of the Fragology online boutique.",
+};
+
 export default function TermsPage() {
-  return (
-    <div className="max-w-3xl mx-auto px-6 py-16">
-      <h1 className="font-serif text-3xl font-light text-stone-900 mb-6">Terms of Service</h1>
-      <div className="prose prose-stone text-xs md:text-sm text-stone-600 space-y-4">
-        <p>By browsing or purchasing from the Fragology website, you agree to comply with our commercial terms and conditions.</p>
-        <p>All fragrance formulas, imagery, and written content are the exclusive intellectual property of Fragology.</p>
-      </div>
-    </div>
-  );
+  return <PolicyLayout policy={POLICIES_DATA.terms} />;
 }

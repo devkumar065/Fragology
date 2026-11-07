@@ -1,7 +1,7 @@
 # FRAGOLOGY — Luxury Perfume E-Commerce Platform
 
 > **Haute Parfumerie & Olfactive Architecture**  
-> Technical Foundation, Architectural Scaffold & Luxury Design System (Phase 1 & 2 Complete)
+> Technical Foundation, Architectural Scaffold, Luxury Design System & Complete Storefront (Phases 1, 2 & 3 Complete)
 
 ---
 
@@ -10,7 +10,8 @@
 **FRAGOLOGY** is an international luxury e-commerce platform dedicated to artisanal perfumery, rare botanical extraits, and bespoke olfactive journeys. 
 
 - **Phase 1**: Architectural foundation, centralized design tokens, typography scale, 11 reusable UI components, and App Router structure.
-- **Phase 2**: Full luxury perfume storefront homepage with 8 content sections, global Announcement Bar, sticky Header, responsive Mobile Navigation Drawer, reusable Product Cards, Scent Family Cards, and complete Global Footer.
+- **Phase 2**: Complete homepage with 8 content sections, Announcement Bar, sticky Header, mobile drawer, and global Footer.
+- **Phase 3**: Complete customer-facing storefront comprising all 14 primary routes, dynamic product pages, dynamic collection templates, dynamic editorial articles, client-side catalogue search/filter/sort, interactive Scent Finder diagnostic, and policy documents.
 
 ---
 
@@ -26,46 +27,28 @@
 
 ---
 
-## 3. Brand Identity & Design System
+## 3. Customer-Facing Routes (Phase 3)
 
-FRAGOLOGY adheres to a disciplined nightfall aesthetic: deep black canvas surfaces, rich espresso undertones, refined metallic golds, and champagne highlights.
-
-### Centralized Color Palette
-
-| Token | Hex / Value | Role |
-| :--- | :--- | :--- |
-| **Deep Black** | `#080706` | Main Canvas Background |
-| **Rich Black** | `#0D0B09` | Elevated Card Surfaces |
-| **Dark Espresso** | `#17110C` | Accent Surfaces & Skeletons |
-| **Chocolate Black** | `#21160E` | Deep Contrast Sections |
-| **Primary Gold** | `#C8A45D` | Brand Accents, Primary CTA |
-| **Champagne Gold** | `#E2C78D` | Highlights, Eyebrow Text |
-| **Soft Gold** | `#AE8847` | Secondary Gold Borders |
-| **Muted Gold** | `#80633B` | Subtle Subtitles & Accents |
-| **Warm Ivory** | `#F4EFE5` | Primary High-Legibility Text |
-| **Soft White** | `#EAE4D9` | Secondary Headings & Labels |
-| **Muted Text** | `#AFA497` | Supporting Descriptions |
-| **Subtle Border** | `rgba(200, 164, 93, 0.22)` | Elegant Gold Divider Lines |
+| # | Route | Template & Scope | Status |
+|---|---|---|---|
+| 1 | `/shop` | Catalogue with search, multi-filter (family, concentration, price, stock), and sorting | Completed |
+| 2 | `/products/[slug]` | Dynamic product template with gallery, 30/50/100ml variants, notes pyramid, story, specs | Completed |
+| 3 | `/collections` | Curated anthology listing all 6 maison collections | Completed |
+| 4 | `/collections/[slug]` | Dynamic collection detail template displaying only associated flacons with sorting | Completed |
+| 5 | `/about` | Editorial brand manifesto, philosophy, maison standards, and values | Completed |
+| 6 | `/contact` | Concierge inquiries with client-side field validation and demonstration feedback | Completed |
+| 7 | `/faq` | Interactive accessible accordions covering 6 client care categories | Completed |
+| 8 | `/journal` | Editorial gazette with category filtering and featured essay presentation | Completed |
+| 9 | `/journal/[slug]` | Dynamic editorial article template with blockquotes, lead paragraphs, and related essays | Completed |
+| 10 | `/scent-finder` | 5-step diagnostic quiz with deterministic client-side recommendation engine | Completed |
+| 11 | `/privacy-policy` | Structured data governance template with table of contents and back-to-top | Completed |
+| 12 | `/terms` | Terms of service template with commercial disclaimers | Completed |
+| 13 | `/shipping-policy` | Climate-insulated delivery standards and international shipping guidance | Completed |
+| 14 | `/returns-refunds` | 30-day return policy and exterior skin-test vial guarantee terms | Completed |
 
 ---
 
-## 4. Homepage Sections (Phase 2)
-
-1. **Announcement Bar**: Slim promotional strip at the top with configurable text and subtle gold dots.
-2. **Global Navigation & Mobile Drawer**: Sticky header with brand wordmark (`FRAGOLOGY`), desktop links with smooth anchor scrolling, action icon buttons (with informative phase notices), and accessible mobile drawer menu.
-3. **Hero Section**: Cinematic headline *"THE ESSENCE OF NATURE, BOTTLED."*, luxury perfume flacon presentation, and smooth anchor navigation.
-4. **Brand Benefits Strip**: Three brand pillars (Carefully Composed Fragrances, Distinctive Scent Profiles, Crafted for Lasting Impressions) with subtle gold dividers.
-5. **Featured Fragrances**: Four luxury flacons in a responsive grid (*Golden Reverie*, *Velvet Essence*, *Amber Dusk*, *Midnight Bloom*) with interactive Quick View modal and Wishlist toggle.
-6. **Shop by Fragrance Family**: Four olfactive families (*Floral*, *Woody*, *Oriental*, *Fresh*) with ambient color glows.
-7. **Brand Story / Manifesto**: Editorial split-screen composition *"MORE THAN A SCENT. AN EXPRESSION OF YOU."*
-8. **Signature Collection Banner**: Full-width promotional banner with ambient gold lighting.
-9. **Craftsmanship & Brand Values**: Three core principles (*Thoughtful Composition*, *Distinctive Character*, *Timeless Expression*).
-10. **Newsletter Subscription**: Accessible input with client-side format validation, error handling, and demonstration feedback.
-11. **Global Footer**: Four structured columns, back-to-top button with smooth scroll, and reserved payment encryption badges.
-
----
-
-## 5. Getting Started
+## 4. Getting Started
 
 ### Installation
 ```bash
@@ -83,7 +66,7 @@ npm install
 npm run dev
 ```
 
-Visit `http://localhost:3000` to explore the Fragology Storefront.
+Visit `http://localhost:3000` to explore the complete Fragology storefront.
 
 ### Quality Verification
 ```bash
@@ -99,14 +82,13 @@ npm run build
 
 ---
 
-## 6. Verification Status
+## 5. Verification Status
 
-- [x] Next.js App Router & React 19 architecture verified.
-- [x] Deep Black & Metallic Gold design tokens centralized.
-- [x] Typography system configured with `Cormorant Garamond` and `Manrope`.
-- [x] 11 reusable UI components tested with zero console warnings.
-- [x] All 8 homepage sections and shared layout components built and verified.
-- [x] Zero-image development compliance fulfilled with CSS lighting and flacon silhouettes.
-- [x] TypeScript strict compilation verified with 0 errors.
-- [x] ESLint rules passing with 0 warnings.
-- [x] Production build confirmed (35/35 static/dynamic pages).
+- [x] All 14 customer-facing storefront routes fully functional.
+- [x] Dynamic product routes (`/products/[slug]`) and collection routes (`/collections/[slug]`) tested.
+- [x] Client-side catalogue search, multi-filtering, and price sorting verified.
+- [x] 5-step Scent Finder recommendation algorithm verified deterministically.
+- [x] Zero-asset compliance maintained with CSS flacons, ambient lighting, and placeholder containers.
+- [x] Strict TypeScript compilation verified (0 errors).
+- [x] ESLint rules passing (0 errors, 0 warnings).
+- [x] Production build confirmed (35/35 routes).

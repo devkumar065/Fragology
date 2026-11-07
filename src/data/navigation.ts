@@ -7,28 +7,29 @@ export interface NavItem {
 export const ANNOUNCEMENT_CONFIG = {
   enabled: true,
   message: "COMPLIMENTARY SAMPLES WITH EVERY ORDER",
-  link: "#featured",
+  link: "/shop",
 };
 
 export const NAV_ITEMS: NavItem[] = [
-  { label: "Home", href: "#hero", isAnchor: true },
-  { label: "Fragrances", href: "#featured", isAnchor: true },
-  { label: "Collections", href: "#collections", isAnchor: true },
-  { label: "Our Story", href: "#story", isAnchor: true },
+  { label: "Home", href: "/", isAnchor: false },
+  { label: "Fragrances", href: "/shop", isAnchor: false },
+  { label: "Collections", href: "/collections", isAnchor: false },
+  { label: "Scent Finder", href: "/scent-finder", isAnchor: false },
+  { label: "Our Story", href: "/about", isAnchor: false },
   { label: "Journal", href: "/journal", isAnchor: false },
 ];
 
 export const FOOTER_SECTIONS = {
   shop: [
-    { label: "All Fragrances", href: "#featured" },
-    { label: "Signature Collection", href: "#signature" },
-    { label: "Scent Families", href: "#collections" },
-    { label: "Discovery Samples", href: "#featured" },
+    { label: "All Fragrances", href: "/shop" },
+    { label: "Signature Collection", href: "/collections/signature-collection" },
+    { label: "Scent Families", href: "/collections" },
+    { label: "Scent Finder Quiz", href: "/scent-finder" },
   ],
   information: [
-    { label: "Our Story", href: "#story" },
-    { label: "Craftsmanship & Values", href: "#values" },
+    { label: "Our Story", href: "/about" },
     { label: "Fragrance Journal", href: "/journal" },
+    { label: "Client Concierge", href: "/contact" },
     { label: "Client FAQ", href: "/faq" },
   ],
   customerCare: [
