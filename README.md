@@ -1,7 +1,7 @@
 # FRAGOLOGY — Luxury Perfume E-Commerce Platform
 
 > **Haute Parfumerie & Olfactive Architecture**  
-> Technical Foundation, Architectural Scaffold & Luxury Design System (Phase 1)
+> Technical Foundation, Architectural Scaffold & Luxury Design System (Phase 1 & 2 Complete)
 
 ---
 
@@ -9,7 +9,8 @@
 
 **FRAGOLOGY** is an international luxury e-commerce platform dedicated to artisanal perfumery, rare botanical extraits, and bespoke olfactive journeys. 
 
-Phase 1 establishes the production-grade architecture, typography scale, centralized design tokens, reusable UI component library, and responsive foundations necessary to power the complete customer boutique and administrative management suite without structural refactoring in subsequent phases.
+- **Phase 1**: Architectural foundation, centralized design tokens, typography scale, 11 reusable UI components, and App Router structure.
+- **Phase 2**: Full luxury perfume storefront homepage with 8 content sections, global Announcement Bar, sticky Header, responsive Mobile Navigation Drawer, reusable Product Cards, Scent Family Cards, and complete Global Footer.
 
 ---
 
@@ -48,75 +49,23 @@ FRAGOLOGY adheres to a disciplined nightfall aesthetic: deep black canvas surfac
 
 ---
 
-## 4. Typography Scale
+## 4. Homepage Sections (Phase 2)
 
-- **Headings & Display**: `Cormorant Garamond` (`var(--font-serif)`)
-- **Body & Controls**: `Manrope` (`var(--font-sans)`)
-- **Wordmark**: `FRAGOLOGY` in uppercase serif with tracking `0.28em`
-
----
-
-## 5. Global Reusable UI Components (`src/components/ui/`)
-
-1. **`Button`**: Primary Gold, Secondary Outlined, Minimal Text, Disabled & Loading states.
-2. **`Container`**: Responsive max-width wrappers (`narrow`, `default`, `wide`, `full`).
-3. **`SectionHeading`**: Eyebrow label, serif heading, optional body description, and alignment.
-4. **`IconButton`**: Accessible button with optional notification/cart count badge.
-5. **`Badge`**: Status indicators (`new`, `bestseller`, `limited-edition`, `outline`, `gold`).
-6. **`Divider`**: Subtle gold line with optional rotated diamond emblem or label.
-7. **`Input`**: Form inputs with focus glow, validation errors, and dark luxury surfaces.
-8. **`FormLabel`**: Consistent uppercase typography with accessible `htmlFor` and required markers.
-9. **`Skeleton`**: Shimmer loading placeholder with espresso gradient sweep.
-10. **`EmptyState`**: Curated fallback state with icon, title, description, and action button.
-11. **`ImagePlaceholder`**: Image-free placeholder with pure CSS ambient lighting and gold monograms.
+1. **Announcement Bar**: Slim promotional strip at the top with configurable text and subtle gold dots.
+2. **Global Navigation & Mobile Drawer**: Sticky header with brand wordmark (`FRAGOLOGY`), desktop links with smooth anchor scrolling, action icon buttons (with informative phase notices), and accessible mobile drawer menu.
+3. **Hero Section**: Cinematic headline *"THE ESSENCE OF NATURE, BOTTLED."*, luxury perfume flacon presentation, and smooth anchor navigation.
+4. **Brand Benefits Strip**: Three brand pillars (Carefully Composed Fragrances, Distinctive Scent Profiles, Crafted for Lasting Impressions) with subtle gold dividers.
+5. **Featured Fragrances**: Four luxury flacons in a responsive grid (*Golden Reverie*, *Velvet Essence*, *Amber Dusk*, *Midnight Bloom*) with interactive Quick View modal and Wishlist toggle.
+6. **Shop by Fragrance Family**: Four olfactive families (*Floral*, *Woody*, *Oriental*, *Fresh*) with ambient color glows.
+7. **Brand Story / Manifesto**: Editorial split-screen composition *"MORE THAN A SCENT. AN EXPRESSION OF YOU."*
+8. **Signature Collection Banner**: Full-width promotional banner with ambient gold lighting.
+9. **Craftsmanship & Brand Values**: Three core principles (*Thoughtful Composition*, *Distinctive Character*, *Timeless Expression*).
+10. **Newsletter Subscription**: Accessible input with client-side format validation, error handling, and demonstration feedback.
+11. **Global Footer**: Four structured columns, back-to-top button with smooth scroll, and reserved payment encryption badges.
 
 ---
 
-## 6. Directory Structure
-
-```
-fragology/
-├── public/
-│   ├── images/ (hero, products, collections, journal, banners)
-│   ├── icons/
-│   └── fonts/
-├── src/
-│   ├── app/
-│   │   ├── (store)/                 # 20 Customer-facing boutique routes
-│   │   ├── (admin)/admin/           # 12 Admin panel modules
-│   │   ├── layout.tsx               # Root layout & font orchestration
-│   │   ├── globals.css              # Central design tokens & CSS variables
-│   │   ├── loading.tsx              # Global luxury spinner
-│   │   ├── error.tsx                # Error boundary handler
-│   │   ├── not-found.tsx            # 404 handler
-│   │   ├── sitemap.ts               # Dynamic sitemap configuration
-│   │   └── robots.ts                # SEO crawler directives
-│   ├── components/
-│   │   ├── ui/                      # 11 reusable design system components
-│   │   └── layout/                  # Luxury Header & Footer
-│   ├── lib/
-│   │   ├── supabase/                # Browser and Server clients
-│   │   ├── utils.ts                 # Class merging & formatters
-│   │   ├── constants.ts             # Brand constants
-│   │   └── validations.ts           # Zod schemas
-│   ├── types/                       # Shared TypeScript definitions
-│   └── config/                      # Site configuration
-├── supabase/
-│   ├── migrations/                  # Database migration scaffolds
-│   └── functions/                   # 4 Edge function scaffolds
-├── .env.example
-├── .gitignore
-├── next.config.ts
-├── tsconfig.json
-├── tailwind.config.ts
-├── postcss.config.mjs
-├── eslint.config.mjs
-└── package.json
-```
-
----
-
-## 7. Getting Started
+## 5. Getting Started
 
 ### Installation
 ```bash
@@ -134,7 +83,7 @@ npm install
 npm run dev
 ```
 
-Visit `http://localhost:3000` to explore the Phase 1 Foundation & Luxury Design System.
+Visit `http://localhost:3000` to explore the Fragology Storefront.
 
 ### Quality Verification
 ```bash
@@ -150,14 +99,14 @@ npm run build
 
 ---
 
-## 8. Phase 1 Verification Status
+## 6. Verification Status
 
 - [x] Next.js App Router & React 19 architecture verified.
-- [x] Deep Black & Metallic Gold design tokens centralized in `globals.css` and `tailwind.config.ts`.
+- [x] Deep Black & Metallic Gold design tokens centralized.
 - [x] Typography system configured with `Cormorant Garamond` and `Manrope`.
 - [x] 11 reusable UI components tested with zero console warnings.
-- [x] Responsive layout with desktop navigation and mobile drawer menu.
-- [x] Zero-image development compliance fulfilled with CSS lighting and fallback placeholders.
+- [x] All 8 homepage sections and shared layout components built and verified.
+- [x] Zero-image development compliance fulfilled with CSS lighting and flacon silhouettes.
 - [x] TypeScript strict compilation verified with 0 errors.
-- [x] ESLint rules passing.
-- [x] Production build confirmed.
+- [x] ESLint rules passing with 0 warnings.
+- [x] Production build confirmed (35/35 static/dynamic pages).

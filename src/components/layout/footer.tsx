@@ -1,9 +1,17 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
+import { ArrowUp, CreditCard } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { Divider } from "@/components/ui/divider";
+import { FOOTER_SECTIONS } from "@/data/navigation";
 
 export function Footer() {
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   return (
     <footer className="w-full bg-brand-rich border-t border-border-subtle text-neutral-muted text-xs font-sans">
       <Container size="wide" className="py-16 lg:py-20">
@@ -23,108 +31,86 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Column: Olfactive Anthology */}
+          {/* Column: Shop */}
           <div className="space-y-3">
             <h4 className="text-[11px] font-sans uppercase tracking-[0.25em] text-neutral-ivory font-medium">
-              Anthology
+              Shop Fragrances
             </h4>
             <ul className="space-y-2 text-xs font-light">
-              <li>
-                <Link href="/shop" className="hover:text-gold-champagne transition-colors">
-                  All Fragrances
-                </Link>
-              </li>
-              <li>
-                <Link href="/collections" className="hover:text-gold-champagne transition-colors">
-                  Curated Collections
-                </Link>
-              </li>
-              <li>
-                <Link href="/scent-finder" className="hover:text-gold-champagne transition-colors">
-                  Scent Finder Quiz
-                </Link>
-              </li>
-              <li>
-                <Link href="/shop" className="hover:text-gold-champagne transition-colors">
-                  Discovery Atomizers
-                </Link>
-              </li>
+              {FOOTER_SECTIONS.shop.map((item) => (
+                <li key={item.label}>
+                  <Link href={item.href} className="hover:text-gold-champagne transition-colors">
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
-          {/* Column: Maison Heritage */}
+          {/* Column: Information */}
           <div className="space-y-3">
             <h4 className="text-[11px] font-sans uppercase tracking-[0.25em] text-neutral-ivory font-medium">
-              Maison
+              Maison Heritage
             </h4>
             <ul className="space-y-2 text-xs font-light">
-              <li>
-                <Link href="/about" className="hover:text-gold-champagne transition-colors">
-                  The Philosophy
-                </Link>
-              </li>
-              <li>
-                <Link href="/journal" className="hover:text-gold-champagne transition-colors">
-                  Fragrance Journal
-                </Link>
-              </li>
-              <li>
-                <Link href="/contact" className="hover:text-gold-champagne transition-colors">
-                  Concierge Inquiries
-                </Link>
-              </li>
-              <li>
-                <Link href="/faq" className="hover:text-gold-champagne transition-colors">
-                  Client FAQ
-                </Link>
-              </li>
+              {FOOTER_SECTIONS.information.map((item) => (
+                <li key={item.label}>
+                  <Link href={item.href} className="hover:text-gold-champagne transition-colors">
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
-          {/* Column: Client Care */}
+          {/* Column: Customer Care */}
           <div className="space-y-3">
             <h4 className="text-[11px] font-sans uppercase tracking-[0.25em] text-neutral-ivory font-medium">
               Client Care
             </h4>
             <ul className="space-y-2 text-xs font-light">
-              <li>
-                <Link href="/order-tracking" className="hover:text-gold-champagne transition-colors">
-                  Order Tracking
-                </Link>
-              </li>
-              <li>
-                <Link href="/shipping-policy" className="hover:text-gold-champagne transition-colors">
-                  Climate Delivery
-                </Link>
-              </li>
-              <li>
-                <Link href="/returns-refunds" className="hover:text-gold-champagne transition-colors">
-                  Returns & Exchanges
-                </Link>
-              </li>
-              <li>
-                <Link href="/privacy-policy" className="hover:text-gold-champagne transition-colors">
-                  Privacy Policy
-                </Link>
-              </li>
-              <li>
-                <Link href="/terms" className="hover:text-gold-champagne transition-colors">
-                  Terms of Service
-                </Link>
-              </li>
+              {FOOTER_SECTIONS.customerCare.map((item) => (
+                <li key={item.label}>
+                  <Link href={item.href} className="hover:text-gold-champagne transition-colors">
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
         </div>
 
         <Divider variant="gold" withEmblem className="my-12" />
 
-        <div className="flex flex-col sm:flex-row items-center justify-between text-[11px] text-neutral-muted/70 space-y-3 sm:space-y-0">
-          <p>© {new Date().getFullYear()} FRAGOLOGY Maison de Parfumerie. All rights reserved.</p>
-          <p className="font-light tracking-wider">
-            Distilled with precision. Bottled in architectural glass.
-          </p>
+        {/* Footer Bottom Row */}
+        <div className="flex flex-col sm:flex-row items-center justify-between text-[11px] text-neutral-muted/70 space-y-4 sm:space-y-0">
+          <div>
+            <p>© {new Date().getFullYear()} FRAGOLOGY Maison de Parfumerie. All rights reserved.</p>
+          </div>
+
+          {/* Payment Method Area Reserved */}
+          <div className="flex items-center space-x-2 text-[10px] text-neutral-muted/60">
+            <CreditCard size={14} className="text-gold-primary/60" />
+            <span className="uppercase tracking-widest font-mono">
+              Secure Encrypted Checkout (Phase 4)
+            </span>
+          </div>
+
+          {/* Back to top button */}
+          <div>
+            <button
+              onClick={scrollToTop}
+              className="inline-flex items-center space-x-1.5 text-neutral-soft hover:text-gold-champagne transition-colors uppercase tracking-widest font-sans text-[10px]"
+              aria-label="Back to top"
+            >
+              <span>Back to Top</span>
+              <ArrowUp size={12} />
+            </button>
+          </div>
         </div>
       </Container>
     </footer>
   );
 }
+
+export default Footer;
