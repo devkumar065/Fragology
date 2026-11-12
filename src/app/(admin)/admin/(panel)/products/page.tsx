@@ -38,7 +38,7 @@ export default function ProductsManagementPage() {
   const [slug, setSlug] = useState("");
   const [subtitle, setSubtitle] = useState("");
   const [family, setFamily] = useState<FragranceFamilyType>("Oriental");
-  const [concentration, setConcentration] = useState<"Extrait de Parfum (30%)" | "Eau de Parfum (20%)">("Extrait de Parfum (30%)");
+  const [concentration, setConcentration] = useState<string>("Eau de Parfum");
   const [priceNum, setPriceNum] = useState(240);
   const [description, setDescription] = useState("");
   const [topNotes, setTopNotes] = useState("");

@@ -134,7 +134,7 @@ export default function ProductDetailsPage({ params }: ProductPageProps) {
                         src={item.src}
                         alt={item.label}
                         fill
-                        className="object-cover"
+                        className="object-contain p-1"
                         sizes="64px"
                         onError={(e) => {
                           (e.currentTarget as HTMLImageElement).style.display = "none";
@@ -191,7 +191,7 @@ export default function ProductDetailsPage({ params }: ProductPageProps) {
                       alt={`${product.name} — ${activeItem.label}`}
                       fill
                       priority={activeGalleryIndex === 0}
-                      className="object-contain sm:object-cover transition-transform duration-500 group-hover:scale-102"
+                      className="object-contain p-4 sm:p-6 transition-transform duration-500 group-hover:scale-102"
                       sizes="(max-width: 1024px) 100vw, 420px"
                       onError={(e) => {
                         (e.currentTarget as HTMLImageElement).style.display = "none";

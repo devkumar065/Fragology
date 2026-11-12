@@ -24,7 +24,7 @@ interface InventorySkuRow {
   productId: string;
   productName: string;
   family: string;
-  variantSize: "30ml" | "50ml" | "100ml";
+  variantSize: string;
   sku: string;
   stock: number;
   price: string;

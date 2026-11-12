@@ -23,7 +23,7 @@ export async function POST(req: NextRequest) {
       userId,
       specialInstructions,
     }: {
-      items: Array<{ productId: string; variantSize: "30ml" | "50ml" | "100ml"; quantity: number }>;
+      items: Array<{ productId: string; variantSize: string; quantity: number }>;
       couponCode?: string;
       shippingAddress: CustomerAddress;
       billingAddress?: CustomerAddress;

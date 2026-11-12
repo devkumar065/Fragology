@@ -5,34 +5,46 @@ export interface FragranceNotes {
 }
 
 export interface ProductVariant {
-  size: "30ml" | "50ml" | "100ml";
+  size: string;
   volumeDisplay: string;
   price: string;
   priceNum: number;
 }
 
-export type FragranceFamilyType = "Floral" | "Woody" | "Oriental" | "Fresh" | "Unisex";
+export type FragranceFamilyType =
+  | "Floral"
+  | "Woody"
+  | "Oriental"
+  | "Fresh"
+  | "Unisex"
+  | "Spicy"
+  | "Gourmand"
+  | "Aromatic"
+  | "Leather"
+  | "Aquatic"
+  | string;
 
-export type ScentCharacterType = "Sweet" | "Fresh" | "Spicy" | "Musky" | "Balanced";
+export type ScentCharacterType = "Sweet" | "Fresh" | "Spicy" | "Musky" | "Balanced" | string;
 
-export type OccasionType = "Everyday" | "Work" | "Evening" | "Special Occasions" | "Any Occasion";
+export type OccasionType = "Everyday" | "Work" | "Evening" | "Special Occasions" | "Any Occasion" | string;
 
-export type IntensityType = "Light" | "Moderate" | "Intense";
+export type IntensityType = "Light" | "Moderate" | "Intense" | string;
 
-export type MoodType = "Elegant" | "Mysterious" | "Energetic" | "Romantic" | "Minimal";
+export type MoodType = "Elegant" | "Mysterious" | "Energetic" | "Romantic" | "Minimal" | string;
 
 export interface Product {
   id: string;
   slug: string;
   name: string;
+  brand?: string;
   subtitle?: string;
   family: FragranceFamilyType;
-  concentration: "Extrait de Parfum (30%)" | "Eau de Parfum (20%)";
+  concentration: string;
   price: string;
   priceNum: number;
   volume: string;
   variants: ProductVariant[];
-  badge?: "Bestseller" | "Limited Edition" | "New" | null;
+  badge?: "Bestseller" | "Limited Edition" | "New" | string | null;
   description: string;
   story: {
     inspiration: string;
@@ -53,6 +65,8 @@ export interface Product {
     count: number;
   };
   images?: string[];
+  productUrl?: string;
+  sourceUrl?: string;
 }
 
 export type ProductDemo = Product;

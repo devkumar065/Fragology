@@ -11,11 +11,13 @@ import { PRODUCTS_CATALOG } from "@/data/products";
 
 const CATEGORIES: Array<{ label: string; value: string }> = [
   { label: "All Fragrances", value: "all" },
-  { label: "Floral", value: "Floral" },
-  { label: "Woody", value: "Woody" },
-  { label: "Oriental", value: "Oriental" },
-  { label: "Fresh", value: "Fresh" },
-  { label: "Unisex", value: "Unisex" },
+  { label: "Middle Eastern", value: "middle-eastern" },
+  { label: "Designer & Niche", value: "designer" },
+  { label: "Fresh & Aquatic", value: "fresh" },
+  { label: "Woody", value: "woody" },
+  { label: "Oriental & Amber", value: "oriental" },
+  { label: "Spicy & Leather", value: "spicy" },
+  { label: "Floral & Gourmand", value: "floral" },
 ];
 
 export default function ShopPage() {
@@ -23,7 +25,7 @@ export default function ShopPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedConcentration, setSelectedConcentration] = useState("all");
   const [sortBy, setSortBy] = useState("featured");
-  const [priceMax, setPriceMax] = useState<number>(3000);
+  const [priceMax, setPriceMax] = useState<number>(25000);
   const [inStockOnly, setInStockOnly] = useState(false);
   const [showMobileFilters, setShowMobileFilters] = useState(false);
 
@@ -31,14 +33,20 @@ export default function ShopPage() {
   const filteredProducts = useMemo(() => {
     return PRODUCTS_CATALOG.filter((product) => {
       // Category filter
-      if (selectedCategory !== "all" && product.family !== selectedCategory) {
-        return false;
+      if (selectedCategory !== "all") {
+        const cat = selectedCategory.toLowerCase();
+        const matchesCol = product.collections?.some((c) => c.toLowerCase() === cat);
+        const matchesFam = product.family?.toLowerCase().includes(cat);
+        const matchesTag = product.accordTags?.some((t) => t.toLowerCase().includes(cat));
+        if (!matchesCol && !matchesFam && !matchesTag) {
+          return false;
+        }
       }
 
       // Concentration filter
       if (
         selectedConcentration !== "all" &&
-        !product.concentration.includes(selectedConcentration)
+        !product.concentration.toLowerCase().includes(selectedConcentration.toLowerCase())
       ) {
         return false;
       }
@@ -53,17 +61,18 @@ export default function ShopPage() {
         return false;
       }
 
-      // Search query across name, family, notes
+      // Search query across name, brand, family, notes, tags
       if (searchQuery.trim()) {
         const query = searchQuery.toLowerCase();
         const matchesName = product.name.toLowerCase().includes(query);
+        const matchesBrand = product.brand?.toLowerCase().includes(query) ?? false;
         const matchesFamily = product.family.toLowerCase().includes(query);
         const matchesNotes = `${product.notes.top} ${product.notes.heart} ${product.notes.base}`
           .toLowerCase()
           .includes(query);
         const matchesTags = product.accordTags.some((tag) => tag.toLowerCase().includes(query));
 
-        if (!matchesName && !matchesFamily && !matchesNotes && !matchesTags) {
+        if (!matchesName && !matchesBrand && !matchesFamily && !matchesNotes && !matchesTags) {
           return false;
         }
       }
@@ -83,7 +92,7 @@ export default function ShopPage() {
         return (b.badge === "New" ? 1 : 0) - (a.badge === "New" ? 1 : 0);
       }
       // "featured" default
-      return (b.badge ? 1 : 0) - (a.badge ? 1 : 0);
+      return (b.badge === "Bestseller" ? 2 : b.badge ? 1 : 0) - (a.badge === "Bestseller" ? 2 : a.badge ? 1 : 0);
     });
   }, [selectedCategory, selectedConcentration, searchQuery, sortBy, priceMax, inStockOnly]);
 
@@ -92,7 +101,7 @@ export default function ShopPage() {
     setSearchQuery("");
     setSelectedConcentration("all");
     setSortBy("featured");
-    setPriceMax(3000);
+    setPriceMax(25000);
     setInStockOnly(false);
   };
 
@@ -101,7 +110,7 @@ export default function ShopPage() {
     searchQuery !== "" ||
     selectedConcentration !== "all" ||
     sortBy !== "featured" ||
-    priceMax < 3000 ||
+    priceMax < 25000 ||
     inStockOnly;
 
   return (
@@ -169,8 +178,10 @@ export default function ShopPage() {
                 className="bg-brand-deep border border-border-subtle text-neutral-ivory text-xs px-3 py-2.5 rounded-xs outline-none focus:border-gold-primary"
               >
                 <option value="all">Concentration: All</option>
-                <option value="Extrait">Extrait de Parfum (30%)</option>
-                <option value="Eau de Parfum">Eau de Parfum (20%)</option>
+                <option value="Eau de Parfum">Eau de Parfum</option>
+                <option value="Eau de Toilette">Eau de Toilette</option>
+                <option value="Parfum">Parfum / Elixir</option>
+                <option value="Aqua Parfum">Aqua Parfum</option>
               </select>
 
               {/* Sorting Filter */}
@@ -217,8 +228,8 @@ export default function ShopPage() {
               <input
                 type="range"
                 min="1000"
-                max="3000"
-                step="100"
+                max="25000"
+                step="500"
                 value={priceMax}
                 onChange={(e) => setPriceMax(Number(e.target.value))}
                 className="accent-gold-primary cursor-pointer w-32 sm:w-48"

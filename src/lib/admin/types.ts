@@ -68,7 +68,7 @@ export interface InventoryMovement {
   id: string;
   productId: string;
   productName: string;
-  variantSize: "30ml" | "50ml" | "100ml";
+  variantSize: string;
   sku: string;
   previousQuantity: number;
   changeAmount: number;

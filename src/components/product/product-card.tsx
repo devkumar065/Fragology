@@ -77,12 +77,13 @@ export function ProductCard({ product }: ProductCardProps) {
           {/* Luxury Stylized Flacon Silhouette Graphic */}
           <div className="relative z-10 flex flex-col items-center justify-center transition-transform duration-500 group-hover:scale-105 w-full h-full">
             {product.images && product.images[0] ? (
-              <div className="absolute inset-0">
+              <div className="absolute inset-0 flex items-center justify-center p-3 sm:p-4">
                 <Image
                   src={product.images[0]}
                   alt={product.name}
                   fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  className="object-contain p-3 sm:p-4 transition-transform duration-500 group-hover:scale-105"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                   onError={(e) => {
                     (e.currentTarget as HTMLImageElement).style.display = "none";
                   }}
@@ -218,16 +219,28 @@ export function ProductCard({ product }: ProductCardProps) {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 items-center">
               {/* Visual Preview */}
-              <div className="h-64 bg-gradient-to-b from-brand-chocolate to-brand-deep rounded-xs border border-border-subtle flex flex-col items-center justify-center p-4 text-center">
-                <div className="h-4 w-6 bg-gold-primary/80 rounded-xs mb-1" />
-                <div className="h-32 w-24 border border-gold-primary/40 bg-brand-deep flex items-center justify-center p-2 text-center">
-                  <span className="font-serif text-xs text-gold-champagne uppercase">
-                    {product.name}
-                  </span>
-                </div>
-                <span className="text-[10px] font-mono text-gold-muted mt-3 uppercase tracking-widest">
-                  {product.volume}
-                </span>
+              <div className="relative h-64 bg-gradient-to-b from-brand-chocolate to-brand-deep rounded-xs border border-border-subtle flex flex-col items-center justify-center p-4 text-center overflow-hidden">
+                {product.images && product.images[0] ? (
+                  <Image
+                    src={product.images[0]}
+                    alt={product.name}
+                    fill
+                    className="object-contain p-4"
+                    sizes="280px"
+                  />
+                ) : (
+                  <>
+                    <div className="h-4 w-6 bg-gold-primary/80 rounded-xs mb-1" />
+                    <div className="h-32 w-24 border border-gold-primary/40 bg-brand-deep flex items-center justify-center p-2 text-center">
+                      <span className="font-serif text-xs text-gold-champagne uppercase">
+                        {product.name}
+                      </span>
+                    </div>
+                    <span className="text-[10px] font-mono text-gold-muted mt-3 uppercase tracking-widest">
+                      {product.volume}
+                    </span>
+                  </>
+                )}
               </div>
 
               {/* Details & Notes Pyramid */}

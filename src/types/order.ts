@@ -18,7 +18,7 @@ export interface OrderItem {
   productId: string;
   productSlug: string;
   productName: string;
-  variantSize: "30ml" | "50ml" | "100ml";
+  variantSize: string;
   unitPrice: number;
   quantity: number;
   subtotal: number;

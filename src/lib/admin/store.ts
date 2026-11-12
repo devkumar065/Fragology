@@ -857,7 +857,7 @@ export function getInventoryMovements(productId?: string): InventoryMovement[] {
 
 export function adjustInventoryStock(
   productId: string,
-  variantSize: "30ml" | "50ml" | "100ml",
+  variantSize: string,
   newQuantity: number,
   reason: InventoryMovement["reason"],
   notes: string,

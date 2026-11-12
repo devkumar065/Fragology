@@ -19,7 +19,7 @@ interface CartContextType {
   total: number;
   isCartOpen: boolean;
   
-  addItem: (product: Product, variant?: ProductVariant | { size: "30ml" | "50ml" | "100ml"; volumeDisplay: string; priceNum: number; price: string }, quantity?: number) => void;
+  addItem: (product: Product, variant?: ProductVariant, quantity?: number) => void;
   updateQuantity: (itemId: string, quantity: number) => void;
   removeItem: (itemId: string) => void;
   clearCart: () => void;
@@ -127,7 +127,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
   const addItem = (
     product: Product,
-    variant?: ProductVariant | { size: "30ml" | "50ml" | "100ml"; volumeDisplay: string; priceNum: number; price: string },
+    variant?: ProductVariant,
     quantity = 1
   ) => {
     const chosenVariant =

@@ -4,7 +4,7 @@ export interface CartItem {
   productSlug: string;
   productName: string;
   productSubtitle?: string;
-  variantSize: "30ml" | "50ml" | "100ml";
+  variantSize: string;
   volumeDisplay: string;
   concentration: string;
   priceNum: number;
