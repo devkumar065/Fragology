@@ -19,7 +19,7 @@
 
 - **Framework**: [Next.js](https://nextjs.org/) (App Router, React 19, TypeScript)
 - **Styling**: [Tailwind CSS](https://tailwindcss.com/) with centralized CSS custom properties
-- **Typography**: Google Fonts via `next/font/google` (`Cormorant Garamond` & `Manrope`)
+- **Typography**: Google Fonts (`Cormorant Garamond`, `Manrope`, `Cinzel`, `Playfair Display`)
 - **Icons**: [Lucide React](https://lucide.dev/)
 - **Animation Ready**: [Framer Motion](https://www.framer.com/motion/)
 - **Class Utilities**: `clsx`, `tailwind-merge`
