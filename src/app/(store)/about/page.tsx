@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { ChevronRight, Gem, Compass, Feather, Clock } from "lucide-react";
+import { Gem, Compass, Feather, Clock } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Button } from "@/components/ui/button";
@@ -33,15 +33,6 @@ export default function AboutPage() {
   return (
     <div className="py-12 sm:py-20 bg-brand-deep min-h-screen">
       <Container size="default">
-        {/* Breadcrumb Navigation */}
-        <nav aria-label="Breadcrumb" className="mb-8 flex items-center space-x-2 text-xs text-neutral-muted">
-          <Link href="/" className="hover:text-gold-champagne transition-colors">
-            Maison
-          </Link>
-          <ChevronRight size={12} className="text-border-subtle" />
-          <span className="text-neutral-ivory">Our Story</span>
-        </nav>
-
         {/* Section 1 & 2: About Hero & Brand Introduction */}
         <div className="max-w-3xl mx-auto text-center mb-16 sm:mb-24 space-y-6">
           <span className="text-[10px] sm:text-[11px] font-sans uppercase tracking-[0.35em] text-gold-champagne font-medium">

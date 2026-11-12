@@ -3,7 +3,7 @@
 import React, { useState, useMemo, use } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ChevronRight, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { ProductCard } from "@/components/product/product-card";
 import { getCollectionBySlug, COLLECTIONS_DATA } from "@/data/collections";
@@ -41,19 +41,6 @@ export default function CollectionDetailsPage({ params }: CollectionPageProps) {
   return (
     <div className="py-12 sm:py-20 bg-brand-deep min-h-screen">
       <Container size="wide">
-        {/* Section 1: Breadcrumb Navigation */}
-        <nav aria-label="Breadcrumb" className="mb-8 flex items-center space-x-2 text-xs text-neutral-muted">
-          <Link href="/" className="hover:text-gold-champagne transition-colors">
-            Maison
-          </Link>
-          <ChevronRight size={12} className="text-border-subtle" />
-          <Link href="/collections" className="hover:text-gold-champagne transition-colors">
-            Collections
-          </Link>
-          <ChevronRight size={12} className="text-border-subtle" />
-          <span className="text-neutral-ivory">{collection.title}</span>
-        </nav>
-
         {/* Section 2–4: Collection Hero, Description & Story */}
         <div className="relative p-10 sm:p-16 border border-gold-primary/30 bg-gradient-to-r from-brand-rich via-brand-espresso to-brand-deep rounded-xs overflow-hidden mb-16 shadow-luxury-card">
           <div

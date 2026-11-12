@@ -3,7 +3,7 @@
 import React, { use } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ChevronRight, ArrowRight, Clock, User, Share2, Feather, BookOpen } from "lucide-react";
+import { ArrowRight, Clock, User, Share2, Feather, BookOpen } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
 import { getArticleBySlug, ARTICLES_DATA } from "@/data/articles";
@@ -25,19 +25,6 @@ export default function BlogDetailsPage({ params }: BlogDetailsProps) {
   return (
     <article className="py-12 sm:py-20 bg-brand-deep min-h-screen">
       <Container size="narrow">
-        {/* Section 1: Breadcrumb Navigation */}
-        <nav aria-label="Breadcrumb" className="mb-8 flex items-center space-x-2 text-xs text-neutral-muted">
-          <Link href="/" className="hover:text-gold-champagne transition-colors">
-            Maison
-          </Link>
-          <ChevronRight size={12} className="text-border-subtle" />
-          <Link href="/journal" className="hover:text-gold-champagne transition-colors">
-            Journal
-          </Link>
-          <ChevronRight size={12} className="text-border-subtle" />
-          <span className="text-neutral-ivory truncate">{article.title}</span>
-        </nav>
-
         {/* Section 2 & 3: Article Category, Title & Subtitle */}
         <div className="space-y-4 mb-8">
           <div className="inline-flex items-center space-x-2 text-[10px] font-mono uppercase tracking-[0.3em] text-gold-champagne">

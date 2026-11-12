@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { ChevronRight, ArrowRight, Clock, BookOpen, Feather } from "lucide-react";
+import { ArrowRight, Clock, BookOpen, Feather } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
 import { ARTICLES_DATA } from "@/data/articles";
@@ -29,15 +29,6 @@ export default function JournalListingPage() {
   return (
     <div className="py-12 sm:py-20 bg-brand-deep min-h-screen">
       <Container size="wide">
-        {/* Breadcrumb Navigation */}
-        <nav aria-label="Breadcrumb" className="mb-8 flex items-center space-x-2 text-xs text-neutral-muted">
-          <Link href="/" className="hover:text-gold-champagne transition-colors">
-            Maison
-          </Link>
-          <ChevronRight size={12} className="text-border-subtle" />
-          <span className="text-neutral-ivory">Journal</span>
-        </nav>
-
         {/* Section 1: Journal Hero */}
         <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
           <span className="text-[10px] sm:text-[11px] font-sans uppercase tracking-[0.35em] text-gold-champagne font-medium">

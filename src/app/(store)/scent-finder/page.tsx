@@ -1,9 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import Link from "next/link";
 import {
-  ChevronRight,
   ArrowRight,
   ArrowLeft,
   RotateCcw,
@@ -204,15 +202,6 @@ export default function ScentFinderPage() {
   return (
     <div className="py-12 sm:py-20 bg-brand-deep min-h-screen">
       <Container size="default">
-        {/* Breadcrumb Navigation */}
-        <nav aria-label="Breadcrumb" className="mb-8 flex items-center space-x-2 text-xs text-neutral-muted">
-          <Link href="/" className="hover:text-gold-champagne transition-colors">
-            Maison
-          </Link>
-          <ChevronRight size={12} className="text-border-subtle" />
-          <span className="text-neutral-ivory">Scent Finder Diagnostic</span>
-        </nav>
-
         {!started ? (
           /* Intro Screen */
           <div className="max-w-2xl mx-auto text-center space-y-6 py-12">

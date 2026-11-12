@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { ChevronRight, ArrowRight, Compass } from "lucide-react";
+import { ArrowRight, Compass } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { COLLECTIONS_DATA } from "@/data/collections";
@@ -12,15 +12,6 @@ export default function CollectionsListingPage() {
   return (
     <div className="py-12 sm:py-20 bg-brand-deep min-h-screen">
       <Container size="wide">
-        {/* Breadcrumb Navigation */}
-        <nav aria-label="Breadcrumb" className="mb-8 flex items-center space-x-2 text-xs text-neutral-muted">
-          <Link href="/" className="hover:text-gold-champagne transition-colors">
-            Maison
-          </Link>
-          <ChevronRight size={12} className="text-border-subtle" />
-          <span className="text-neutral-ivory">Collections</span>
-        </nav>
-
         {/* Section 1 & 2: Collection Hero & Brand Introduction */}
         <div className="text-center max-w-3xl mx-auto mb-16 sm:mb-20 space-y-4">
           <span className="text-[10px] sm:text-[11px] font-sans uppercase tracking-[0.35em] text-gold-champagne font-medium">

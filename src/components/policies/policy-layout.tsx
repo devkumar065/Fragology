@@ -1,8 +1,7 @@
 "use client";
 
 import React from "react";
-import Link from "next/link";
-import { ArrowUp, ShieldAlert, ChevronRight } from "lucide-react";
+import { ArrowUp, ShieldAlert } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { Divider } from "@/components/ui/divider";
 import { PolicyDocument } from "@/types/policy";
@@ -24,15 +23,6 @@ export function PolicyLayout({ policy }: PolicyLayoutProps) {
   return (
     <div className="py-16 sm:py-24 bg-brand-deep min-h-screen">
       <Container size="default">
-        {/* Breadcrumb Navigation */}
-        <nav aria-label="Breadcrumb" className="mb-8 flex items-center space-x-2 text-xs text-neutral-muted">
-          <Link href="/" className="hover:text-gold-champagne transition-colors">
-            Maison
-          </Link>
-          <ChevronRight size={12} className="text-border-subtle" />
-          <span className="text-neutral-ivory">{policy.title}</span>
-        </nav>
-
         {/* Page Hero */}
         <div className="max-w-3xl mb-12 space-y-4">
           <span className="text-[10px] font-mono uppercase tracking-[0.3em] text-gold-champagne block">
