@@ -93,28 +93,28 @@ export function renderOrderConfirmationEmail(order: Order): { subject: string; h
           <table style="width: 100%; font-size: 12px; color: #AFA497; line-height: 1.8;">
             <tr>
               <td>Subtotal</td>
-              <td style="text-align: right; color: #F4EFE5;">$${order.subtotal.toFixed(2)}</td>
+              <td style="text-align: right; color: #F4EFE5;">₹${order.subtotal.toLocaleString("en-IN")}</td>
             </tr>
             ${
               order.discountAmount > 0
                 ? `<tr>
                     <td style="color: #C8A45D;">Maison Courtesy (${order.couponCode || "Privilège"})</td>
-                    <td style="text-align: right; color: #C8A45D;">-$${order.discountAmount.toFixed(2)}</td>
+                    <td style="text-align: right; color: #C8A45D;">-₹${order.discountAmount.toLocaleString("en-IN")}</td>
                   </tr>`
                 : ""
             }
             <tr>
               <td>White Glove Insured Courier</td>
-              <td style="text-align: right; color: #E2C78D;">${order.shippingFee === 0 ? "Complimentary" : `$${order.shippingFee.toFixed(2)}`}</td>
+              <td style="text-align: right; color: #E2C78D;">${order.shippingFee === 0 ? "Complimentary" : `₹${order.shippingFee.toLocaleString("en-IN")}`}</td>
             </tr>
             <tr>
               <td>Excise & Estimated Duties</td>
-              <td style="text-align: right; color: #F4EFE5;">$${order.taxAmount.toFixed(2)}</td>
+              <td style="text-align: right; color: #F4EFE5;">₹${order.taxAmount.toLocaleString("en-IN")}</td>
             </tr>
             <tr style="border-top: 1px solid rgba(200, 164, 93, 0.3); font-size: 15px;">
               <td style="padding-top: 12px; color: #F4EFE5; font-family: 'Playfair Display', Georgia, serif;">Total Investment</td>
               <td style="padding-top: 12px; text-align: right; font-family: 'Playfair Display', Georgia, serif; font-size: 20px; color: #C8A45D;">
-                $${order.totalAmount.toFixed(2)} USD
+                ₹${order.totalAmount.toLocaleString("en-IN")}
               </td>
             </tr>
           </table>

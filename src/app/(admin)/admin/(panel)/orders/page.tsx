@@ -233,7 +233,7 @@ export default function OrdersManagementPage() {
           <span className="text-[10px] uppercase font-mono text-[#8E8271] tracking-wider block">
             Total Commissions
           </span>
-          <span className="text-2xl font-serif text-[#F5F2EA] mt-1 block">
+          <span className="text-2xl font-numbers font-semibold text-[#F5F2EA] mt-1 block">
             {totalOrdersCount}
           </span>
           <span className="text-[11px] text-[#8E8271] mt-0.5 block">
@@ -245,7 +245,7 @@ export default function OrdersManagementPage() {
           <span className="text-[10px] uppercase font-mono text-[#8E8271] tracking-wider block">
             Action Required
           </span>
-          <span className="text-2xl font-serif text-amber-400 mt-1 block">
+          <span className="text-2xl font-numbers font-semibold text-amber-400 mt-1 block">
             {pendingActionCount}
           </span>
           <span className="text-[11px] text-[#8E8271] mt-0.5 block">
@@ -257,7 +257,7 @@ export default function OrdersManagementPage() {
           <span className="text-[10px] uppercase font-mono text-[#8E8271] tracking-wider block">
             In White-Glove Transit
           </span>
-          <span className="text-2xl font-serif text-[#C8A45D] mt-1 block">
+          <span className="text-2xl font-numbers font-semibold text-[#C8A45D] mt-1 block">
             {inTransitCount}
           </span>
           <span className="text-[11px] text-[#8E8271] mt-0.5 block">
@@ -269,8 +269,8 @@ export default function OrdersManagementPage() {
           <span className="text-[10px] uppercase font-mono text-[#8E8271] tracking-wider block">
             Paid Commission Volume
           </span>
-          <span className="text-2xl font-serif text-[#EDE8D0] mt-1 block">
-            ${totalVolume.toLocaleString("en-US", { minimumFractionDigits: 2 })}
+          <span className="text-2xl font-numbers font-semibold text-[#EDE8D0] mt-1 block">
+            ₹{totalVolume.toLocaleString("en-IN")}
           </span>
           <span className="text-[11px] text-emerald-400 mt-0.5 block">
             100% server verified
@@ -410,8 +410,8 @@ export default function OrdersManagementPage() {
                     </td>
 
                     {/* Total */}
-                    <td className="py-4 px-4 text-right font-serif text-[#EDE8D0] text-sm">
-                      ${order.totalAmount.toFixed(2)}
+                    <td className="py-4 px-4 text-right font-numbers font-semibold text-[#EDE8D0] text-sm">
+                      ₹{order.totalAmount.toLocaleString("en-IN")}
                       {order.couponCode && (
                         <span className="block text-[10px] font-mono text-[#C8A45D]">
                           {order.couponCode} applied
@@ -631,7 +631,7 @@ export default function OrdersManagementPage() {
                       <td className="py-2 font-mono text-stone-600">{item.variantSize}</td>
                       <td className="py-2 text-center font-mono">{item.quantity}</td>
                       <td className="py-2 text-right font-serif">
-                        ${(item.priceNum * item.quantity).toFixed(2)}
+                        ₹{(item.priceNum * item.quantity).toLocaleString("en-IN")}
                       </td>
                     </tr>
                   ))}
@@ -644,7 +644,7 @@ export default function OrdersManagementPage() {
                   Insured Valuation
                 </span>
                 <span className="font-serif text-base font-bold text-stone-900">
-                  ${packingSlipOrder.totalAmount.toFixed(2)} USD
+                  ₹{packingSlipOrder.totalAmount.toLocaleString("en-IN")}
                 </span>
               </div>
 

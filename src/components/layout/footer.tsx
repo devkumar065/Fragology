@@ -2,7 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import { ArrowUp, CreditCard } from "lucide-react";
+import { ArrowUp } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { Divider } from "@/components/ui/divider";
 import { FOOTER_SECTIONS } from "@/data/navigation";
@@ -86,14 +86,6 @@ export function Footer() {
         <div className="flex flex-col sm:flex-row items-center justify-between text-[11px] text-neutral-muted/70 space-y-4 sm:space-y-0">
           <div>
             <p>© {new Date().getFullYear()} FRAGOLOGY Maison de Parfumerie. All rights reserved.</p>
-          </div>
-
-          {/* Payment Method Area Reserved */}
-          <div className="flex items-center space-x-2 text-[10px] text-neutral-muted/60">
-            <CreditCard size={14} className="text-gold-primary/60" />
-            <span className="uppercase tracking-widest font-mono">
-              Secure Encrypted Checkout (Phase 4)
-            </span>
           </div>
 
           {/* Back to top button */}

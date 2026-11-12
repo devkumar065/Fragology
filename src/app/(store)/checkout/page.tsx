@@ -10,7 +10,7 @@ import {
   Check,
   CreditCard,
   Building,
-  Sparkles,
+  Crown,
   ShoppingBag,
   ArrowLeft,
   Truck,
@@ -204,12 +204,8 @@ export default function CheckoutPage() {
               Atelier Commission
             </span>
             <h1 className="font-serif text-3xl sm:text-4xl font-light text-neutral-ivory tracking-wide mt-1">
-              Secure Checkout
+              Checkout
             </h1>
-          </div>
-          <div className="flex items-center space-x-2 text-xs text-neutral-muted">
-            <Lock size={14} className="text-gold-primary" />
-            <span>Encrypted 256-Bit SSL Atelier Transmission</span>
           </div>
         </div>
 
@@ -471,7 +467,7 @@ export default function CheckoutPage() {
                   </div>
                 </div>
                 <span className="text-xs uppercase tracking-wider text-gold-champagne font-medium">
-                  {shipping === 0 ? "Complimentary" : "$25.00"}
+                  {shipping === 0 ? "Complimentary" : "₹500"}
                 </span>
               </div>
             </section>
@@ -571,9 +567,9 @@ export default function CheckoutPage() {
                     />
                     <div>
                       <div className="flex items-center space-x-2">
-                        <Sparkles size={15} className="text-gold-primary" />
+                        <Crown size={15} strokeWidth={1.5} className="text-gold-primary" />
                         <span className="text-xs font-sans text-neutral-ivory uppercase tracking-wider">
-                          Private Concierge Bank Wire (Over $1,000)
+                          Private Concierge Bank Wire (Over ₹50,000)
                         </span>
                       </div>
                       <p className="text-[11px] text-neutral-muted mt-0.5">
@@ -621,11 +617,11 @@ export default function CheckoutPage() {
                         {item.productName}
                       </p>
                       <p className="text-[11px] text-neutral-muted">
-                        {item.variantSize} &bull; Qty: {item.quantity}
+                        {item.variantSize} &bull; Qty: <span className="font-numbers font-medium">{item.quantity}</span>
                       </p>
                     </div>
-                    <span className="font-serif text-gold-champagne">
-                      ${(item.priceNum * item.quantity).toFixed(2)}
+                    <span className="font-numbers font-semibold text-gold-champagne">
+                      ₹{(item.priceNum * item.quantity).toLocaleString("en-IN")}
                     </span>
                   </div>
                 ))}
@@ -635,26 +631,26 @@ export default function CheckoutPage() {
               <div className="space-y-3 pt-4 border-t border-border-subtle/60 text-xs text-neutral-muted font-light">
                 <div className="flex justify-between">
                   <span>Subtotal</span>
-                  <span className="font-serif text-neutral-ivory">${subtotal.toFixed(2)}</span>
+                  <span className="font-numbers font-medium text-neutral-ivory">₹{subtotal.toLocaleString("en-IN")}</span>
                 </div>
 
                 {discount > 0 && (
                   <div className="flex justify-between text-gold-champagne">
                     <span>Privilege Courtesy ({couponCode})</span>
-                    <span className="font-serif">-${discount.toFixed(2)}</span>
+                    <span className="font-numbers font-medium">-₹{discount.toLocaleString("en-IN")}</span>
                   </div>
                 )}
 
                 <div className="flex justify-between">
                   <span>Insured Courier</span>
-                  <span className={shipping === 0 ? "text-gold-champagne" : "text-neutral-ivory"}>
-                    {shipping === 0 ? "Complimentary" : `$${shipping.toFixed(2)}`}
+                  <span className={shipping === 0 ? "text-gold-champagne font-sans font-medium" : "text-neutral-ivory font-numbers font-medium"}>
+                    {shipping === 0 ? "Complimentary" : `₹${shipping.toLocaleString("en-IN")}`}
                   </span>
                 </div>
 
                 <div className="flex justify-between">
                   <span>Excise &amp; Duties (8%)</span>
-                  <span className="font-serif text-neutral-ivory">${estimatedTax.toFixed(2)}</span>
+                  <span className="font-numbers font-medium text-neutral-ivory">₹{estimatedTax.toLocaleString("en-IN")}</span>
                 </div>
               </div>
 
@@ -663,8 +659,8 @@ export default function CheckoutPage() {
                 <span className="text-xs uppercase tracking-wider text-neutral-soft font-light">
                   Total Investment
                 </span>
-                <span className="font-serif text-2xl text-gold-champagne font-light">
-                  ${total.toFixed(2)} USD
+                <span className="font-numbers text-2xl text-gold-champagne font-semibold">
+                  ₹{total.toLocaleString("en-IN")}
                 </span>
               </div>
 

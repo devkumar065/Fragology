@@ -60,12 +60,12 @@ export default function MyAccountPage() {
       status: "shipped",
       paymentStatus: "paid",
       paymentProvider: "stripe",
-      currency: "USD",
-      subtotal: 760.0,
-      discountAmount: 76.0,
+      currency: "INR",
+      subtotal: 4698.0,
+      discountAmount: 470.0,
       shippingFee: 0.0,
-      taxAmount: 54.72,
-      totalAmount: 738.72,
+      taxAmount: 338.0,
+      totalAmount: 4566.0,
       couponCode: "FRAGOLOGY10",
       shippingAddress: {
         id: "addr-01",
@@ -86,8 +86,8 @@ export default function MyAccountPage() {
           variantSize: "100ml",
           volumeDisplay: "100ml Grand Flacon",
           concentration: "Extrait de Parfum (30%)",
-          priceNum: 340.0,
-          priceDisplay: "$340",
+          priceNum: 2199.0,
+          priceDisplay: "₹2,199",
           quantity: 1,
         },
         {
@@ -98,8 +98,8 @@ export default function MyAccountPage() {
           variantSize: "100ml",
           volumeDisplay: "100ml Grand Flacon",
           concentration: "Extrait de Parfum (30%)",
-          priceNum: 420.0,
-          priceDisplay: "$420",
+          priceNum: 2499.0,
+          priceDisplay: "₹2,499",
           quantity: 1,
         },
       ],
@@ -288,7 +288,7 @@ export default function MyAccountPage() {
                     <span className="text-[10px] uppercase tracking-wider text-neutral-muted block">
                       Active Commissions
                     </span>
-                    <span className="font-serif text-3xl text-gold-champagne font-light">
+                    <span className="font-numbers text-3xl text-gold-champagne font-semibold">
                       {sampleOrders.length}
                     </span>
                     <p className="text-[11px] text-neutral-muted font-light">
@@ -339,7 +339,7 @@ export default function MyAccountPage() {
                     <div key={ord.id} className="space-y-4">
                       <div className="flex flex-col sm:flex-row sm:items-center justify-between text-xs gap-2">
                         <div>
-                          <span className="font-serif text-base text-gold-champagne font-medium">
+                          <span className="font-numbers text-base text-gold-champagne font-semibold">
                             {ord.orderNumber}
                           </span>
                           <span className="text-neutral-muted ml-3">
@@ -355,10 +355,10 @@ export default function MyAccountPage() {
                         {ord.items.map((i) => (
                           <div key={i.id} className="py-2 flex justify-between text-xs">
                             <span className="text-neutral-ivory font-serif">
-                              {i.productName} ({i.variantSize}) x{i.quantity}
+                              {i.productName} ({i.variantSize}) x<span className="font-numbers font-medium">{i.quantity}</span>
                             </span>
-                            <span className="text-gold-champagne font-mono">
-                              ${((i.unitPrice ?? i.priceNum) * i.quantity).toFixed(2)}
+                            <span className="text-gold-champagne font-numbers font-medium">
+                              ₹{((i.unitPrice ?? i.priceNum) * i.quantity).toLocaleString("en-IN")}
                             </span>
                           </div>
                         ))}
@@ -372,8 +372,8 @@ export default function MyAccountPage() {
                           <Truck size={14} />
                           <span>Track Live Consignment</span>
                         </Link>
-                        <span className="font-serif text-base text-gold-champagne">
-                          Total: ${ord.totalAmount.toFixed(2)} USD
+                        <span className="font-numbers text-base text-gold-champagne font-semibold">
+                          Total: ₹{ord.totalAmount.toLocaleString("en-IN")}
                         </span>
                       </div>
                     </div>
@@ -397,7 +397,7 @@ export default function MyAccountPage() {
                     >
                       <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-border-subtle/40 pb-3 gap-2">
                         <div>
-                          <span className="font-serif text-lg text-gold-champagne font-normal">
+                          <span className="font-numbers text-lg text-gold-champagne font-semibold">
                             {ord.orderNumber}
                           </span>
                           <span className="text-xs text-neutral-muted ml-3">
@@ -419,11 +419,11 @@ export default function MyAccountPage() {
                             <div>
                               <p className="font-serif text-neutral-ivory text-sm">{item.productName}</p>
                               <p className="text-[11px] text-neutral-muted">
-                                {item.variantSize} &bull; Qty: {item.quantity}
+                                {item.variantSize} &bull; Qty: <span className="font-numbers font-medium">{item.quantity}</span>
                               </p>
                             </div>
-                            <span className="font-serif text-gold-champagne text-sm">
-                              ${((item.unitPrice ?? item.priceNum) * item.quantity).toFixed(2)}
+                            <span className="font-numbers font-semibold text-gold-champagne text-sm">
+                              ₹{((item.unitPrice ?? item.priceNum) * item.quantity).toLocaleString("en-IN")}
                             </span>
                           </div>
                         ))}
@@ -444,8 +444,8 @@ export default function MyAccountPage() {
                             <Truck size={14} />
                             <span>Track Courier</span>
                           </Link>
-                          <span className="font-serif text-base text-gold-champagne">
-                            ${ord.totalAmount.toFixed(2)}
+                          <span className="font-numbers text-base text-gold-champagne font-semibold">
+                            ₹{ord.totalAmount.toLocaleString("en-IN")}
                           </span>
                         </div>
                       </div>

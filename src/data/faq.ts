@@ -76,9 +76,9 @@ export const FAQ_DATA: FAQItem[] = [
   {
     id: "pay-1",
     category: "Payments",
-    question: "Which payment methods will be accepted upon checkout launch?",
+    question: "Which payment methods are accepted at checkout?",
     answer:
-      "The upcoming checkout portal (Phase 4) will support major credit cards (Visa, Mastercard, American Express), Apple Pay, Google Pay, and localized bank transfer gateways with end-to-end encryption.",
+      "Our checkout supports major credit cards (Visa, Mastercard, American Express), Apple Pay, Google Pay, Razorpay, and direct concierge wire transfers.",
   },
 
   // General Questions

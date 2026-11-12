@@ -287,18 +287,18 @@ export default function CouponsManagementPage() {
 
                     {/* Value */}
                     <td className="py-4 px-4 text-center">
-                      <span className="font-mono text-xs font-semibold px-2 py-0.5 rounded bg-[#1E1914] text-[#EDE8D0] border border-[#2A241E]">
+                      <span className="font-numbers text-xs font-semibold px-2 py-0.5 rounded bg-[#1E1914] text-[#EDE8D0] border border-[#2A241E]">
                         {c.discountType === "percentage" ? `${c.discountValue}% OFF` : `$${c.discountValue} OFF`}
                       </span>
                     </td>
 
                     {/* Min Order */}
-                    <td className="py-4 px-4 text-center font-mono text-[#8E8271]">
+                    <td className="py-4 px-4 text-center font-numbers text-[#8E8271]">
                       {c.minOrderValue && c.minOrderValue > 0 ? `$${c.minOrderValue.toFixed(2)}` : "None"}
                     </td>
 
                     {/* Max Discount */}
-                    <td className="py-4 px-4 text-center font-mono text-[#8E8271]">
+                    <td className="py-4 px-4 text-center font-numbers text-[#8E8271]">
                       {c.maxDiscount ? `$${c.maxDiscount.toFixed(2)}` : "Unlimited"}
                     </td>
 
@@ -379,7 +379,7 @@ export default function CouponsManagementPage() {
             <input
               type="text"
               required
-              placeholder="e.g. Private Invitation: 25% courtesy on commissions over $300"
+              placeholder="e.g. Private Invitation: 25% courtesy on commissions over ₹25,000"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               className="w-full bg-[#0D0B09] border border-[#2A241E] rounded px-3 py-2 text-xs text-[#F5F2EA] focus:outline-hidden focus:border-[#C8A45D]"

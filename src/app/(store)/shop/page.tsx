@@ -2,7 +2,7 @@
 
 import React, { useState, useMemo } from "react";
 import Link from "next/link";
-import { Search, SlidersHorizontal, RotateCcw, ChevronRight, Sparkles } from "lucide-react";
+import { Search, SlidersHorizontal, RotateCcw, ChevronRight, Crown } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { ProductCard } from "@/components/product/product-card";
 import { EmptyState } from "@/components/ui/empty-state";
@@ -23,7 +23,7 @@ export default function ShopPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedConcentration, setSelectedConcentration] = useState("all");
   const [sortBy, setSortBy] = useState("featured");
-  const [priceMax, setPriceMax] = useState<number>(300);
+  const [priceMax, setPriceMax] = useState<number>(3000);
   const [inStockOnly, setInStockOnly] = useState(false);
   const [showMobileFilters, setShowMobileFilters] = useState(false);
 
@@ -92,7 +92,7 @@ export default function ShopPage() {
     setSearchQuery("");
     setSelectedConcentration("all");
     setSortBy("featured");
-    setPriceMax(300);
+    setPriceMax(3000);
     setInStockOnly(false);
   };
 
@@ -101,7 +101,7 @@ export default function ShopPage() {
     searchQuery !== "" ||
     selectedConcentration !== "all" ||
     sortBy !== "featured" ||
-    priceMax < 300 ||
+    priceMax < 3000 ||
     inStockOnly;
 
   return (
@@ -220,14 +220,14 @@ export default function ShopPage() {
           {/* Advanced / Mobile Drawer Filters (Price & Stock) */}
           <div className={`${showMobileFilters ? "block" : "hidden md:flex"} pt-4 border-t border-border-subtle/50 items-center justify-between text-xs text-neutral-muted gap-6`}>
             <div className="flex items-center space-x-4">
-              <span className="font-mono text-[11px] uppercase tracking-wider text-neutral-soft">
-                Maximum Price: ${priceMax}
+              <span className="font-sans text-[11px] uppercase tracking-wider text-neutral-soft">
+                Maximum Price: <span className="font-numbers font-semibold text-gold-champagne">₹{priceMax.toLocaleString("en-IN")}</span>
               </span>
               <input
                 type="range"
-                min="200"
-                max="300"
-                step="10"
+                min="1000"
+                max="3000"
+                step="100"
                 value={priceMax}
                 onChange={(e) => setPriceMax(Number(e.target.value))}
                 className="accent-gold-primary cursor-pointer w-32 sm:w-48"
@@ -279,7 +279,7 @@ export default function ShopPage() {
           <div className="absolute right-0 top-0 bottom-0 w-1/3 bg-radial-luxury opacity-40 pointer-events-none" />
           <div className="relative z-10 max-w-xl space-y-4">
             <div className="inline-flex items-center space-x-2 text-[10px] font-mono uppercase tracking-[0.3em] text-gold-champagne">
-              <Sparkles size={12} />
+              <Crown size={12} strokeWidth={1.5} className="text-gold-primary" />
               <span>BESPOKE SAMPLING</span>
             </div>
             <h3 className="font-serif text-3xl sm:text-4xl font-light text-neutral-ivory">

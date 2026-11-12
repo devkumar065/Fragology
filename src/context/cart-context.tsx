@@ -106,10 +106,10 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     return res.discountAmount;
   }, [coupon, subtotal]);
 
-  // Luxury shipping policy: Free insured white-glove shipping on orders over $150
+  // Luxury shipping policy: Free insured white-glove shipping on orders over ₹1,999
   const shipping = useMemo(() => {
     if (subtotal === 0) return 0;
-    return subtotal >= 150 ? 0 : 25;
+    return subtotal >= 1999 ? 0 : 99;
   }, [subtotal]);
 
   // Standard luxury excise / tax calculation (approx 8%)

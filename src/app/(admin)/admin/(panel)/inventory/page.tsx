@@ -220,7 +220,7 @@ export default function InventoryPage() {
           <span className="text-[10px] uppercase font-mono text-[#8E8271] tracking-wider block">
             Monitored SKUs
           </span>
-          <span className="text-2xl font-serif text-[#F5F2EA] mt-1 block">
+          <span className="text-2xl font-numbers font-semibold text-[#F5F2EA] mt-1 block">
             {totalSkus}
           </span>
           <span className="text-[11px] text-[#8E8271] mt-0.5 block">
@@ -232,7 +232,7 @@ export default function InventoryPage() {
           <span className="text-[10px] uppercase font-mono text-[#8E8271] tracking-wider block">
             Total Cellar Units
           </span>
-          <span className="text-2xl font-serif text-[#C8A45D] mt-1 block">
+          <span className="text-2xl font-numbers font-semibold text-[#C8A45D] mt-1 block">
             {totalUnits.toLocaleString()}
           </span>
           <span className="text-[11px] text-[#8E8271] mt-0.5 block">
@@ -244,7 +244,7 @@ export default function InventoryPage() {
           <span className="text-[10px] uppercase font-mono text-[#8E8271] tracking-wider block">
             Low Allocation SKUs
           </span>
-          <span className="text-2xl font-serif text-amber-400 mt-1 block">
+          <span className="text-2xl font-numbers font-semibold text-amber-400 mt-1 block">
             {lowStockRows.length}
           </span>
           <span className="text-[11px] text-[#8E8271] mt-0.5 block">
@@ -256,7 +256,7 @@ export default function InventoryPage() {
           <span className="text-[10px] uppercase font-mono text-[#8E8271] tracking-wider block">
             Exhausted / Depleted
           </span>
-          <span className="text-2xl font-serif text-red-400 mt-1 block">
+          <span className="text-2xl font-numbers font-semibold text-red-400 mt-1 block">
             {outOfStockRows.length}
           </span>
           <span className="text-[11px] text-[#8E8271] mt-0.5 block">

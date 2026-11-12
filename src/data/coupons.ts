@@ -11,20 +11,20 @@ export const MAISON_COUPONS: Coupon[] = [
   },
   {
     code: "MAISON20",
-    description: "Haute Parfumerie Invitation: 20% privilege on orders exceeding $300",
+    description: "Haute Parfumerie Invitation: 20% privilege on orders exceeding ₹25,000",
     discountType: "percentage",
     discountValue: 20,
-    minOrderValue: 300,
-    maxDiscount: 150,
+    minOrderValue: 25000,
+    maxDiscount: 10000,
     isActive: true,
   },
   {
     code: "WELCOME50",
-    description: "New Client Courtesy: $50 credit for orders exceeding $250",
+    description: "New Client Courtesy: ₹2,000 credit for orders exceeding ₹18,000",
     discountType: "fixed",
-    discountValue: 50,
-    minOrderValue: 250,
-    maxDiscount: 50,
+    discountValue: 2000,
+    minOrderValue: 18000,
+    maxDiscount: 2000,
     isActive: true,
   },
 ];
@@ -53,7 +53,7 @@ export function validateCoupon(code: string, subtotal: number): {
       valid: false,
       coupon: match,
       discountAmount: 0,
-      message: `Privilege code "${cleanCode}" requires a minimum order of $${match.minOrderValue}. (Current bag: $${subtotal.toFixed(2)})`,
+      message: `Privilege code "${cleanCode}" requires a minimum order of ₹${match.minOrderValue.toLocaleString("en-IN")}. (Current bag: ₹${subtotal.toLocaleString("en-IN")})`,
     };
   }
 

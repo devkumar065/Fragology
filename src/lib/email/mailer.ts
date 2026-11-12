@@ -47,7 +47,7 @@ export async function sendOrderConfirmationEmail(order: Order): Promise<MailerRe
   console.log(`To: ${order.customerEmail} (${order.customerName})`);
   console.log(`Subject: ${subject}`);
   console.log(`Order Reference: ${order.orderNumber}`);
-  console.log(`Total: $${order.totalAmount.toFixed(2)} USD`);
+  console.log(`Total: ₹${order.totalAmount.toLocaleString("en-IN")} INR`);
   console.log(`======================================================\n`);
 
   return {

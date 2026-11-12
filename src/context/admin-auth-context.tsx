@@ -1,9 +1,17 @@
 "use client";
 
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { AdminMember, AdminRole, AdminModule, PermissionAction, AdminNotification } from "@/lib/admin/types";
+import { AdminMember, AdminRole, AdminModule, PermissionAction, AdminNotification, StaffLoginRecord } from "@/lib/admin/types";
 import { canAccessModule, hasPermission } from "@/lib/admin/rbac";
-import { getStaffByEmail, getStaffMembers, getAdminNotifications, markNotificationAsRead, markAllNotificationsAsRead } from "@/lib/admin/store";
+import {
+  getStaffByEmail,
+  getStaffMembers,
+  getAdminNotifications,
+  markNotificationAsRead,
+  markAllNotificationsAsRead,
+  recordStaffLogin,
+  getRecentStaffLogins,
+} from "@/lib/admin/store";
 
 interface AdminAuthContextType {
   adminUser: AdminMember | null;
@@ -18,6 +26,8 @@ interface AdminAuthContextType {
   unreadNotificationCount: number;
   markNotificationRead: (id: string) => void;
   markAllNotificationsRead: () => void;
+  loginHistory: StaffLoginRecord[];
+  refreshLoginHistory: () => void;
 }
 
 const AdminAuthContext = createContext<AdminAuthContextType | undefined>(undefined);
@@ -28,14 +38,21 @@ export function AdminAuthProvider({ children }: { children: React.ReactNode }) {
   const [adminUser, setAdminUser] = useState<AdminMember | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [notifications, setNotifications] = useState<AdminNotification[]>([]);
+  const [loginHistory, setLoginHistory] = useState<StaffLoginRecord[]>([]);
+
+  const refreshLoginHistory = () => {
+    setLoginHistory(getRecentStaffLogins());
+  };
 
   useEffect(() => {
     try {
+      const isLoggedOut = localStorage.getItem("fragology_admin_logged_out") === "true";
       const stored = localStorage.getItem(STORAGE_KEY_ADMIN_SESSION);
+
       if (stored) {
         setAdminUser(JSON.parse(stored));
-      } else {
-        // Default Super Admin session for immediate executive access
+      } else if (!isLoggedOut) {
+        // Default Super Admin session for immediate executive access on initial boot
         const defaultSuperAdmin = getStaffByEmail("admin@fragology.com");
         if (defaultSuperAdmin) {
           setAdminUser(defaultSuperAdmin);
@@ -43,6 +60,7 @@ export function AdminAuthProvider({ children }: { children: React.ReactNode }) {
         }
       }
       setNotifications(getAdminNotifications());
+      setLoginHistory(getRecentStaffLogins());
     } catch {
       // Ignore
     } finally {
@@ -70,9 +88,17 @@ export function AdminAuthProvider({ children }: { children: React.ReactNode }) {
       return { success: false, error: "This administrative account has been suspended by the Super Admin." };
     }
 
-    // In demo / development mode:
-    setAdminUser(staff);
-    localStorage.setItem(STORAGE_KEY_ADMIN_SESSION, JSON.stringify(staff));
+    // Record login timestamp and audit trail
+    const record = recordStaffLogin(staff);
+    const updatedStaff: AdminMember = {
+      ...staff,
+      lastLoginAt: record.timestamp,
+    };
+
+    setAdminUser(updatedStaff);
+    localStorage.removeItem("fragology_admin_logged_out");
+    localStorage.setItem(STORAGE_KEY_ADMIN_SESSION, JSON.stringify(updatedStaff));
+    setLoginHistory(getRecentStaffLogins());
     setIsLoading(false);
     return { success: true };
   };
@@ -80,6 +106,7 @@ export function AdminAuthProvider({ children }: { children: React.ReactNode }) {
   const logout = () => {
     setAdminUser(null);
     localStorage.removeItem(STORAGE_KEY_ADMIN_SESSION);
+    localStorage.setItem("fragology_admin_logged_out", "true");
   };
 
   const switchRoleForTesting = (role: AdminRole) => {
@@ -134,6 +161,8 @@ export function AdminAuthProvider({ children }: { children: React.ReactNode }) {
         unreadNotificationCount,
         markNotificationRead,
         markAllNotificationsRead: markAllRead,
+        loginHistory,
+        refreshLoginHistory,
       }}
     >
       {children}

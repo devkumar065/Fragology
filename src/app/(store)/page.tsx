@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import {
   HeroSection,
-  BenefitsStrip,
   FeaturedFragrances,
   ScentFamilies,
   BrandStory,
@@ -37,25 +36,22 @@ export default function HomePage() {
       {/* 1. Hero Section */}
       <HeroSection />
 
-      {/* 2. Brand Benefits Strip */}
-      <BenefitsStrip />
-
-      {/* 3. Featured Fragrances */}
+      {/* 2. Featured Fragrances */}
       <FeaturedFragrances />
 
-      {/* 4. Shop by Fragrance Family */}
+      {/* 3. Shop by Fragrance Family */}
       <ScentFamilies />
 
-      {/* 5. Brand Story / Manifesto */}
+      {/* 4. Brand Story / Manifesto */}
       <BrandStory />
 
-      {/* 6. Signature Collection */}
+      {/* 5. Signature Collection */}
       <SignatureCollection />
 
-      {/* 7. Craftsmanship & Brand Values */}
+      {/* 6. Craftsmanship & Brand Values */}
       <BrandValues />
 
-      {/* 8. Newsletter Subscription */}
+      {/* 7. Newsletter Subscription */}
       <NewsletterSection />
     </div>
   );

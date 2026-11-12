@@ -11,7 +11,7 @@ export function ScentFamilyCard({ family }: ScentFamilyCardProps) {
   return (
     <Link
       href="#featured"
-      className="group relative flex flex-col justify-between border border-border-subtle bg-brand-rich/60 hover:border-gold-primary/70 transition-all duration-300 rounded-xs overflow-hidden p-8 sm:p-10 min-h-[380px] shadow-luxury-card"
+      className="group relative flex flex-col justify-between border border-border-subtle bg-surface-card hover:border-gold-primary/70 transition-all duration-300 rounded-xs overflow-hidden p-8 sm:p-10 min-h-[380px] shadow-luxury-card"
     >
       {/* Background Ambient Aura Gradient */}
       <div

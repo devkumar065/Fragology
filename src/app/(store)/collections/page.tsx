@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { ChevronRight, ArrowRight, Sparkles } from "lucide-react";
+import { ChevronRight, ArrowRight, Compass } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { COLLECTIONS_DATA } from "@/data/collections";
@@ -116,7 +116,7 @@ export default function CollectionsListingPage() {
 
         {/* Section 5: Editorial Promotional Banner */}
         <div className="relative p-10 sm:p-14 border border-border-subtle bg-brand-espresso/50 rounded-xs text-center max-w-3xl mx-auto space-y-4 shadow-luxury-card">
-          <Sparkles size={20} className="text-gold-primary mx-auto" />
+          <Compass size={22} strokeWidth={1.25} className="text-gold-primary mx-auto" />
           <h3 className="font-serif text-3xl font-light text-neutral-ivory">
             Personal Scent Profiling
           </h3>

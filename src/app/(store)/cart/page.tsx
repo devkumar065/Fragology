@@ -9,7 +9,8 @@ import {
   Minus,
   ArrowRight,
   ShieldCheck,
-  Sparkles,
+  Crown,
+  RotateCcw,
   Tag,
   Check,
   Package,
@@ -57,7 +58,7 @@ export default function CartPage() {
     }
   };
 
-  const complimentaryThreshold = 150;
+  const complimentaryThreshold = 1999;
   const remainingForFreeShipping = Math.max(0, complimentaryThreshold - subtotal);
   const progressPercent = Math.min(100, (subtotal / complimentaryThreshold) * 100);
 
@@ -124,7 +125,7 @@ export default function CartPage() {
               <div className="flex justify-between text-xs text-neutral-soft font-light">
                 <span>Complimentary White-Glove Insured Courier</span>
                 <span className="text-gold-champagne font-medium">
-                  Add ${remainingForFreeShipping.toFixed(2)} more to unlock
+                  Add ₹{remainingForFreeShipping.toLocaleString("en-IN")} more to unlock
                 </span>
               </div>
               <div className="w-full bg-brand-deep h-1.5 rounded-full overflow-hidden">
@@ -136,7 +137,7 @@ export default function CartPage() {
             </div>
           ) : (
             <div className="flex items-center space-x-2 text-xs text-gold-champagne">
-              <Sparkles size={16} />
+              <Crown size={16} strokeWidth={1.5} className="text-gold-primary" />
               <span>Complimentary Insured Courier &amp; Atelier Presentation Box Unlocked</span>
             </div>
           )}
@@ -146,23 +147,23 @@ export default function CartPage() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
           {/* Left Column: Items */}
           <div className="lg:col-span-8 space-y-6">
-            <div className="divide-y divide-border-subtle/50 border border-border-subtle bg-brand-rich/60 rounded-xs">
+            <div className="divide-y divide-border-subtle/50 border border-border-subtle bg-surface-card rounded-xs">
               {items.map((item) => (
                 <div
                   key={item.id}
-                  className="p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-6 hover:bg-brand-espresso/40 transition-colors"
+                  className="p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-6 hover:bg-brand-rich/40 transition-colors"
                 >
                   {/* Flacon Visual + Info */}
                   <div className="flex items-start space-x-4 min-w-0">
                     <div
                       className="w-20 h-24 shrink-0 bg-brand-deep border border-border-subtle rounded-xs flex flex-col items-center justify-center p-2 relative overflow-hidden"
                       style={{
-                        background: `linear-gradient(180deg, rgba(23,17,12,0.9) 0%, rgba(8,7,6,0.95) 100%)`,
+                        background: `linear-gradient(180deg, rgba(36,26,18,0.9) 0%, rgba(23,17,12,0.95) 100%)`,
                       }}
                     >
                       <div
                         className="w-2.5 h-2.5 rounded-full mb-1"
-                        style={{ backgroundColor: item.accentColor || "#C8A45D" }}
+                        style={{ backgroundColor: item.accentColor || "#C6A467" }}
                       />
                       <span className="font-serif text-[11px] text-gold-champagne tracking-widest uppercase text-center line-clamp-1">
                         {item.productName.slice(0, 5)}
@@ -187,8 +188,8 @@ export default function CartPage() {
                       <p className="text-[11px] text-gold-champagne/80 uppercase tracking-wider font-light">
                         {item.volumeDisplay} &bull; {item.concentration}
                       </p>
-                      <p className="text-xs text-neutral-muted font-mono pt-1">
-                        ${item.priceNum.toFixed(2)} each
+                      <p className="text-xs text-neutral-muted font-numbers pt-1">
+                        ₹{item.priceNum.toLocaleString("en-IN")} each
                       </p>
                     </div>
                   </div>
@@ -204,7 +205,7 @@ export default function CartPage() {
                       >
                         <Minus size={13} />
                       </button>
-                      <span className="px-3 text-xs font-mono text-neutral-ivory font-medium">
+                      <span className="px-3 text-xs font-numbers text-neutral-ivory font-medium">
                         {item.quantity}
                       </span>
                       <button
@@ -217,8 +218,8 @@ export default function CartPage() {
                     </div>
 
                     {/* Subtotal */}
-                    <span className="font-serif text-lg text-gold-champagne font-light w-20 text-right">
-                      ${(item.priceNum * item.quantity).toFixed(2)}
+                    <span className="font-numbers font-semibold text-base text-gold-champagne w-24 text-right">
+                      ₹{(item.priceNum * item.quantity).toLocaleString("en-IN")}
                     </span>
 
                     {/* Remove */}
@@ -312,7 +313,7 @@ export default function CartPage() {
                 <span>Complimentary gift box &amp; monogram card</span>
               </div>
               <div className="p-4 bg-brand-espresso/60 border border-border-subtle/40 rounded-xs flex items-center space-x-3 text-xs text-neutral-muted">
-                <Sparkles size={20} className="text-gold-primary shrink-0" />
+                <RotateCcw size={20} strokeWidth={1.5} className="text-gold-primary shrink-0" />
                 <span>14-day returns on unopened presentation flacon</span>
               </div>
             </div>
@@ -328,29 +329,29 @@ export default function CartPage() {
               <div className="space-y-3 text-xs text-neutral-muted font-light">
                 <div className="flex justify-between">
                   <span>Bag Subtotal</span>
-                  <span className="font-serif text-sm text-neutral-ivory">
-                    ${subtotal.toFixed(2)}
+                  <span className="font-numbers font-medium text-sm text-neutral-ivory">
+                    ₹{subtotal.toLocaleString("en-IN")}
                   </span>
                 </div>
 
                 {discount > 0 && (
                   <div className="flex justify-between text-gold-champagne">
                     <span>Privilege Courtesy ({couponCode})</span>
-                    <span className="font-serif text-sm">-${discount.toFixed(2)}</span>
+                    <span className="font-numbers font-medium text-sm">-₹{discount.toLocaleString("en-IN")}</span>
                   </div>
                 )}
 
                 <div className="flex justify-between">
                   <span>White-Glove Insured Courier</span>
-                  <span className={shipping === 0 ? "text-gold-champagne" : "text-neutral-ivory"}>
-                    {shipping === 0 ? "Complimentary" : `$${shipping.toFixed(2)}`}
+                  <span className={shipping === 0 ? "text-gold-champagne font-sans font-medium" : "text-neutral-ivory font-numbers font-medium"}>
+                    {shipping === 0 ? "Complimentary" : `₹${shipping.toLocaleString("en-IN")}`}
                   </span>
                 </div>
 
                 <div className="flex justify-between">
                   <span>Estimated Excise &amp; Duties (8%)</span>
-                  <span className="font-serif text-sm text-neutral-ivory">
-                    ${estimatedTax.toFixed(2)}
+                  <span className="font-numbers font-medium text-sm text-neutral-ivory">
+                    ₹{estimatedTax.toLocaleString("en-IN")}
                   </span>
                 </div>
               </div>
@@ -359,8 +360,8 @@ export default function CartPage() {
                 <span className="text-xs uppercase tracking-wider text-neutral-soft font-light">
                   Total Investment
                 </span>
-                <span className="font-serif text-2xl text-gold-champagne font-light">
-                  ${total.toFixed(2)} USD
+                <span className="font-numbers text-2xl text-gold-champagne font-semibold">
+                  ₹{total.toLocaleString("en-IN")}
                 </span>
               </div>
 

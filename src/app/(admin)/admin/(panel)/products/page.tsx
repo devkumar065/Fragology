@@ -99,7 +99,7 @@ export default function ProductsManagementPage() {
       subtitle,
       family,
       concentration,
-      price: `$${priceNum}`,
+      price: `₹${priceNum.toLocaleString("en-IN")}`,
       priceNum,
       volume: "100ml Extrait",
       badge: (badge as "Bestseller" | "Limited Edition" | "New") || null,
@@ -123,9 +123,9 @@ export default function ProductsManagementPage() {
       inStock,
       accentColor: "#C8A45D",
       variants: [
-        { size: "30ml" as const, volumeDisplay: "30ml Travel Flacon", price: `$${Math.round(priceNum * 0.45)}`, priceNum: Math.round(priceNum * 0.45) },
-        { size: "50ml" as const, volumeDisplay: "50ml Presentation Flacon", price: `$${Math.round(priceNum * 0.7)}`, priceNum: Math.round(priceNum * 0.7) },
-        { size: "100ml" as const, volumeDisplay: "100ml Architectural Flacon", price: `$${priceNum}`, priceNum },
+        { size: "30ml" as const, volumeDisplay: "30ml Travel Flacon", price: `₹${Math.round(priceNum * 0.45).toLocaleString("en-IN")}`, priceNum: Math.round(priceNum * 0.45) },
+        { size: "50ml" as const, volumeDisplay: "50ml Presentation Flacon", price: `₹${Math.round(priceNum * 0.7).toLocaleString("en-IN")}`, priceNum: Math.round(priceNum * 0.7) },
+        { size: "100ml" as const, volumeDisplay: "100ml Architectural Flacon", price: `₹${priceNum.toLocaleString("en-IN")}`, priceNum },
       ],
     };
 
@@ -235,7 +235,7 @@ export default function ProductsManagementPage() {
       render: (row) => {
         const p = row as unknown as Product;
         return (
-          <span className="font-mono text-gold-champagne font-medium">
+          <span className="font-numbers text-gold-champagne font-semibold">
             {p.price}
           </span>
         );
@@ -429,7 +429,7 @@ export default function ProductsManagementPage() {
 
               <div>
                 <label className="block text-[11px] uppercase tracking-wider text-neutral-muted mb-1.5">
-                  100ml Flacon Price (USD $) *
+                  100ml Flacon Price (INR ₹) *
                 </label>
                 <input
                   type="number"

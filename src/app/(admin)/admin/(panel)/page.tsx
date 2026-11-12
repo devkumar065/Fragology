@@ -31,12 +31,12 @@ export default function AdminDashboardPage() {
         status: "confirmed",
         paymentStatus: "paid",
         paymentProvider: "stripe",
-        currency: "USD",
-        subtotal: 420.0,
-        discountAmount: 42.0,
+        currency: "INR",
+        subtotal: 2499.0,
+        discountAmount: 250.0,
         shippingFee: 0.0,
-        taxAmount: 30.24,
-        totalAmount: 408.24,
+        taxAmount: 180.0,
+        totalAmount: 2429.0,
         couponCode: "FRAGOLOGY10",
         shippingAddress: {
           id: "addr-01",
@@ -56,8 +56,8 @@ export default function AdminDashboardPage() {
             variantSize: "100ml",
             volumeDisplay: "100ml Architectural Flacon",
             concentration: "Extrait de Parfum (30%)",
-            priceNum: 240,
-            priceDisplay: "$240",
+            priceNum: 19999,
+            priceDisplay: "₹19,999",
             quantity: 1,
           },
           {
@@ -68,8 +68,8 @@ export default function AdminDashboardPage() {
             variantSize: "50ml",
             volumeDisplay: "50ml Presentation Flacon",
             concentration: "Extrait de Parfum (30%)",
-            priceNum: 180,
-            priceDisplay: "$180",
+            priceNum: 14999,
+            priceDisplay: "₹14,999",
             quantity: 1,
           },
         ],
@@ -83,12 +83,12 @@ export default function AdminDashboardPage() {
         status: "shipped",
         paymentStatus: "paid",
         paymentProvider: "stripe",
-        currency: "USD",
-        subtotal: 760.0,
-        discountAmount: 76.0,
+        currency: "INR",
+        subtotal: 4698.0,
+        discountAmount: 470.0,
         shippingFee: 0.0,
-        taxAmount: 54.72,
-        totalAmount: 738.72,
+        taxAmount: 338.0,
+        totalAmount: 4566.0,
         couponCode: "FRAGOLOGY10",
         shippingAddress: {
           id: "addr-02",
@@ -108,8 +108,8 @@ export default function AdminDashboardPage() {
             variantSize: "100ml",
             volumeDisplay: "100ml Grand Flacon",
             concentration: "Extrait de Parfum (30%)",
-            priceNum: 240,
-            priceDisplay: "$240",
+            priceNum: 19999,
+            priceDisplay: "₹19,999",
             quantity: 1,
           },
         ],
@@ -123,12 +123,12 @@ export default function AdminDashboardPage() {
         status: "delivered",
         paymentStatus: "paid",
         paymentProvider: "stripe",
-        currency: "USD",
-        subtotal: 510.0,
-        discountAmount: 102.0,
+        currency: "INR",
+        subtotal: 40798.0,
+        discountAmount: 8159.0,
         shippingFee: 0.0,
-        taxAmount: 32.64,
-        totalAmount: 440.64,
+        taxAmount: 2611.0,
+        totalAmount: 35250.0,
         couponCode: "MAISON20",
         shippingAddress: {
           id: "addr-03",
@@ -148,8 +148,8 @@ export default function AdminDashboardPage() {
             variantSize: "100ml",
             volumeDisplay: "100ml Grand Flacon",
             concentration: "Extrait de Parfum (30%)",
-            priceNum: 255,
-            priceDisplay: "$255",
+            priceNum: 20399,
+            priceDisplay: "₹20,399",
             quantity: 2,
           },
         ],
@@ -224,7 +224,7 @@ export default function AdminDashboardPage() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         <DashboardStatCard
           label="Total Realized Revenue"
-          value={`$${analytics.totalRevenue.toLocaleString(undefined, { minimumFractionDigits: 2 })}`}
+          value={`₹${analytics.totalRevenue.toLocaleString("en-IN")}`}
           changePct={analytics.revenueChangePct}
           subtext="Captured through Stripe & Razorpay"
           icon={<DollarSign size={16} />}
@@ -240,7 +240,7 @@ export default function AdminDashboardPage() {
 
         <DashboardStatCard
           label="Average Commission Value"
-          value={`$${analytics.averageOrderValue.toFixed(2)}`}
+          value={`₹${Math.round(analytics.averageOrderValue).toLocaleString("en-IN")}`}
           changePct={5.4}
           subtext="Reflects high extrait concentration mix"
           icon={<TrendingUp size={16} />}
@@ -265,7 +265,7 @@ export default function AdminDashboardPage() {
                 Daily Revenue Velocity
               </h2>
               <p className="text-[11px] text-neutral-muted font-light mt-0.5">
-                Past 7 days realized settlement volume (USD)
+                Past 7 days realized settlement volume (INR ₹)
               </p>
             </div>
             <span className="font-mono text-xs text-gold-champagne bg-brand-espresso px-2.5 py-1 border border-border-subtle rounded-xs">
@@ -280,7 +280,7 @@ export default function AdminDashboardPage() {
               const heightPct = Math.max(15, Math.min(100, (day.revenue / maxRev) * 100));
               return (
                 <div key={day.date} className="flex-1 flex flex-col items-center gap-2 group">
-                  <span className="font-mono text-[10px] text-neutral-muted group-hover:text-gold-champagne transition-colors">
+                  <span className="font-numbers font-medium text-[10px] text-neutral-muted group-hover:text-gold-champagne transition-colors">
                     ${day.revenue}
                   </span>
                   <div className="w-full bg-brand-espresso rounded-xs h-44 flex items-end p-1">
@@ -289,7 +289,7 @@ export default function AdminDashboardPage() {
                       style={{ height: `${heightPct}%` }}
                     />
                   </div>
-                  <span className="font-mono text-[9px] uppercase tracking-wider text-neutral-muted">
+                  <span className="font-numbers text-[9px] uppercase tracking-wider text-neutral-muted">
                     {day.date}
                   </span>
                 </div>
@@ -310,7 +310,7 @@ export default function AdminDashboardPage() {
                   <span className="w-2 h-2 rounded-full bg-gold-primary" />
                   <span>Confirmed &amp; Paid</span>
                 </span>
-                <span className="font-mono text-neutral-ivory">
+                <span className="font-numbers font-medium text-neutral-ivory">
                   {analytics.orderStatusDistribution.confirmed}
                 </span>
               </div>
@@ -320,7 +320,7 @@ export default function AdminDashboardPage() {
                   <span className="w-2 h-2 rounded-full bg-amber-400" />
                   <span>Atelier Processing</span>
                 </span>
-                <span className="font-mono text-neutral-ivory">
+                <span className="font-numbers font-medium text-neutral-ivory">
                   {analytics.orderStatusDistribution.processing}
                 </span>
               </div>
@@ -330,7 +330,7 @@ export default function AdminDashboardPage() {
                   <span className="w-2 h-2 rounded-full bg-sky-400" />
                   <span>In Insured Transit</span>
                 </span>
-                <span className="font-mono text-neutral-ivory">
+                <span className="font-numbers font-medium text-neutral-ivory">
                   {analytics.orderStatusDistribution.shipped}
                 </span>
               </div>
@@ -340,7 +340,7 @@ export default function AdminDashboardPage() {
                   <span className="w-2 h-2 rounded-full bg-emerald-400" />
                   <span>Delivered &amp; Signed</span>
                 </span>
-                <span className="font-mono text-neutral-ivory">
+                <span className="font-numbers font-medium text-neutral-ivory">
                   {analytics.orderStatusDistribution.delivered}
                 </span>
               </div>
@@ -389,15 +389,15 @@ export default function AdminDashboardPage() {
               <tbody className="divide-y divide-border-subtle/30">
                 {analytics.recentOrders.map((ord) => (
                   <tr key={ord.id} className="hover:bg-brand-espresso/40 transition-colors">
-                    <td className="py-3 font-mono text-gold-champagne font-medium">
+                    <td className="py-3 font-numbers text-gold-champagne font-semibold">
                       {ord.orderNumber}
                     </td>
                     <td className="py-3">
                       <span className="block font-serif text-neutral-ivory">{ord.customerName}</span>
                       <span className="text-[10px] text-neutral-muted">{ord.customerEmail}</span>
                     </td>
-                    <td className="py-3 font-mono text-neutral-ivory">
-                      ${ord.totalAmount.toFixed(2)}
+                    <td className="py-3 font-numbers font-medium text-neutral-ivory">
+                      ₹{ord.totalAmount.toLocaleString("en-IN")}
                     </td>
                     <td className="py-3">
                       <StatusBadge status={ord.status} size="sm" />
@@ -435,13 +435,15 @@ export default function AdminDashboardPage() {
             {analytics.topSellingProducts.map((p, idx) => (
               <div key={p.id} className="flex items-center justify-between text-xs">
                 <div className="flex items-center space-x-3">
-                  <span className="font-mono text-gold-primary text-xs w-4">0{idx + 1}.</span>
+                  <span className="font-numbers text-gold-primary text-xs w-4">0{idx + 1}.</span>
                   <div>
                     <span className="font-serif text-neutral-ivory block">{p.name}</span>
-                    <span className="text-[10px] text-neutral-muted">{p.volumeSold} Flacons Commissioned</span>
+                    <span className="text-[10px] text-neutral-muted">
+                      <span className="font-numbers font-medium">{p.volumeSold}</span> Flacons Commissioned
+                    </span>
                   </div>
                 </div>
-                <span className="font-mono text-gold-champagne">
+                <span className="font-numbers font-semibold text-gold-champagne">
                   ${p.revenue.toLocaleString()}
                 </span>
               </div>

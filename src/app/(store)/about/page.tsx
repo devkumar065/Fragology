@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { ChevronRight, Sparkles, Compass, Feather, Clock } from "lucide-react";
+import { ChevronRight, Gem, Compass, Feather, Clock } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Button } from "@/components/ui/button";
@@ -11,7 +11,7 @@ export default function AboutPage() {
     {
       title: "Individuality",
       desc: "Fragrance should never feel like a uniform. Our creations are balanced to interact uniquely with your skin chemistry, projecting personal character rather than a manufactured crowd-pleaser.",
-      icon: <Sparkles size={20} className="text-gold-primary" />,
+      icon: <Gem size={20} className="text-gold-primary" strokeWidth={1.25} />,
     },
     {
       title: "Thoughtful Composition",
@@ -68,19 +68,20 @@ export default function AboutPage() {
           </div>
         </div>
 
-        {/* Section 3: Our Philosophy */}
-        <section className="mb-20 max-w-3xl mx-auto space-y-6 text-center sm:text-left">
-          <span className="text-[10px] font-mono uppercase tracking-[0.3em] text-gold-champagne block">
+        {/* Section 3: Our Philosophy - Editorial Warm Ivory Plate */}
+        <section className="mb-20 max-w-4xl mx-auto p-8 sm:p-14 bg-brand-ivory border border-border-subtle rounded-xs shadow-luxury-card space-y-6 text-center sm:text-left relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-[#F7F2EB] to-transparent rounded-full blur-2xl pointer-events-none opacity-60" />
+          <span className="text-[10px] font-mono uppercase tracking-[0.3em] text-gold-muted block font-semibold relative z-10">
             OUR PHILOSOPHY
           </span>
-          <h2 className="font-serif text-3xl sm:text-4xl font-light text-neutral-ivory leading-tight">
+          <h2 className="font-serif text-3xl sm:text-4xl font-light text-brand-dark leading-tight relative z-10">
             Beyond the Accessory: Scent as a Living Signature
           </h2>
-          <div className="space-y-4 text-xs sm:text-sm text-neutral-muted font-light leading-relaxed">
+          <div className="space-y-4 text-xs sm:text-sm text-brand-rich font-normal leading-relaxed relative z-10">
             <p>
               We believe a fragrance is more than an accessory. It is a personal signature, an invisible expression of character, and a memory waiting to be created.
             </p>
-            <p>
+            <p className="text-brand-chocolate">
               While visual design speaks to the conscious eye, scent communicates directly with the limbic system—evoking memories, altering mood, and leaving an impression that lingers long after a room has cleared.
             </p>
           </div>

@@ -1,8 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
-import { Heart, Eye, Sparkles, X, ShoppingBag } from "lucide-react";
+import { Heart, Eye, Check, X, ShoppingBag } from "lucide-react";
 import { type Product } from "@/types/product";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -62,7 +63,7 @@ export function ProductCard({ product }: ProductCardProps) {
 
   return (
     <>
-      <div className="group relative flex flex-col border border-border-subtle bg-brand-rich/70 hover:border-gold-primary/60 transition-all duration-300 rounded-xs overflow-hidden shadow-luxury-card">
+      <div className="group relative flex flex-col border border-border-subtle bg-surface-card hover:border-gold-primary/70 transition-all duration-300 rounded-xs overflow-hidden shadow-luxury-card">
         {/* Card Visual / Bottle Presentation Canvas */}
         <Link
           href={productUrl}
@@ -74,31 +75,48 @@ export function ProductCard({ product }: ProductCardProps) {
           <div className="absolute inset-0 bg-gradient-to-t from-brand-deep/90 via-transparent to-gold-primary/5 pointer-events-none" />
 
           {/* Luxury Stylized Flacon Silhouette Graphic */}
-          <div className="relative z-10 flex flex-col items-center justify-center transition-transform duration-500 group-hover:scale-105">
-            {/* Flacon Stopper */}
-            <div className="h-6 w-8 bg-gradient-to-b from-gold-champagne via-gold-primary to-gold-soft border border-gold-champagne/40 rounded-xs shadow-gold-subtle" />
-            {/* Flacon Neck */}
-            <div className="h-2 w-4 bg-gold-primary/60" />
-            {/* Flacon Body */}
-            <div className="relative h-44 w-32 rounded-xs border border-gold-primary/30 bg-gradient-to-b from-brand-deep/60 via-gold-primary/5 to-brand-espresso/80 backdrop-blur-xs flex flex-col items-center justify-between p-4 shadow-luxury-card">
-              {/* Bottle internal golden sheen */}
-              <div className="absolute inset-x-2 top-2 bottom-6 bg-gradient-to-b from-gold-primary/10 via-gold-champagne/15 to-transparent rounded-xs opacity-60" />
-
-              {/* Flacon Label */}
-              <div className="relative z-10 mt-6 border border-gold-primary/40 bg-brand-deep/90 py-2.5 px-3 text-center w-full">
-                <span className="block font-serif text-xs font-light text-neutral-ivory tracking-wider uppercase">
-                  {product.name}
-                </span>
-                <span className="block text-[7px] font-sans tracking-[0.25em] text-gold-champagne uppercase mt-0.5">
-                  Extrait
-                </span>
+          <div className="relative z-10 flex flex-col items-center justify-center transition-transform duration-500 group-hover:scale-105 w-full h-full">
+            {product.images && product.images[0] ? (
+              <div className="absolute inset-0">
+                <Image
+                  src={product.images[0]}
+                  alt={product.name}
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  onError={(e) => {
+                    (e.currentTarget as HTMLImageElement).style.display = "none";
+                  }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-brand-deep/80 via-transparent to-transparent pointer-events-none" />
               </div>
+            ) : (
+              <>
+                {/* Flacon Stopper */}
+                <div className="h-6 w-8 bg-gradient-to-b from-gold-champagne via-gold-primary to-gold-soft border border-gold-champagne/40 rounded-xs shadow-gold-subtle" />
+                {/* Flacon Neck */}
+                <div className="h-2 w-4 bg-gold-primary/60" />
+                {/* Flacon Body */}
+                <div className="relative h-44 w-32 rounded-xs border border-gold-primary/30 bg-gradient-to-b from-brand-deep/60 via-gold-primary/5 to-brand-espresso/80 backdrop-blur-xs flex flex-col items-center justify-between p-4 shadow-luxury-card">
+                  {/* Bottle internal golden sheen */}
+                  <div className="absolute inset-x-2 top-2 bottom-6 bg-gradient-to-b from-gold-primary/10 via-gold-champagne/15 to-transparent rounded-xs opacity-60" />
 
-              {/* Volume indication */}
-              <span className="relative z-10 text-[8px] font-mono tracking-widest text-neutral-muted/70 uppercase">
-                {product.volume || "100 ML"}
-              </span>
-            </div>
+                  {/* Flacon Label */}
+                  <div className="relative z-10 mt-6 border border-gold-primary/40 bg-brand-deep/90 py-2.5 px-3 text-center w-full">
+                    <span className="block font-serif text-xs font-light text-neutral-ivory tracking-wider uppercase">
+                      {product.name}
+                    </span>
+                    <span className="block text-[7px] font-sans tracking-[0.25em] text-gold-champagne uppercase mt-0.5">
+                      Extrait
+                    </span>
+                  </div>
+
+                  {/* Volume indication */}
+                  <span className="relative z-10 text-[8px] font-mono tracking-widest text-neutral-muted/70 uppercase">
+                    {product.volume || "100 ML"}
+                  </span>
+                </div>
+              </>
+            )}
           </div>
 
           {/* Status Badge */}
@@ -146,7 +164,7 @@ export function ProductCard({ product }: ProductCardProps) {
         </Link>
 
         {/* Card Details Body */}
-        <div className="p-5 flex flex-col flex-1 justify-between bg-brand-rich">
+        <div className="p-5 flex flex-col flex-1 justify-between bg-surface-card">
           <div>
             {/* Olfactory Family Tag */}
             <span className="text-[9px] font-sans uppercase tracking-[0.25em] text-gold-muted font-medium block">
@@ -168,7 +186,7 @@ export function ProductCard({ product }: ProductCardProps) {
 
           {/* Price & Action Bottom Strip */}
           <div className="mt-4 pt-3 border-t border-border-subtle flex items-center justify-between">
-            <span className="font-serif text-base text-gold-champagne font-light">
+            <span className="font-numbers font-semibold text-base text-gold-champagne tracking-normal">
               {product.price}
             </span>
 
@@ -221,8 +239,8 @@ export function ProductCard({ product }: ProductCardProps) {
                   <h3 className="font-serif text-3xl font-light text-neutral-ivory">
                     {product.name}
                   </h3>
-                  <p className="text-xs font-mono uppercase tracking-[0.2em] text-gold-champagne mt-0.5">
-                    {product.family} &bull; {product.price}
+                  <p className="text-xs font-sans uppercase tracking-[0.15em] text-gold-champagne mt-0.5">
+                    {product.family} &bull; <span className="font-numbers font-semibold">{product.price}</span>
                   </p>
                 </div>
 
@@ -277,7 +295,7 @@ export function ProductCard({ product }: ProductCardProps) {
       {/* Floating Demo Feedback Toast */}
       {toastMessage && (
         <div className="fixed bottom-6 right-6 z-50 bg-brand-espresso border border-gold-primary text-neutral-ivory px-5 py-3 rounded-xs shadow-gold-glow flex items-center space-x-3 animate-in fade-in slide-in-from-bottom-2 text-xs">
-          <Sparkles size={16} className="text-gold-primary" />
+          <Check size={16} strokeWidth={1.5} className="text-gold-primary" />
           <span>{toastMessage}</span>
         </div>
       )}

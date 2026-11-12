@@ -111,7 +111,7 @@ export default function CustomersPage() {
 
   // CSV Export
   const handleExportCsv = () => {
-    const headers = ["Patron ID", "Full Name", "Email", "Phone", "Tier", "Total Spent (USD)", "Orders Count", "Status", "Joined Date"];
+    const headers = ["Patron ID", "Full Name", "Email", "Phone", "Tier", "Total Spent (INR)", "Orders Count", "Status", "Joined Date"];
     const rows = filteredCustomers.map((c) =>
       [
         c.id,
@@ -189,7 +189,7 @@ export default function CustomersPage() {
           <span className="text-[10px] uppercase font-mono text-[#8E8271] tracking-wider block">
             Registered Patrons
           </span>
-          <span className="text-2xl font-serif text-[#F5F2EA] mt-1 block">
+          <span className="text-2xl font-numbers font-semibold text-[#F5F2EA] mt-1 block">
             {totalPatrons}
           </span>
           <span className="text-[11px] text-[#8E8271] mt-0.5 block">
@@ -201,7 +201,7 @@ export default function CustomersPage() {
           <span className="text-[10px] uppercase font-mono text-[#8E8271] tracking-wider block">
             VIP &amp; Maison Circle
           </span>
-          <span className="text-2xl font-serif text-[#C8A45D] mt-1 block">
+          <span className="text-2xl font-numbers font-semibold text-[#C8A45D] mt-1 block">
             {vipCount}
           </span>
           <span className="text-[11px] text-[#8E8271] mt-0.5 block">
@@ -213,8 +213,8 @@ export default function CustomersPage() {
           <span className="text-[10px] uppercase font-mono text-[#8E8271] tracking-wider block">
             Cumulative Patron Spend
           </span>
-          <span className="text-2xl font-serif text-[#EDE8D0] mt-1 block">
-            ${totalLifetimeSpend.toLocaleString("en-US", { minimumFractionDigits: 2 })}
+          <span className="text-2xl font-numbers font-semibold text-[#EDE8D0] mt-1 block">
+            ₹{totalLifetimeSpend.toLocaleString("en-IN")}
           </span>
           <span className="text-[11px] text-emerald-400 mt-0.5 block">
             Haute parfumerie acquisitions
@@ -225,8 +225,8 @@ export default function CustomersPage() {
           <span className="text-[10px] uppercase font-mono text-[#8E8271] tracking-wider block">
             Average Patron LTV
           </span>
-          <span className="text-2xl font-serif text-[#C8A45D] mt-1 block">
-            ${avgLtv.toFixed(2)}
+          <span className="text-2xl font-numbers font-semibold text-[#C8A45D] mt-1 block">
+            ₹{Math.round(avgLtv).toLocaleString("en-IN")}
           </span>
           <span className="text-[11px] text-[#8E8271] mt-0.5 block">
             Per authenticated account
@@ -358,13 +358,13 @@ export default function CustomersPage() {
                       </td>
 
                       {/* Commissions */}
-                      <td className="py-4 px-4 text-center font-mono text-[#F5F2EA]">
+                      <td className="py-4 px-4 text-center font-numbers font-medium text-[#F5F2EA]">
                         {cust.ordersCount} orders
                       </td>
 
                       {/* Spend */}
-                      <td className="py-4 px-4 text-right font-serif text-[#C8A45D] text-sm">
-                        ${cust.totalSpent.toLocaleString("en-US", { minimumFractionDigits: 2 })}
+                      <td className="py-4 px-4 text-right font-numbers font-semibold text-[#C8A45D] text-sm">
+                        ₹{cust.totalSpent.toLocaleString("en-IN")}
                       </td>
 
                       {/* Status */}

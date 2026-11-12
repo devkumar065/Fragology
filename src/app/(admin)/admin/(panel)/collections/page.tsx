@@ -3,7 +3,7 @@
 import React, { useState, useMemo } from "react";
 import Link from "next/link";
 import {
-  Sparkles,
+  Gem,
   Plus,
   Search,
   Edit2,
@@ -214,7 +214,7 @@ export default function CollectionsPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-[#2A241E]">
         <div>
           <div className="flex items-center space-x-2 text-[10px] uppercase tracking-[0.25em] text-[#C8A45D] font-mono mb-1">
-            <Sparkles size={13} />
+            <Gem size={13} strokeWidth={1.5} />
             <span>Maison Curations</span>
           </div>
           <h1 className="text-2xl font-serif text-[#F5F2EA] font-light tracking-wide">

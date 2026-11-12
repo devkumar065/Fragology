@@ -12,7 +12,7 @@ import {
   CheckCircle2,
   AlertCircle,
   Layout,
-  Sparkles,
+  Layers,
   Megaphone,
 } from "lucide-react";
 import { useAdminAuth } from "@/context/admin-auth-context";
@@ -247,7 +247,7 @@ export default function ContentManagementPage() {
           {/* 2. Hero Section */}
           <div className="bg-[#14120F] border border-[#2A241E] rounded p-5 space-y-4">
             <div className="flex items-center space-x-2 text-xs font-mono text-[#C8A45D] uppercase tracking-wider border-b border-[#2A241E] pb-2">
-              <Sparkles size={13} />
+              <Layers size={13} strokeWidth={1.5} />
               <span>Homepage Hero Section Copy</span>
             </div>
 

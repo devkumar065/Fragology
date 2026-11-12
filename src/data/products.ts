@@ -8,8 +8,8 @@ export const PRODUCTS_CATALOG: Product[] = [
     subtitle: "Luminous Amber & Persian Saffron",
     family: "Oriental",
     concentration: "Extrait de Parfum (30%)",
-    price: "$240",
-    priceNum: 240,
+    price: "₹2,199",
+    priceNum: 2199,
     volume: "100ml Extrait",
     badge: "Bestseller",
     description:
@@ -35,10 +35,17 @@ export const PRODUCTS_CATALOG: Product[] = [
     inStock: true,
     accentColor: "#C8A45D",
     ratingDemo: { score: 4.9, count: 68 },
+    images: [
+      "/images/products/golden-reverie-bottle.jpg",
+      "/images/products/golden-reverie-model.jpg",
+      "/images/products/golden-reverie-detail.jpg",
+      "/images/products/golden-reverie-lifestyle.jpg",
+      "/images/products/golden-reverie-box.jpg",
+    ],
     variants: [
-      { size: "30ml", volumeDisplay: "30ml Travel Flacon", price: "$110", priceNum: 110 },
-      { size: "50ml", volumeDisplay: "50ml Presentation Flacon", price: "$165", priceNum: 165 },
-      { size: "100ml", volumeDisplay: "100ml Architectural Flacon", price: "$240", priceNum: 240 },
+      { size: "30ml", volumeDisplay: "30ml Travel Flacon", price: "₹899", priceNum: 899 },
+      { size: "50ml", volumeDisplay: "50ml Presentation Flacon", price: "₹1,499", priceNum: 1499 },
+      { size: "100ml", volumeDisplay: "100ml Architectural Flacon", price: "₹2,199", priceNum: 2199 },
     ],
   },
   {
@@ -48,8 +55,8 @@ export const PRODUCTS_CATALOG: Product[] = [
     subtitle: "Florentine Leather & Atlas Cedar",
     family: "Woody",
     concentration: "Extrait de Parfum (30%)",
-    price: "$260",
-    priceNum: 260,
+    price: "₹2,499",
+    priceNum: 2499,
     volume: "100ml Extrait",
     badge: "Limited Edition",
     description:
@@ -75,10 +82,17 @@ export const PRODUCTS_CATALOG: Product[] = [
     inStock: true,
     accentColor: "#AE8847",
     ratingDemo: { score: 4.8, count: 42 },
+    images: [
+      "/images/products/velvet-essence-bottle.jpg",
+      "/images/products/velvet-essence-model.jpg",
+      "/images/products/velvet-essence-detail.jpg",
+      "/images/products/velvet-essence-lifestyle.jpg",
+      "/images/products/velvet-essence-box.jpg",
+    ],
     variants: [
-      { size: "30ml", volumeDisplay: "30ml Travel Flacon", price: "$120", priceNum: 120 },
-      { size: "50ml", volumeDisplay: "50ml Presentation Flacon", price: "$180", priceNum: 180 },
-      { size: "100ml", volumeDisplay: "100ml Architectural Flacon", price: "$260", priceNum: 260 },
+      { size: "30ml", volumeDisplay: "30ml Travel Flacon", price: "₹999", priceNum: 999 },
+      { size: "50ml", volumeDisplay: "50ml Presentation Flacon", price: "₹1,599", priceNum: 1599 },
+      { size: "100ml", volumeDisplay: "100ml Architectural Flacon", price: "₹2,499", priceNum: 2499 },
     ],
   },
   {
@@ -88,8 +102,8 @@ export const PRODUCTS_CATALOG: Product[] = [
     subtitle: "Wild Mountain Honey & Roasted Tonka",
     family: "Oriental",
     concentration: "Extrait de Parfum (30%)",
-    price: "$250",
-    priceNum: 250,
+    price: "₹2,299",
+    priceNum: 2299,
     volume: "100ml Extrait",
     badge: null,
     description:
@@ -115,10 +129,17 @@ export const PRODUCTS_CATALOG: Product[] = [
     inStock: true,
     accentColor: "#80633B",
     ratingDemo: { score: 4.7, count: 39 },
+    images: [
+      "/images/products/amber-dusk-bottle.jpg",
+      "/images/products/amber-dusk-model.jpg",
+      "/images/products/amber-dusk-detail.jpg",
+      "/images/products/amber-dusk-lifestyle.jpg",
+      "/images/products/amber-dusk-box.jpg",
+    ],
     variants: [
-      { size: "30ml", volumeDisplay: "30ml Travel Flacon", price: "$115", priceNum: 115 },
-      { size: "50ml", volumeDisplay: "50ml Presentation Flacon", price: "$175", priceNum: 175 },
-      { size: "100ml", volumeDisplay: "100ml Architectural Flacon", price: "$250", priceNum: 250 },
+      { size: "30ml", volumeDisplay: "30ml Travel Flacon", price: "₹899", priceNum: 899 },
+      { size: "50ml", volumeDisplay: "50ml Presentation Flacon", price: "₹1,499", priceNum: 1499 },
+      { size: "100ml", volumeDisplay: "100ml Architectural Flacon", price: "₹2,299", priceNum: 2299 },
     ],
   },
   {
@@ -128,8 +149,8 @@ export const PRODUCTS_CATALOG: Product[] = [
     subtitle: "Night Jasmine Sambac & Black Tea",
     family: "Floral",
     concentration: "Extrait de Parfum (30%)",
-    price: "$230",
-    priceNum: 230,
+    price: "₹1,999",
+    priceNum: 1999,
     volume: "100ml Extrait",
     badge: "New",
     description:
@@ -155,10 +176,17 @@ export const PRODUCTS_CATALOG: Product[] = [
     inStock: true,
     accentColor: "#E2C78D",
     ratingDemo: { score: 4.9, count: 54 },
+    images: [
+      "/images/products/midnight-bloom-bottle.jpg",
+      "/images/products/midnight-bloom-model.jpg",
+      "/images/products/midnight-bloom-detail.jpg",
+      "/images/products/midnight-bloom-lifestyle.jpg",
+      "/images/products/midnight-bloom-box.jpg",
+    ],
     variants: [
-      { size: "30ml", volumeDisplay: "30ml Travel Flacon", price: "$105", priceNum: 105 },
-      { size: "50ml", volumeDisplay: "50ml Presentation Flacon", price: "$155", priceNum: 155 },
-      { size: "100ml", volumeDisplay: "100ml Architectural Flacon", price: "$230", priceNum: 230 },
+      { size: "30ml", volumeDisplay: "30ml Travel Flacon", price: "₹799", priceNum: 799 },
+      { size: "50ml", volumeDisplay: "50ml Presentation Flacon", price: "₹1,399", priceNum: 1399 },
+      { size: "100ml", volumeDisplay: "100ml Architectural Flacon", price: "₹1,999", priceNum: 1999 },
     ],
   },
   {
@@ -168,8 +196,8 @@ export const PRODUCTS_CATALOG: Product[] = [
     subtitle: "Australian Sandalwood & Papyrus",
     family: "Woody",
     concentration: "Extrait de Parfum (30%)",
-    price: "$245",
-    priceNum: 245,
+    price: "₹2,399",
+    priceNum: 2399,
     volume: "100ml Extrait",
     badge: "Bestseller",
     description:
@@ -195,10 +223,17 @@ export const PRODUCTS_CATALOG: Product[] = [
     inStock: true,
     accentColor: "#AE8847",
     ratingDemo: { score: 5.0, count: 91 },
+    images: [
+      "/images/products/santal-nocturne-bottle.jpg",
+      "/images/products/santal-nocturne-model.jpg",
+      "/images/products/santal-nocturne-detail.jpg",
+      "/images/products/santal-nocturne-lifestyle.jpg",
+      "/images/products/santal-nocturne-box.jpg",
+    ],
     variants: [
-      { size: "30ml", volumeDisplay: "30ml Travel Flacon", price: "$110", priceNum: 110 },
-      { size: "50ml", volumeDisplay: "50ml Presentation Flacon", price: "$170", priceNum: 170 },
-      { size: "100ml", volumeDisplay: "100ml Architectural Flacon", price: "$245", priceNum: 245 },
+      { size: "30ml", volumeDisplay: "30ml Travel Flacon", price: "₹949", priceNum: 949 },
+      { size: "50ml", volumeDisplay: "50ml Presentation Flacon", price: "₹1,549", priceNum: 1549 },
+      { size: "100ml", volumeDisplay: "100ml Architectural Flacon", price: "₹2,399", priceNum: 2399 },
     ],
   },
   {
@@ -208,8 +243,8 @@ export const PRODUCTS_CATALOG: Product[] = [
     subtitle: "Calabrian Bergamot & Sea Salt Accord",
     family: "Fresh",
     concentration: "Eau de Parfum (20%)",
-    price: "$210",
-    priceNum: 210,
+    price: "₹1,799",
+    priceNum: 1799,
     volume: "100ml Extrait",
     badge: "New",
     description:
@@ -235,10 +270,17 @@ export const PRODUCTS_CATALOG: Product[] = [
     inStock: true,
     accentColor: "#C8A45D",
     ratingDemo: { score: 4.8, count: 29 },
+    images: [
+      "/images/products/solaris-citron-bottle.jpg",
+      "/images/products/solaris-citron-model.jpg",
+      "/images/products/solaris-citron-detail.jpg",
+      "/images/products/solaris-citron-lifestyle.jpg",
+      "/images/products/solaris-citron-box.jpg",
+    ],
     variants: [
-      { size: "30ml", volumeDisplay: "30ml Travel Flacon", price: "$95", priceNum: 95 },
-      { size: "50ml", volumeDisplay: "50ml Presentation Flacon", price: "$145", priceNum: 145 },
-      { size: "100ml", volumeDisplay: "100ml Architectural Flacon", price: "$210", priceNum: 210 },
+      { size: "30ml", volumeDisplay: "30ml Travel Flacon", price: "₹699", priceNum: 699 },
+      { size: "50ml", volumeDisplay: "50ml Presentation Flacon", price: "₹1,199", priceNum: 1199 },
+      { size: "100ml", volumeDisplay: "100ml Architectural Flacon", price: "₹1,799", priceNum: 1799 },
     ],
   },
   {
@@ -248,8 +290,8 @@ export const PRODUCTS_CATALOG: Product[] = [
     subtitle: "Dewy White Gardenia & Silk Musk",
     family: "Floral",
     concentration: "Extrait de Parfum (30%)",
-    price: "$235",
-    priceNum: 235,
+    price: "₹1,999",
+    priceNum: 1999,
     volume: "100ml Extrait",
     badge: null,
     description:
@@ -275,10 +317,17 @@ export const PRODUCTS_CATALOG: Product[] = [
     inStock: true,
     accentColor: "#E2C78D",
     ratingDemo: { score: 4.6, count: 21 },
+    images: [
+      "/images/products/fleur-de-soie-bottle.jpg",
+      "/images/products/fleur-de-soie-model.jpg",
+      "/images/products/fleur-de-soie-detail.jpg",
+      "/images/products/fleur-de-soie-lifestyle.jpg",
+      "/images/products/fleur-de-soie-box.jpg",
+    ],
     variants: [
-      { size: "30ml", volumeDisplay: "30ml Travel Flacon", price: "$105", priceNum: 105 },
-      { size: "50ml", volumeDisplay: "50ml Presentation Flacon", price: "$160", priceNum: 160 },
-      { size: "100ml", volumeDisplay: "100ml Architectural Flacon", price: "$235", priceNum: 235 },
+      { size: "30ml", volumeDisplay: "30ml Travel Flacon", price: "₹799", priceNum: 799 },
+      { size: "50ml", volumeDisplay: "50ml Presentation Flacon", price: "₹1,399", priceNum: 1399 },
+      { size: "100ml", volumeDisplay: "100ml Architectural Flacon", price: "₹1,999", priceNum: 1999 },
     ],
   },
   {
@@ -288,8 +337,8 @@ export const PRODUCTS_CATALOG: Product[] = [
     subtitle: "Haitian Vetiver & Cold Incense",
     family: "Unisex",
     concentration: "Extrait de Parfum (30%)",
-    price: "$225",
-    priceNum: 225,
+    price: "₹1,899",
+    priceNum: 1899,
     volume: "100ml Extrait",
     badge: "Bestseller",
     description:
@@ -315,15 +364,22 @@ export const PRODUCTS_CATALOG: Product[] = [
     inStock: true,
     accentColor: "#AE8847",
     ratingDemo: { score: 4.9, count: 77 },
+    images: [
+      "/images/products/vetiver-celeste-bottle.jpg",
+      "/images/products/vetiver-celeste-model.jpg",
+      "/images/products/vetiver-celeste-detail.jpg",
+      "/images/products/vetiver-celeste-lifestyle.jpg",
+      "/images/products/vetiver-celeste-box.jpg",
+    ],
     variants: [
-      { size: "30ml", volumeDisplay: "30ml Travel Flacon", price: "$100", priceNum: 100 },
-      { size: "50ml", volumeDisplay: "50ml Presentation Flacon", price: "$150", priceNum: 150 },
-      { size: "100ml", volumeDisplay: "100ml Architectural Flacon", price: "$225", priceNum: 225 },
+      { size: "30ml", volumeDisplay: "30ml Travel Flacon", price: "₹749", priceNum: 749 },
+      { size: "50ml", volumeDisplay: "50ml Presentation Flacon", price: "₹1,299", priceNum: 1299 },
+      { size: "100ml", volumeDisplay: "100ml Architectural Flacon", price: "₹1,899", priceNum: 1899 },
     ],
   },
 ];
 
-// Backward-compatible export for Phase 2 Homepage
+// Backward-compatible export for Homepage
 export const FEATURED_FRAGRANCES = PRODUCTS_CATALOG.slice(0, 4);
 
 export function getProductBySlug(slug: string): Product | undefined {
@@ -344,5 +400,5 @@ export function getRelatedProducts(currentSlug: string, count = 3): Product[] {
     .slice(0, count);
 }
 
-// Export alias for Phase 4 E-commerce & database synchronization
+// Export alias for Storefront E-commerce & database synchronization
 export const PRODUCTS = PRODUCTS_CATALOG;

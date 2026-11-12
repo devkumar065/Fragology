@@ -28,20 +28,20 @@ export function DashboardStatCard({
           {label}
         </span>
         {icon && (
-          <div className="w-8 h-8 rounded-full bg-brand-deep border border-border-subtle flex items-center justify-center text-gold-champagne group-hover:text-gold-primary transition-colors">
+          <div className="w-9 h-9 rounded-full bg-brand-deep/90 border border-gold-primary/25 flex items-center justify-center text-gold-champagne group-hover:text-gold-primary group-hover:border-gold-primary/50 group-hover:shadow-gold-subtle transition-all duration-300">
             {icon}
           </div>
         )}
       </div>
 
       <div className="mt-3 flex items-baseline justify-between">
-        <span className="font-serif text-2xl sm:text-3xl text-neutral-ivory font-light tracking-wide">
+        <span className="font-numbers text-2xl sm:text-3xl text-neutral-ivory font-semibold tracking-tight">
           {value}
         </span>
 
         {changePct !== undefined && (
           <span
-            className={`inline-flex items-center text-xs font-mono font-medium ${
+            className={`inline-flex items-center text-xs font-numbers font-semibold ${
               isPositive ? "text-emerald-400" : "text-red-400"
             }`}
           >

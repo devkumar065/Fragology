@@ -166,7 +166,7 @@ export default function ReviewsManagementPage() {
           <span className="text-[10px] uppercase font-mono text-[#8E8271] tracking-wider block">
             Total Reviews
           </span>
-          <span className="text-2xl font-serif text-[#F5F2EA] mt-1 block">
+          <span className="text-2xl font-numbers font-semibold text-[#F5F2EA] mt-1 block">
             {totalReviews}
           </span>
           <span className="text-[11px] text-[#8E8271] mt-0.5 block">
@@ -178,7 +178,7 @@ export default function ReviewsManagementPage() {
           <span className="text-[10px] uppercase font-mono text-[#8E8271] tracking-wider block">
             Pending Moderation
           </span>
-          <span className="text-2xl font-serif text-amber-400 mt-1 block">
+          <span className="text-2xl font-numbers font-semibold text-amber-400 mt-1 block">
             {pendingCount}
           </span>
           <span className="text-[11px] text-[#8E8271] mt-0.5 block">
@@ -190,7 +190,7 @@ export default function ReviewsManagementPage() {
           <span className="text-[10px] uppercase font-mono text-[#8E8271] tracking-wider block">
             Approved on Storefront
           </span>
-          <span className="text-2xl font-serif text-[#C8A45D] mt-1 block">
+          <span className="text-2xl font-numbers font-semibold text-[#C8A45D] mt-1 block">
             {approvedCount}
           </span>
           <span className="text-[11px] text-emerald-400 mt-0.5 block">
@@ -202,7 +202,7 @@ export default function ReviewsManagementPage() {
           <span className="text-[10px] uppercase font-mono text-[#8E8271] tracking-wider block">
             Average Scent Rating
           </span>
-          <span className="text-2xl font-serif text-[#EDE8D0] mt-1 block">
+          <span className="text-2xl font-numbers font-semibold text-[#EDE8D0] mt-1 block">
             {avgRating.toFixed(1)} / 5.0
           </span>
           <span className="text-[11px] text-[#8E8271] mt-0.5 block">

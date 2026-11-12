@@ -82,8 +82,8 @@ export default function CollectionDetailsPage({ params }: CollectionPageProps) {
             <h2 className="font-serif text-2xl text-neutral-ivory font-light">
               Collection Formulations
             </h2>
-            <p className="text-xs text-neutral-muted font-mono uppercase tracking-wider mt-1">
-              {associatedProducts.length} Dedicated Flacons
+            <p className="text-xs text-neutral-muted font-sans uppercase tracking-wider mt-1">
+              <span className="font-numbers font-medium">{associatedProducts.length}</span> Dedicated Flacons
             </p>
           </div>
 

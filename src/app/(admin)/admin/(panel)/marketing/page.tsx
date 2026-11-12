@@ -200,7 +200,7 @@ export default function MarketingManagementPage() {
           <span className="text-[10px] uppercase font-mono text-[#8E8271] tracking-wider block">
             Subscribed Patrons
           </span>
-          <span className="text-2xl font-serif text-[#F5F2EA] mt-1 block">
+          <span className="text-2xl font-numbers font-semibold text-[#F5F2EA] mt-1 block">
             {totalSubscribersCount.toLocaleString()}
           </span>
           <span className="text-[11px] text-[#8E8271] mt-0.5 block">
@@ -212,7 +212,7 @@ export default function MarketingManagementPage() {
           <span className="text-[10px] uppercase font-mono text-[#8E8271] tracking-wider block">
             Circulated Dispatches
           </span>
-          <span className="text-2xl font-serif text-[#C8A45D] mt-1 block">
+          <span className="text-2xl font-numbers font-semibold text-[#C8A45D] mt-1 block">
             {totalDispatches}
           </span>
           <span className="text-[11px] text-[#8E8271] mt-0.5 block">
@@ -224,7 +224,7 @@ export default function MarketingManagementPage() {
           <span className="text-[10px] uppercase font-mono text-[#8E8271] tracking-wider block">
             Average Open Rate
           </span>
-          <span className="text-2xl font-serif text-emerald-400 mt-1 block">
+          <span className="text-2xl font-numbers font-semibold text-emerald-400 mt-1 block">
             {avgOpenRate}%
           </span>
           <span className="text-[11px] text-[#8E8271] mt-0.5 block">
@@ -236,7 +236,7 @@ export default function MarketingManagementPage() {
           <span className="text-[10px] uppercase font-mono text-[#8E8271] tracking-wider block">
             Active Campaigns
           </span>
-          <span className="text-2xl font-serif text-amber-400 mt-1 block">
+          <span className="text-2xl font-numbers font-semibold text-amber-400 mt-1 block">
             {activeCampaignsCount}
           </span>
           <span className="text-[11px] text-[#8E8271] mt-0.5 block">

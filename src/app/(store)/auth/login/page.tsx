@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Lock, Mail, ArrowRight, Sparkles, ShieldCheck, Eye, EyeOff } from "lucide-react";
+import { Lock, Mail, ArrowRight, Crown, Eye, EyeOff } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { useAuth } from "@/context/auth-context";
 
@@ -134,7 +134,7 @@ export default function LoginPage() {
               onClick={fillDemoCredentials}
               className="w-full py-2.5 px-4 bg-brand-deep border border-gold-primary/30 text-gold-champagne hover:border-gold-primary text-[11px] uppercase tracking-wider flex items-center justify-center space-x-2 transition-colors"
             >
-              <Sparkles size={14} />
+              <Crown size={14} strokeWidth={1.5} className="text-gold-primary" />
               <span>Use Demo Client Credentials</span>
             </button>
           </div>
@@ -150,11 +150,6 @@ export default function LoginPage() {
             </Link>
           </div>
 
-          {/* SSL Protection Badge */}
-          <div className="mt-8 pt-4 border-t border-border-subtle/30 flex items-center justify-center space-x-2 text-[10px] text-neutral-muted/70">
-            <ShieldCheck size={13} className="text-gold-muted" />
-            <span>256-Bit TLS Military-Grade Atelier Encryption</span>
-          </div>
         </div>
       </Container>
     </div>

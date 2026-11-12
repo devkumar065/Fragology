@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { ChevronRight, ArrowRight, Clock, BookOpen, Sparkles } from "lucide-react";
+import { ChevronRight, ArrowRight, Clock, BookOpen, Feather } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
 import { ARTICLES_DATA } from "@/data/articles";
@@ -120,7 +120,7 @@ export default function JournalListingPage() {
             <Link
               key={art.id}
               href={`/journal/${art.slug}`}
-              className="group flex flex-col justify-between border border-border-subtle bg-brand-rich/60 hover:border-gold-primary/60 transition-all duration-300 rounded-xs overflow-hidden p-8 shadow-luxury-card min-h-[360px]"
+              className="group flex flex-col justify-between border border-border-subtle bg-surface-card hover:border-gold-primary/60 transition-all duration-300 rounded-xs overflow-hidden p-8 shadow-luxury-card min-h-[360px]"
             >
               <div className="space-y-4">
                 <div className="flex items-center justify-between text-[10px] font-mono uppercase tracking-[0.25em] text-gold-champagne/80">
@@ -153,7 +153,7 @@ export default function JournalListingPage() {
 
         {/* Section 6: Newsletter CTA */}
         <div className="p-10 sm:p-14 border border-border-subtle bg-brand-espresso/60 rounded-xs text-center max-w-2xl mx-auto space-y-4 shadow-luxury-card">
-          <Sparkles size={20} className="text-gold-primary mx-auto" />
+          <Feather size={20} strokeWidth={1.25} className="text-gold-primary mx-auto" />
           <h3 className="font-serif text-3xl font-light text-neutral-ivory">
             Receive Maison Monographs
           </h3>

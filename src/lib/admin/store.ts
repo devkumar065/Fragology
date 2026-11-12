@@ -6,6 +6,7 @@ import { Order, OrderStatus } from "@/types/order";
 import { Coupon } from "@/types/coupon";
 import {
   AdminMember,
+  StaffLoginRecord,
   AdminCustomer,
   AuditLogEntry,
   InventoryMovement,
@@ -24,6 +25,7 @@ import {
   DashboardAnalytics,
   AdminModule,
 } from "./types";
+import { ROLE_LABELS } from "./rbac";
 
 // ==============================================================================
 // 1. IN-MEMORY AUTHORITATIVE ADMIN REGISTRIES
@@ -113,7 +115,7 @@ const AUDIT_LOGS: AuditLogEntry[] = [
     action: "system.provision",
     module: "settings",
     recordReference: "GLOBAL_SECURITY",
-    changeSummary: "Fragology administrative security protocol initialized with RBAC & 256-bit encryption.",
+    changeSummary: "Fragology administrative security protocol initialized with RBAC.",
     createdAt: "2026-11-07T00:00:00Z",
   },
 ];
@@ -441,7 +443,7 @@ const ADMIN_NOTIFICATIONS: AdminNotification[] = [
     id: "notif-01",
     type: "new_order",
     title: "New Commission Placed",
-    message: "Order FRG-20261107-6007 placed by Duchess Madeleine ($408.24 USD).",
+    message: "Order FRG-20261107-6007 placed by Duchess Madeleine (₹2,499 INR).",
     linkUrl: "/admin/orders",
     isRead: false,
     createdAt: "2026-11-07T09:49:00Z",
@@ -472,7 +474,7 @@ let STORE_GENERAL_SETTINGS: StoreGeneralSettings = {
   brandTagline: "Haute Parfumerie & Artisanal Extraction",
   storeEmail: "concierge@fragology.com",
   conciergePhone: "+1 (555) 382-9481",
-  primaryCurrency: "USD ($)",
+  primaryCurrency: "INR (₹)",
   timezone: "Europe/Paris (GMT+1)",
   locale: "en-US",
 };
@@ -522,6 +524,172 @@ export function getAuditLogs(module?: AdminModule, limit = 50): AuditLogEntry[] 
 // ==============================================================================
 // 3. STAFF & AUTH OPERATIONS
 // ==============================================================================
+
+const STAFF_LOGIN_HISTORY: StaffLoginRecord[] = [
+  {
+    id: "login-init-01",
+    adminId: "staff-super-01",
+    email: "admin@fragology.com",
+    fullName: "Lord Dev Kumar",
+    role: "super_admin",
+    roleLabel: "Super Administrator",
+    timestamp: "2026-11-08T09:15:00.000Z",
+    ipAddress: "192.168.1.1 (Paris Executive Console)",
+    device: "MacBook Pro • Safari Enterprise",
+    status: "active",
+  },
+  {
+    id: "login-init-02",
+    adminId: "staff-prod-02",
+    email: "products@fragology.com",
+    fullName: "Lady Genevieve Vane",
+    role: "product_manager",
+    roleLabel: "Product Manager",
+    timestamp: "2026-11-08T08:30:00.000Z",
+    ipAddress: "192.168.1.14 (Grasse Atelier Node)",
+    device: "iPad Pro • Chrome 130",
+    status: "active",
+  },
+  {
+    id: "login-init-03",
+    adminId: "staff-inv-03",
+    email: "inventory@fragology.com",
+    fullName: "Marcus Vance",
+    role: "inventory_manager",
+    roleLabel: "Inventory Manager",
+    timestamp: "2026-11-07T16:45:00.000Z",
+    ipAddress: "192.168.1.22 (Geneva Vault Terminal)",
+    device: "Windows 11 • Edge Enterprise",
+    status: "active",
+  },
+  {
+    id: "login-init-04",
+    adminId: "staff-ord-04",
+    email: "orders@fragology.com",
+    fullName: "Claire Delacroix",
+    role: "order_manager",
+    roleLabel: "Order & Fulfillment Manager",
+    timestamp: "2026-11-07T11:15:00.000Z",
+    ipAddress: "192.168.1.33 (Logistics Hub Grasse)",
+    device: "macOS • Chrome 130",
+    status: "active",
+  },
+  {
+    id: "login-init-05",
+    adminId: "staff-cs-05",
+    email: "concierge@fragology.com",
+    fullName: "Sophie Laurent",
+    role: "customer_support",
+    roleLabel: "Customer Concierge Specialist",
+    timestamp: "2026-11-07T10:00:00.000Z",
+    ipAddress: "192.168.1.41 (Client Care Desk)",
+    device: "macOS • Safari 18",
+    status: "active",
+  },
+  {
+    id: "login-init-06",
+    adminId: "staff-mkt-06",
+    email: "marketing@fragology.com",
+    fullName: "Julian Thorne",
+    role: "marketing_manager",
+    roleLabel: "Marketing Director",
+    timestamp: "2026-11-05T14:20:00.000Z",
+    ipAddress: "192.168.1.55 (London Office Terminal)",
+    device: "MacBook Air • Safari",
+    status: "active",
+  },
+  {
+    id: "login-init-07",
+    adminId: "staff-cms-07",
+    email: "editorial@fragology.com",
+    fullName: "Eleanor Rousseau",
+    role: "content_manager",
+    roleLabel: "Content & Editorial Manager",
+    timestamp: "2026-11-06T18:10:00.000Z",
+    ipAddress: "192.168.1.62 (Editorial Atelier Paris)",
+    device: "MacBook Pro • Chrome",
+    status: "active",
+  },
+];
+
+export function recordStaffLogin(
+  staff: AdminMember,
+  ipAddress = "192.168.1.1 (Maison Executive Gateway)"
+): StaffLoginRecord {
+  const now = new Date().toISOString();
+
+  // Update staff in memory
+  const existing = STAFF_MEMBERS.find((s) => s.id === staff.id);
+  if (existing) {
+    existing.lastLoginAt = now;
+  }
+
+  const record: StaffLoginRecord = {
+    id: `login-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
+    adminId: staff.id,
+    email: staff.email,
+    fullName: staff.fullName,
+    role: staff.role,
+    roleLabel: ROLE_LABELS[staff.role] || staff.role,
+    timestamp: now,
+    ipAddress,
+    device:
+      typeof window !== "undefined"
+        ? window.navigator.userAgent.slice(0, 36)
+        : "Executive Secure Workstation",
+    status: "active",
+  };
+
+  STAFF_LOGIN_HISTORY.unshift(record);
+
+  // Formal Audit Log
+  logAdminActivity({
+    adminId: staff.id,
+    adminEmail: staff.email,
+    adminRole: staff.role,
+    action: "auth.login",
+    module: "settings",
+    recordReference: staff.email,
+    changeSummary: `Staff member ${staff.fullName} authenticated into administrative session as ${ROLE_LABELS[staff.role]}.`,
+    ipAddress,
+  });
+
+  if (typeof window !== "undefined") {
+    try {
+      const stored = localStorage.getItem("fragology_staff_login_history");
+      const list = stored ? JSON.parse(stored) : [];
+      list.unshift(record);
+      localStorage.setItem("fragology_staff_login_history", JSON.stringify(list.slice(0, 50)));
+    } catch {
+      // Ignore
+    }
+  }
+
+  return record;
+}
+
+export function getRecentStaffLogins(): StaffLoginRecord[] {
+  if (typeof window !== "undefined") {
+    try {
+      const stored = localStorage.getItem("fragology_staff_login_history");
+      if (stored) {
+        const parsed: StaffLoginRecord[] = JSON.parse(stored);
+        const map = new Map<string, StaffLoginRecord>();
+        parsed.forEach((item) => map.set(item.id, item));
+        STAFF_LOGIN_HISTORY.forEach((item) => {
+          if (!map.has(item.id)) map.set(item.id, item);
+        });
+        return Array.from(map.values()).sort(
+          (a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
+        );
+      }
+    } catch {
+      // fallback
+    }
+  }
+  return [...STAFF_LOGIN_HISTORY];
+}
+
 export function getStaffMembers(): AdminMember[] {
   return [...STAFF_MEMBERS];
 }

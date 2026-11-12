@@ -145,8 +145,11 @@ export function AdminHeader({ onOpenMobileMenu }: AdminHeaderProps) {
               {adminUser?.fullName?.charAt(0) || "A"}
             </div>
             <div className="hidden lg:block text-left text-xs">
-              <span className="block font-serif text-neutral-ivory truncate max-w-[120px]">
+              <span className="block font-serif text-neutral-ivory truncate max-w-[130px]">
                 {adminUser?.fullName || "Administrator"}
+              </span>
+              <span className="text-[9px] font-mono text-neutral-muted block">
+                Session: {adminUser?.lastLoginAt ? new Date(adminUser.lastLoginAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) : "Active"}
               </span>
             </div>
           </div>

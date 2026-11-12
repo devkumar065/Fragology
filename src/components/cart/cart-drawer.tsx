@@ -2,7 +2,8 @@
 
 import React, { useEffect } from "react";
 import Link from "next/link";
-import { X, Plus, Minus, Trash2, ArrowRight, ShieldCheck, Sparkles, ShoppingBag } from "lucide-react";
+import { X, Plus, Minus, Trash2, ArrowRight, ShieldCheck, Crown, ShoppingBag } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import { useCart } from "@/context/cart-context";
 
 export function CartDrawer() {
@@ -33,27 +34,37 @@ export function CartDrawer() {
     };
   }, [isCartOpen, closeCart]);
 
-  if (!isCartOpen) return null;
-
-  const complimentaryThreshold = 150;
+  const complimentaryThreshold = 1999;
   const remainingForFreeShipping = Math.max(0, complimentaryThreshold - subtotal);
   const progressPercent = Math.min(100, (subtotal / complimentaryThreshold) * 100);
 
   return (
-    <div
-      role="dialog"
-      aria-modal="true"
-      aria-label="Shopping Bag Drawer"
-      className="fixed inset-0 z-50 flex justify-end animate-in fade-in duration-200"
-    >
-      {/* Backdrop */}
-      <div
-        onClick={closeCart}
-        className="fixed inset-0 bg-brand-deep/80 backdrop-blur-xs transition-opacity"
-      />
+    <AnimatePresence>
+      {isCartOpen && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label="Shopping Bag Drawer"
+          className="fixed inset-0 z-50 flex justify-end"
+        >
+          {/* Backdrop */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            onClick={closeCart}
+            className="fixed inset-0 bg-brand-deep/80 backdrop-blur-xs"
+          />
 
-      {/* Drawer Container */}
-      <aside className="relative z-10 w-full max-w-md bg-brand-rich border-l border-border-subtle shadow-2xl flex flex-col h-full text-neutral-ivory animate-in slide-in-from-right duration-300">
+          {/* Drawer Container */}
+          <motion.aside
+            initial={{ x: "100%" }}
+            animate={{ x: 0 }}
+            exit={{ x: "100%" }}
+            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+            className="relative z-10 w-full max-w-md bg-brand-rich border-l border-border-subtle shadow-2xl flex flex-col h-full text-neutral-ivory"
+          >
         {/* Drawer Header */}
         <div className="flex items-center justify-between p-6 border-b border-border-subtle/80 bg-brand-deep">
           <div className="flex items-center space-x-3">
@@ -77,7 +88,7 @@ export function CartDrawer() {
             <div className="space-y-1.5">
               <div className="flex justify-between text-neutral-muted">
                 <span>Complimentary Insured Courier</span>
-                <span className="text-gold-champagne font-medium">${remainingForFreeShipping.toFixed(2)} away</span>
+                <span className="text-gold-champagne font-numbers font-medium">₹{remainingForFreeShipping.toLocaleString("en-IN")} away</span>
               </div>
               <div className="w-full bg-brand-deep h-1 rounded-full overflow-hidden">
                 <div
@@ -88,7 +99,7 @@ export function CartDrawer() {
             </div>
           ) : (
             <div className="flex items-center space-x-2 text-gold-champagne">
-              <Sparkles size={14} className="shrink-0" />
+              <Crown size={14} strokeWidth={1.5} className="shrink-0 text-gold-primary" />
               <span>Complimentary White Glove Courier Unlocked</span>
             </div>
           )}
@@ -121,18 +132,18 @@ export function CartDrawer() {
             items.map((item) => (
               <div
                 key={item.id}
-                className="flex space-x-4 p-4 bg-brand-espresso/50 border border-border-subtle/40 rounded-xs group hover:border-gold-primary/30 transition-colors"
+                className="flex space-x-4 p-4 bg-surface-card border border-border-subtle rounded-xs group hover:border-gold-primary/40 transition-colors"
               >
                 {/* Flacon Visual Swatch */}
                 <div
                   className="w-16 h-20 shrink-0 bg-brand-deep border border-border-subtle rounded-xs flex flex-col items-center justify-center p-2 relative overflow-hidden"
                   style={{
-                    background: `linear-gradient(180deg, rgba(23,17,12,0.9) 0%, rgba(8,7,6,0.95) 100%)`,
+                    background: `linear-gradient(180deg, rgba(36,26,18,0.9) 0%, rgba(23,17,12,0.95) 100%)`,
                   }}
                 >
                   <div
                     className="w-2 h-2 rounded-full mb-1"
-                    style={{ backgroundColor: item.accentColor || "#C8A45D" }}
+                    style={{ backgroundColor: item.accentColor || "#C6A467" }}
                   />
                   <span className="font-serif text-[10px] text-gold-champagne tracking-widest uppercase text-center line-clamp-1">
                     {item.productName.slice(0, 4)}
@@ -179,7 +190,7 @@ export function CartDrawer() {
                       >
                         <Minus size={12} />
                       </button>
-                      <span className="px-2 text-xs font-mono text-neutral-ivory">
+                      <span className="px-2 text-xs font-numbers font-medium text-neutral-ivory">
                         {item.quantity}
                       </span>
                       <button
@@ -191,8 +202,8 @@ export function CartDrawer() {
                       </button>
                     </div>
 
-                    <span className="font-serif text-sm text-gold-champagne">
-                      ${(item.priceNum * item.quantity).toFixed(2)}
+                    <span className="font-numbers font-semibold text-sm text-gold-champagne">
+                      ₹{(item.priceNum * item.quantity).toLocaleString("en-IN")}
                     </span>
                   </div>
                 </div>
@@ -207,12 +218,12 @@ export function CartDrawer() {
             <div className="space-y-1.5 text-xs">
               <div className="flex justify-between text-neutral-muted font-light">
                 <span>Subtotal</span>
-                <span className="text-neutral-ivory font-serif text-sm">${subtotal.toFixed(2)}</span>
+                <span className="text-neutral-ivory font-numbers font-medium text-sm">₹{subtotal.toLocaleString("en-IN")}</span>
               </div>
               <div className="flex justify-between text-neutral-muted font-light">
                 <span>Shipping</span>
                 <span className="text-gold-champagne">
-                  {subtotal >= complimentaryThreshold ? "Complimentary" : "$25.00"}
+                  {subtotal >= complimentaryThreshold ? "Complimentary" : "₹500"}
                 </span>
               </div>
             </div>
@@ -221,8 +232,8 @@ export function CartDrawer() {
               <span className="text-xs uppercase tracking-wider text-neutral-muted font-light">
                 Estimated Bag Total
               </span>
-              <span className="font-serif text-xl text-gold-champagne">
-                ${(subtotal + (subtotal >= complimentaryThreshold ? 0 : 25)).toFixed(2)}
+              <span className="font-numbers font-semibold text-xl text-gold-champagne">
+                ₹{(subtotal + (subtotal >= complimentaryThreshold ? 0 : 500)).toLocaleString("en-IN")}
               </span>
             </div>
 
@@ -251,8 +262,10 @@ export function CartDrawer() {
             </div>
           </div>
         )}
-      </aside>
-    </div>
+          </motion.aside>
+        </div>
+      )}
+    </AnimatePresence>
   );
 }
 

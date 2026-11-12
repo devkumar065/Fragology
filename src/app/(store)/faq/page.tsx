@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ChevronRight, ChevronDown, MessageSquare } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
+import { motion, AnimatePresence } from "framer-motion";
 import { FAQ_DATA } from "@/data/faq";
 import { FAQCategory } from "@/types/faq";
 
@@ -123,14 +124,22 @@ export default function FAQPage() {
                   />
                 </button>
 
-                {isOpen && (
-                  <div
-                    id={`faq-answer-${faq.id}`}
-                    className="px-6 pb-6 pt-1 text-xs sm:text-sm text-neutral-muted leading-relaxed font-light border-t border-border-subtle/30 animate-in fade-in duration-200"
-                  >
-                    <p>{faq.answer}</p>
-                  </div>
-                )}
+                <AnimatePresence initial={false}>
+                  {isOpen && (
+                    <motion.div
+                      id={`faq-answer-${faq.id}`}
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                      className="overflow-hidden"
+                    >
+                      <div className="px-6 pb-6 pt-1 text-xs sm:text-sm text-neutral-muted leading-relaxed font-light border-t border-border-subtle/30">
+                        <p>{faq.answer}</p>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
             );
           })}

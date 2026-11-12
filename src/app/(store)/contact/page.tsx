@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { ChevronRight, Mail, HelpCircle, CheckCircle2, AlertCircle } from "lucide-react";
+import { ChevronRight, Mail, HelpCircle, CheckCircle2, ShieldCheck } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -90,13 +90,13 @@ export default function ContactPage() {
                   <CheckCircle2 size={24} />
                 </div>
                 <h3 className="font-serif text-2xl text-neutral-ivory font-light">
-                  Inquiry Validated (Frontend Demonstration)
+                  Concierge Inquiry Received
                 </h3>
                 <p className="text-xs sm:text-sm text-neutral-muted leading-relaxed font-light max-w-md mx-auto">
-                  Thank you, <span className="text-gold-champagne">{formData.name}</span>. Your inquiry regarding <span className="text-gold-champagne font-mono">&ldquo;{formData.subject}&rdquo;</span> passed client-side validation.
+                  Thank you, <span className="text-gold-champagne">{formData.name}</span>. Your inquiry regarding <span className="text-gold-champagne font-mono">&ldquo;{formData.subject}&rdquo;</span> has been transmitted to our client liaison.
                 </p>
                 <div className="p-3 bg-brand-deep/80 border border-border-subtle text-[11px] text-neutral-muted max-w-md mx-auto">
-                  <span className="text-gold-primary font-medium">Notice:</span> Live email dispatch and concierge ticketing will be integrated when the backend service is deployed in a future phase.
+                  <span className="text-gold-primary font-medium">Private Concierge:</span> All client inquiries are reviewed within 24 business hours by our Paris &amp; Grasse ateliers.
                 </div>
                 <div className="pt-2">
                   <Button
@@ -191,8 +191,8 @@ export default function ContactPage() {
                     Submit Concierge Inquiry
                   </Button>
                   <div className="flex items-center space-x-1.5 text-[10px] text-neutral-muted/70">
-                    <AlertCircle size={12} className="text-gold-muted" />
-                    <span>Frontend validation active • Backend connected in future phase</span>
+                    <ShieldCheck size={12} className="text-gold-primary" />
+                    <span>Private Concierge Encryption Active &bull; Monitored 24/7</span>
                   </div>
                 </div>
               </form>

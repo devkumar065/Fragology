@@ -125,7 +125,7 @@ export default function OrderDetailPage() {
     e.preventDefault();
     if (!adminUser) return;
 
-    const note = `Atelier refund issued: $${refundAmount.toFixed(2)}. Reason: ${refundReason.trim() || "Patron request."}`;
+    const note = `Atelier refund issued: ₹${refundAmount.toLocaleString("en-IN")}. Reason: ${refundReason.trim() || "Patron request."}`;
     const updated = updateOrderStatus(order.orderNumber, "cancelled", note);
     if (updated) {
       updated.paymentStatus = "refunded";
@@ -138,7 +138,7 @@ export default function OrderDetailPage() {
         action: "order.refund",
         module: "orders",
         recordReference: order.orderNumber,
-        changeSummary: `Issued refund of $${refundAmount.toFixed(2)} for ${order.orderNumber}.`,
+        changeSummary: `Issued refund of ₹${refundAmount.toLocaleString("en-IN")} for ${order.orderNumber}.`,
       });
 
       showToast(`Refund processed for ${order.orderNumber}.`);
@@ -236,7 +236,7 @@ export default function OrderDetailPage() {
           <div className="bg-[#14120F] border border-[#2A241E] rounded overflow-hidden">
             <div className="p-4 border-b border-[#2A241E] flex items-center justify-between">
               <span className="font-serif text-[#F5F2EA] text-sm font-medium">
-                Commissioned Fragrance Flacons ({order.items.length})
+                Commissioned Fragrance Flacons (<span className="font-numbers font-medium">{order.items.length}</span>)
               </span>
               <span className="font-mono text-[10px] text-[#C8A45D] uppercase">
                 Artisanal Distillations
@@ -253,16 +253,16 @@ export default function OrderDetailPage() {
                     <span className="text-xs text-[#8E8271] block">
                       {item.volumeDisplay || `${item.variantSize} Flacon`} &bull; {item.concentration || "Extrait de Parfum"}
                     </span>
-                    <span className="font-mono text-[10px] text-[#665D4F]">
-                      Unit: ${item.priceNum.toFixed(2)} &times; {item.quantity}
+                    <span className="font-numbers text-[10px] text-[#8E8271]">
+                      Unit: ₹{item.priceNum.toLocaleString("en-IN")} &times; {item.quantity}
                     </span>
                   </div>
 
                   <div className="text-right">
-                    <span className="font-serif text-[#EDE8D0] text-sm font-medium block">
-                      ${(item.priceNum * item.quantity).toFixed(2)}
+                    <span className="font-numbers font-semibold text-[#EDE8D0] text-sm block">
+                      ₹{(item.priceNum * item.quantity).toLocaleString("en-IN")}
                     </span>
-                    <span className="text-[10px] text-emerald-400 font-mono">
+                    <span className="text-[10px] text-emerald-400 font-sans">
                       Includes 2ml sample vial
                     </span>
                   </div>
@@ -274,34 +274,34 @@ export default function OrderDetailPage() {
             <div className="bg-[#0D0B09]/80 p-4 border-t border-[#2A241E] space-y-2 text-xs">
               <div className="flex justify-between text-[#8E8271]">
                 <span>Flacon Subtotal</span>
-                <span className="font-mono text-[#EDE8D0]">${order.subtotal.toFixed(2)}</span>
+                <span className="font-numbers font-medium text-[#EDE8D0]">₹{order.subtotal.toLocaleString("en-IN")}</span>
               </div>
 
               {order.discountAmount > 0 && (
                 <div className="flex justify-between text-[#C8A45D]">
                   <span>Privilege Courtesy ({order.couponCode || "Discount"})</span>
-                  <span className="font-mono">-${order.discountAmount.toFixed(2)}</span>
+                  <span className="font-numbers font-medium">-₹{order.discountAmount.toLocaleString("en-IN")}</span>
                 </div>
               )}
 
               <div className="flex justify-between text-[#8E8271]">
                 <span>Insured White-Glove Courier</span>
-                <span className="font-mono text-[#EDE8D0]">
-                  {order.shippingFee === 0 ? "Complimentary ($0.00)" : `$${order.shippingFee.toFixed(2)}`}
+                <span className="font-numbers font-medium text-[#EDE8D0]">
+                  {order.shippingFee === 0 ? "Complimentary" : `₹${order.shippingFee.toLocaleString("en-IN")}`}
                 </span>
               </div>
 
               <div className="flex justify-between text-[#8E8271]">
                 <span>Excise Tax &amp; Customs Duties (8%)</span>
-                <span className="font-mono text-[#EDE8D0]">${order.taxAmount.toFixed(2)}</span>
+                <span className="font-numbers font-medium text-[#EDE8D0]">₹{order.taxAmount.toLocaleString("en-IN")}</span>
               </div>
 
               <div className="pt-2 border-t border-[#2A241E] flex justify-between items-baseline">
                 <span className="text-xs uppercase font-mono tracking-wider text-[#F5F2EA] font-medium">
                   Total Commission Investment
                 </span>
-                <span className="font-serif text-lg text-[#C8A45D] font-medium">
-                  ${order.totalAmount.toFixed(2)} USD
+                <span className="font-numbers text-lg text-[#C8A45D] font-semibold">
+                  ₹{order.totalAmount.toLocaleString("en-IN")}
                 </span>
               </div>
             </div>
@@ -551,11 +551,11 @@ export default function OrderDetailPage() {
         <form onSubmit={handleCommitRefund} className="space-y-4">
           <div>
             <label className="block text-[10px] uppercase tracking-wider font-mono text-[#8E8271] mb-1">
-              Refund Amount (USD) *
+              Refund Amount (INR) *
             </label>
             <input
               type="number"
-              step="0.01"
+              step="1"
               max={order.totalAmount}
               required
               value={refundAmount}
@@ -563,7 +563,7 @@ export default function OrderDetailPage() {
               className="w-full bg-[#0D0B09] border border-[#2A241E] rounded px-3 py-2 text-sm text-[#F5F2EA] font-mono focus:outline-hidden focus:border-[#C8A45D]"
             />
             <span className="text-[10px] text-[#8E8271] mt-1 block">
-              Max reversible: ${order.totalAmount.toFixed(2)} USD
+              Max reversible: ₹{order.totalAmount.toLocaleString("en-IN")}
             </span>
           </div>
 

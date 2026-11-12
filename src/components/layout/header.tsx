@@ -2,19 +2,22 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Search, Heart, User, ShoppingBag, Menu, X } from "lucide-react";
 import { NAV_ITEMS } from "@/data/navigation";
 import { IconButton } from "@/components/ui/icon-button";
 import { Container } from "@/components/ui/container";
 import { MobileNavigation } from "./mobile-navigation";
 import { AnnouncementBar } from "./announcement-bar";
+import { motion, AnimatePresence } from "framer-motion";
 import { useCart } from "@/context/cart-context";
 import { useWishlist } from "@/context/wishlist-context";
 import { useAuth } from "@/context/auth-context";
 
 export function Header() {
   const router = useRouter();
+  const pathname = usePathname();
+  const isHomePage = pathname === "/";
   const { cartCount, openCart } = useCart();
   const { wishlistCount } = useWishlist();
   const { user } = useAuth();
@@ -52,14 +55,14 @@ export function Header() {
   };
 
   return (
-    <>
-      <AnnouncementBar />
+    <div className={isHomePage ? "absolute inset-x-0 top-0 z-40" : "relative"}>
+      <AnnouncementBar overlay={isHomePage} />
 
       <header
-        className={`sticky top-0 z-40 w-full transition-all duration-300 ${
+        className={`${isHomePage ? "" : "sticky top-0 z-40"} w-full transition-all duration-300 ${
           isScrolled
             ? "bg-brand-deep/95 backdrop-blur-md border-b border-border-subtle shadow-luxury-card py-3.5"
-            : "bg-brand-deep/80 backdrop-blur-xs border-b border-border-subtle/50 py-5"
+            : `${isHomePage ? "bg-brand-deep/25" : "bg-brand-deep/80"} backdrop-blur-xs border-b border-border-subtle/50 py-5`
         }`}
       >
         <Container size="wide" className="flex items-center justify-between">
@@ -67,7 +70,7 @@ export function Header() {
           <div className="flex items-center space-x-4 lg:w-1/4">
             <div className="lg:hidden">
               <IconButton
-                icon={<Menu size={20} />}
+                icon={<Menu size={20} strokeWidth={1.25} />}
                 label="Open navigation menu"
                 onClick={() => setMobileMenuOpen(true)}
                 variant="ghost"
@@ -144,57 +147,74 @@ export function Header() {
       </header>
 
       {/* Instant Search Bar Overlay */}
-      {searchOpen && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          className="fixed inset-0 z-50 flex items-start justify-center pt-24 px-4 bg-brand-deep/85 backdrop-blur-md animate-in fade-in duration-200"
-        >
-          <div className="w-full max-w-2xl bg-brand-rich border border-gold-primary/50 p-6 sm:p-8 rounded-xs shadow-2xl relative">
-            <button
+      <AnimatePresence>
+        {searchOpen && (
+          <div
+            role="dialog"
+            aria-modal="true"
+            className="fixed inset-0 z-50 flex items-start justify-center pt-24 px-4"
+          >
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
               onClick={() => setSearchOpen(false)}
-              className="absolute top-5 right-5 text-neutral-muted hover:text-neutral-ivory"
-              aria-label="Close search overlay"
+              className="fixed inset-0 bg-brand-deep/85 backdrop-blur-md"
+            />
+
+            <motion.div
+              initial={{ opacity: 0, y: -20, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -20, scale: 0.98 }}
+              transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+              className="w-full max-w-2xl bg-brand-rich border border-gold-primary/50 p-6 sm:p-8 rounded-xs shadow-2xl relative z-10"
             >
-              <X size={20} />
-            </button>
+              <button
+                onClick={() => setSearchOpen(false)}
+                className="absolute top-5 right-5 text-neutral-muted hover:text-neutral-ivory p-1.5 transition-colors"
+                aria-label="Close search overlay"
+              >
+                <X size={20} strokeWidth={1.5} />
+              </button>
 
-            <form onSubmit={handleSearchSubmit} className="space-y-4">
-              <span className="text-[10px] uppercase tracking-[0.25em] text-gold-primary font-medium block">
-                Atelier Catalog Search
-              </span>
-              <div className="relative">
-                <input
-                  type="text"
-                  autoFocus
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Search by note, scent family, or flacon name (e.g. Amber, Rose, Oud)..."
-                  className="w-full bg-brand-espresso border border-border-subtle px-4 py-3 pl-11 text-sm text-neutral-ivory placeholder-neutral-muted/50 focus:outline-hidden focus:border-gold-primary transition-colors"
-                />
-                <Search size={18} className="absolute left-3.5 top-3.5 text-neutral-muted" />
-              </div>
+              <form onSubmit={handleSearchSubmit} className="space-y-4">
+                <span className="text-[10px] uppercase tracking-[0.25em] text-gold-primary font-medium block">
+                  Atelier Catalog Search
+                </span>
+                <div className="relative">
+                  <input
+                    type="text"
+                    autoFocus
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    placeholder="Search by note, scent family, or flacon name (e.g. Amber, Rose, Oud)..."
+                    className="w-full bg-brand-espresso border border-border-subtle px-4 py-3 pl-11 text-sm text-neutral-ivory placeholder-neutral-muted/50 focus:outline-hidden focus:border-gold-primary transition-colors"
+                  />
+                  <Search size={18} strokeWidth={1.5} className="absolute left-3.5 top-3.5 text-neutral-muted" />
+                </div>
 
-              <div className="flex items-center justify-between text-xs text-neutral-muted pt-2">
-                <span className="text-[11px]">Popular: Saffron, Sandalwood, Bergamot, Extrait</span>
-                <button
-                  type="submit"
-                  className="px-5 py-2 bg-gold-primary text-brand-deep text-xs uppercase tracking-wider font-medium hover:bg-gold-champagne transition-colors"
-                >
-                  Explore
-                </button>
-              </div>
-            </form>
+                <div className="flex items-center justify-between text-xs text-neutral-muted pt-2">
+                  <span className="text-[11px]">Popular: Saffron, Sandalwood, Bergamot, Extrait</span>
+                  <button
+                    type="submit"
+                    className="px-5 py-2 bg-gold-primary text-brand-deep text-xs uppercase tracking-wider font-medium hover:bg-gold-champagne transition-colors"
+                  >
+                    Explore
+                  </button>
+                </div>
+              </form>
+            </motion.div>
           </div>
-        </div>
-      )}
+        )}
+      </AnimatePresence>
 
       {/* Mobile Drawer Navigation */}
       <MobileNavigation
         isOpen={mobileMenuOpen}
         onClose={() => setMobileMenuOpen(false)}
       />
-    </>
+    </div>
   );
 }
 

@@ -204,7 +204,7 @@ export default function OrderTrackingPage() {
                 <span className="text-neutral-muted uppercase tracking-wider block text-[10px]">
                   Consignment Ref
                 </span>
-                <span className="font-serif text-base text-gold-champagne font-medium mt-0.5 block">
+                <span className="font-numbers text-base text-gold-champagne font-semibold mt-0.5 block">
                   {order.orderNumber}
                 </span>
               </div>
@@ -223,7 +223,7 @@ export default function OrderTrackingPage() {
                 <span className="text-neutral-muted uppercase tracking-wider block text-[10px]">
                   Estimated Delivery
                 </span>
-                <span className="text-neutral-ivory font-serif text-base mt-0.5 block">
+                <span className="text-neutral-ivory font-sans font-medium text-sm mt-0.5 block">
                   {order.estimatedDelivery || "In Transit"}
                 </span>
               </div>
@@ -297,7 +297,7 @@ export default function OrderTrackingPage() {
             {/* Consignment Items */}
             <div className="bg-brand-rich border border-border-subtle p-6 sm:p-8 rounded-xs space-y-4">
               <h2 className="font-serif text-lg font-light text-neutral-ivory tracking-wide uppercase border-b border-border-subtle/50 pb-3">
-                Consignment Contents ({order.items.length} Flacons)
+                Consignment Contents (<span className="font-numbers font-medium">{order.items.length}</span> Flacons)
               </h2>
 
               <div className="divide-y divide-border-subtle/40">
@@ -306,10 +306,10 @@ export default function OrderTrackingPage() {
                     <div>
                       <p className="font-serif text-neutral-ivory text-sm">{item.productName}</p>
                       <p className="text-neutral-muted text-[11px]">
-                        {item.variantSize} &bull; {item.volumeDisplay} &bull; Qty: {item.quantity}
+                        {item.variantSize} &bull; {item.volumeDisplay} &bull; Qty: <span className="font-numbers font-medium">{item.quantity}</span>
                       </p>
                     </div>
-                    <span className="font-serif text-gold-champagne text-sm">
+                    <span className="font-numbers font-semibold text-gold-champagne text-sm">
                       ${((item.unitPrice ?? item.priceNum) * item.quantity).toFixed(2)}
                     </span>
                   </div>

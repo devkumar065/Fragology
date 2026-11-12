@@ -5,11 +5,13 @@ import { ANNOUNCEMENT_CONFIG } from "@/data/navigation";
 export interface AnnouncementBarProps {
   message?: string;
   link?: string;
+  overlay?: boolean;
 }
 
 export function AnnouncementBar({
   message = ANNOUNCEMENT_CONFIG.message,
   link = ANNOUNCEMENT_CONFIG.link,
+  overlay = false,
 }: AnnouncementBarProps) {
   if (!ANNOUNCEMENT_CONFIG.enabled) return null;
 
@@ -26,7 +28,11 @@ export function AnnouncementBar({
   return (
     <aside
       aria-label="Announcement"
-      className="w-full bg-brand-espresso border-b border-border-subtle/50 relative z-50"
+      className={`relative z-50 w-full border-b border-border-subtle/50 ${
+        overlay
+          ? "bg-brand-espresso/70 backdrop-blur-xs"
+          : "bg-brand-espresso"
+      }`}
     >
       {link ? (
         <Link href={link} className="block hover:bg-brand-chocolate/40 transition-colors">

@@ -200,8 +200,8 @@ export default function CustomerDetailPage() {
           <span className="text-[10px] uppercase font-mono text-[#8E8271] tracking-wider block">
             Total Lifetime Spend
           </span>
-          <span className="text-2xl font-serif text-[#C8A45D] mt-1 block">
-            ${customer.totalSpent.toLocaleString("en-US", { minimumFractionDigits: 2 })}
+          <span className="text-2xl font-numbers font-semibold text-[#C8A45D] mt-1 block">
+            ₹{customer.totalSpent.toLocaleString("en-IN")}
           </span>
           <span className="text-[11px] text-[#8E8271] mt-0.5 block">
             Across {customer.ordersCount} verified commissions
@@ -212,7 +212,7 @@ export default function CustomerDetailPage() {
           <span className="text-[10px] uppercase font-mono text-[#8E8271] tracking-wider block">
             Commissions Count
           </span>
-          <span className="text-2xl font-serif text-[#F5F2EA] mt-1 block">
+          <span className="text-2xl font-numbers font-semibold text-[#F5F2EA] mt-1 block">
             {customer.ordersCount}
           </span>
           <span className="text-[11px] text-[#8E8271] mt-0.5 block">
@@ -224,8 +224,8 @@ export default function CustomerDetailPage() {
           <span className="text-[10px] uppercase font-mono text-[#8E8271] tracking-wider block">
             Average Commission Value
           </span>
-          <span className="text-2xl font-serif text-[#EDE8D0] mt-1 block">
-            ${customer.ordersCount > 0 ? (customer.totalSpent / customer.ordersCount).toFixed(2) : "0.00"}
+          <span className="text-2xl font-numbers font-semibold text-[#EDE8D0] mt-1 block">
+            ₹{customer.ordersCount > 0 ? Math.round(customer.totalSpent / customer.ordersCount).toLocaleString("en-IN") : "0"}
           </span>
           <span className="text-[11px] text-emerald-400 mt-0.5 block">
             High net worth patron average
@@ -305,8 +305,8 @@ export default function CustomerDetailPage() {
 
                     <div className="flex items-center space-x-3">
                       <StatusBadge status={ord.status} />
-                      <span className="font-serif text-[#EDE8D0] text-sm font-medium">
-                        ${ord.totalAmount.toFixed(2)}
+                      <span className="font-numbers text-[#EDE8D0] text-sm font-semibold">
+                        ₹{ord.totalAmount.toLocaleString("en-IN")}
                       </span>
                       <Link
                         href={`/admin/orders/${ord.id}`}

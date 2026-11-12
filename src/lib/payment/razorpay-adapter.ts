@@ -21,7 +21,7 @@ export class RazorpayAdapter implements PaymentGatewayAdapter {
         orderNumber: order.orderNumber,
         gatewayOrderId: `order_mock_${order.orderNumber.replace(/[^a-zA-Z0-9]/g, "")}`,
         amount: order.totalAmount,
-        currency: order.currency || "USD",
+        currency: order.currency || "INR",
       };
     }
 
@@ -38,7 +38,7 @@ export class RazorpayAdapter implements PaymentGatewayAdapter {
         },
         body: JSON.stringify({
           amount: amountInSubunits,
-          currency: order.currency || "USD",
+          currency: order.currency || "INR",
           receipt: order.orderNumber,
           notes: {
             order_number: order.orderNumber,

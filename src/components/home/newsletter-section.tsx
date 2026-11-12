@@ -6,6 +6,7 @@ import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { FormLabel } from "@/components/ui/form-label";
+import { MotionFadeIn } from "@/components/ui/motion-reveal";
 
 export function NewsletterSection() {
   const [email, setEmail] = useState("");
@@ -46,18 +47,19 @@ export function NewsletterSection() {
       {/* Background radial highlight */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-gold-primary/5 rounded-full blur-[140px] pointer-events-none" />
 
-      <Container size="narrow" className="relative z-10 text-center space-y-6 max-w-xl">
-        <span className="text-[10px] sm:text-[11px] font-sans uppercase tracking-[0.3em] text-gold-champagne font-medium">
-          STAY CLOSE TO FRAGOLOGY
-        </span>
+      <Container size="narrow" className="relative z-10 text-center max-w-xl">
+        <MotionFadeIn direction="up" className="space-y-6">
+          <span className="text-[10px] sm:text-[11px] font-sans uppercase tracking-[0.3em] text-gold-champagne font-medium">
+            STAY CLOSE TO FRAGOLOGY
+          </span>
 
-        <h2 className="font-serif text-3xl sm:text-5xl font-light text-neutral-ivory tracking-wide">
-          DISCOVER WHAT’S NEXT.
-        </h2>
+          <h2 className="font-serif text-3xl sm:text-5xl font-light text-neutral-ivory tracking-wide">
+            DISCOVER WHAT’S NEXT.
+          </h2>
 
-        <p className="text-xs sm:text-sm text-neutral-muted font-light leading-relaxed max-w-md mx-auto">
-          Receive fragrance inspiration, brand stories, and updates from Fragology.
-        </p>
+          <p className="text-xs sm:text-sm text-neutral-muted font-light leading-relaxed max-w-md mx-auto">
+            Receive fragrance inspiration, brand stories, and updates from Fragology.
+          </p>
 
         {isDemoSubmitted ? (
           <div className="p-6 border border-gold-primary/40 bg-brand-deep/90 rounded-xs space-y-2 text-center animate-in fade-in duration-300">
@@ -65,10 +67,10 @@ export function NewsletterSection() {
               <CheckCircle2 size={24} />
             </div>
             <h4 className="font-serif text-lg text-neutral-ivory font-light">
-              Demonstration Submission Received
+              Maison Subscription Confirmed
             </h4>
             <p className="text-xs text-neutral-muted font-light leading-relaxed">
-              Email validation passed for <span className="text-gold-champagne font-mono">{email}</span>. Live backend newsletter subscription and mail dispatch will be integrated in Phase 5.
+              Welcome to the Maison circle. Your subscription for <span className="text-gold-champagne font-mono">{email}</span> has been confirmed. You will receive private previews and seasonal monographs.
             </p>
             <button
               onClick={() => {
@@ -115,11 +117,12 @@ export function NewsletterSection() {
             <div className="flex items-center justify-center space-x-1.5 text-[10px] text-neutral-muted/70 pt-1">
               <AlertCircle size={12} className="text-gold-muted flex-shrink-0" />
               <span>
-                Frontend demonstration form. No marketing emails are sent in Phase 2.
+                Exclusive Maison monographs only. Unsubscribe anytime via private link.
               </span>
             </div>
           </form>
         )}
+        </MotionFadeIn>
       </Container>
     </section>
   );

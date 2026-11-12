@@ -728,7 +728,9 @@ export default function SettingsManagementPage() {
                       </td>
 
                       <td className="py-4 px-4 font-mono text-[11px] text-[#8E8271]">
-                        {m.lastLoginAt ? new Date(m.lastLoginAt).toLocaleDateString() : "Active"}
+                        {m.lastLoginAt
+                          ? `${new Date(m.lastLoginAt).toLocaleDateString()} ${new Date(m.lastLoginAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}`
+                          : "Active Session"}
                       </td>
 
                       <td className="py-4 px-4 text-right">

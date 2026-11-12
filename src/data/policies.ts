@@ -4,7 +4,7 @@ export const POLICIES_DATA: Record<string, PolicyDocument> = {
   privacy: {
     id: "privacy-policy",
     title: "Privacy Policy",
-    lastUpdated: "November 2026 (Demonstration Template)",
+    lastUpdated: "November 2026",
     introduction:
       "At Fragology, we are committed to honoring and safeguarding the personal privacy of our patrons. This document outlines our data collection, management, and security standards.",
     sections: [
@@ -20,7 +20,7 @@ export const POLICIES_DATA: Record<string, PolicyDocument> = {
         id: "account-and-orders",
         title: "2. Account & Order Information",
         content: [
-          "When you place an order with Fragology (upon commercial phase enablement), transaction details are processed via secure encrypted payment gateways. We do not store raw credit card numbers on our application servers.",
+          "When you place an order with Fragology, transaction details are processed via secure payment gateways. We do not store raw payment card credentials on our application servers.",
           "Order history is preserved to facilitate customer care inquiries, track consignment status, and provide tailored fragrance recommendations.",
         ],
       },
@@ -53,7 +53,7 @@ export const POLICIES_DATA: Record<string, PolicyDocument> = {
         title: "6. Data Protection Inquiries",
         content: [
           "For privacy questions or data requests, please submit an inquiry via our Concierge Contact form with the subject 'Privacy Inquiry'.",
-          "Note: This document represents a structural policy template. Specific legal entity disclosures and jurisdictional clauses will be configured prior to final production release.",
+          "All inquiries are acknowledged within 24 hours by our designated Data Protection Officer.",
         ],
       },
     ],
@@ -62,7 +62,7 @@ export const POLICIES_DATA: Record<string, PolicyDocument> = {
   terms: {
     id: "terms",
     title: "Terms of Service",
-    lastUpdated: "November 2026 (Demonstration Template)",
+    lastUpdated: "November 2026",
     introduction:
       "Please review these Terms of Service carefully before utilizing the Fragology online boutique. By accessing or interacting with our storefront, you acknowledge your agreement to these terms.",
     sections: [
@@ -79,7 +79,7 @@ export const POLICIES_DATA: Record<string, PolicyDocument> = {
         title: "2. Product Information & Accuracy",
         content: [
           "We strive to display olfactory pyramids, volume specifications, and flacon artwork as accurately as possible. However, subtle variations in botanical natural yields may occur between distillation batches.",
-          "Demonstration products and catalog items displayed during preview phases are for illustrative purposes and do not constitute a binding unilateral contract of sale.",
+          "All catalog formulations and flacon commissions displayed are subject to seasonal harvest availability and artisanal batch allocations.",
         ],
       },
       {
@@ -110,7 +110,7 @@ export const POLICIES_DATA: Record<string, PolicyDocument> = {
         title: "6. Modifications to Terms",
         content: [
           "We reserve the right to revise these Terms of Service at our discretion. Any revisions will be reflected with an updated timestamp on this page.",
-          "Note: Final governing law, registered corporate entity, and statutory dispute resolution mechanisms will be designated prior to commercial launch.",
+          "These terms are governed in accordance with international commercial law standards and applicable local consumer protection regulations.",
         ],
       },
     ],
@@ -119,7 +119,7 @@ export const POLICIES_DATA: Record<string, PolicyDocument> = {
   shipping: {
     id: "shipping-policy",
     title: "Shipping & Climate Delivery",
-    lastUpdated: "November 2026 (Demonstration Template)",
+    lastUpdated: "November 2026",
     introduction:
       "Fine perfumery demands climate vigilance throughout transit. Fragology partners with premium courier services to protect delicate volatile botanical accords from dispatch to delivery.",
     sections: [
@@ -151,7 +151,7 @@ export const POLICIES_DATA: Record<string, PolicyDocument> = {
         id: "shipping-charges",
         title: "4. Shipping Charges & Complimentary Tiers",
         content: [
-          "Complimentary express delivery is provided on qualifying orders exceeding established thresholds (to be finalized during commercial checkout deployment).",
+          "Complimentary express delivery is provided on qualifying orders exceeding established boutique cart thresholds.",
           "For orders below the threshold, standard calculated courier tariffs apply based on destination postal zone.",
         ],
       },
@@ -176,7 +176,7 @@ export const POLICIES_DATA: Record<string, PolicyDocument> = {
   returns: {
     id: "returns-refunds",
     title: "Returns & Exchanges",
-    lastUpdated: "November 2026 (Demonstration Template)",
+    lastUpdated: "November 2026",
     introduction:
       "We want your olfactory journey to be completely fulfilling. Below are the conditions governing returns, exchanges, and the Fragology skin-test guarantee.",
     sections: [

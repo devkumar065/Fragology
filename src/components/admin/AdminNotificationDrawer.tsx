@@ -3,6 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { X, Check, Bell, Package, AlertTriangle, MessageSquare, CreditCard } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import { useAdminAuth } from "@/context/admin-auth-context";
 import { AdminNotificationType } from "@/lib/admin/types";
 
@@ -13,8 +14,6 @@ export interface AdminNotificationDrawerProps {
 
 export function AdminNotificationDrawer({ isOpen, onClose }: AdminNotificationDrawerProps) {
   const { notifications, unreadNotificationCount, markNotificationRead, markAllNotificationsRead } = useAdminAuth();
-
-  if (!isOpen) return null;
 
   const getIcon = (type: AdminNotificationType) => {
     switch (type) {
@@ -34,14 +33,29 @@ export function AdminNotificationDrawer({ isOpen, onClose }: AdminNotificationDr
   };
 
   return (
-    <div
-      role="dialog"
-      aria-modal="true"
-      className="fixed inset-0 z-50 flex justify-end animate-in fade-in duration-200"
-    >
-      <div onClick={onClose} className="fixed inset-0 bg-brand-deep/80 backdrop-blur-xs" />
+    <AnimatePresence>
+      {isOpen && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          className="fixed inset-0 z-50 flex justify-end"
+        >
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            onClick={onClose}
+            className="fixed inset-0 bg-brand-deep/80 backdrop-blur-xs"
+          />
 
-      <aside className="relative z-10 w-full max-w-md bg-brand-rich border-l border-border-subtle shadow-2xl flex flex-col h-full text-neutral-ivory">
+          <motion.aside
+            initial={{ x: "100%" }}
+            animate={{ x: 0 }}
+            exit={{ x: "100%" }}
+            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+            className="relative z-10 w-full max-w-md bg-brand-rich border-l border-border-subtle shadow-2xl flex flex-col h-full text-neutral-ivory"
+          >
         {/* Header */}
         <div className="p-6 border-b border-border-subtle flex items-center justify-between bg-brand-deep">
           <div className="flex items-center space-x-3">
@@ -135,7 +149,9 @@ export function AdminNotificationDrawer({ isOpen, onClose }: AdminNotificationDr
             ))
           )}
         </div>
-      </aside>
-    </div>
+          </motion.aside>
+        </div>
+      )}
+    </AnimatePresence>
   );
 }

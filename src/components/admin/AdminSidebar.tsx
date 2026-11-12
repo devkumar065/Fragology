@@ -7,7 +7,7 @@ import {
   LayoutDashboard,
   Package,
   Tags,
-  Sparkles,
+  Gem,
   Boxes,
   ShoppingCart,
   Users,
@@ -45,7 +45,7 @@ export function AdminSidebar({ isOpen, onClose }: AdminSidebarProps) {
     { label: "Dashboard", href: "/admin", module: "dashboard", icon: <LayoutDashboard size={16} /> },
     { label: "Products", href: "/admin/products", module: "products", icon: <Package size={16} /> },
     { label: "Categories", href: "/admin/categories", module: "categories", icon: <Tags size={16} /> },
-    { label: "Collections", href: "/admin/collections", module: "collections", icon: <Sparkles size={16} /> },
+    { label: "Collections", href: "/admin/collections", module: "collections", icon: <Gem size={16} strokeWidth={1.5} /> },
     { label: "Inventory", href: "/admin/inventory", module: "inventory", icon: <Boxes size={16} /> },
     { label: "Orders", href: "/admin/orders", module: "orders", icon: <ShoppingCart size={16} /> },
     { label: "Customers", href: "/admin/customers", module: "customers", icon: <Users size={16} /> },
@@ -108,6 +108,11 @@ export function AdminSidebar({ isOpen, onClose }: AdminSidebarProps) {
             <span className="text-[9px] uppercase tracking-wider text-gold-muted block truncate font-mono">
               {adminUser ? ROLE_LABELS[adminUser.role] : "Admin"}
             </span>
+            {adminUser?.lastLoginAt && (
+              <span className="text-[8px] font-mono text-neutral-muted block truncate">
+                Auth: {new Date(adminUser.lastLoginAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
+              </span>
+            )}
           </div>
         </div>
 

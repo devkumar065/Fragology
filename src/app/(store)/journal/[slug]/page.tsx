@@ -3,7 +3,7 @@
 import React, { use } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ChevronRight, ArrowRight, Clock, User, Share2, Sparkles, BookOpen } from "lucide-react";
+import { ChevronRight, ArrowRight, Clock, User, Share2, Feather, BookOpen } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
 import { getArticleBySlug, ARTICLES_DATA } from "@/data/articles";
@@ -121,8 +121,8 @@ export default function BlogDetailsPage({ params }: BlogDetailsProps) {
               ))}
 
               {section.quote && (
-                <blockquote className="my-6 p-6 border-y border-gold-primary/30 bg-brand-rich/40 text-center">
-                  <p className="font-serif text-xl text-gold-champagne font-light italic">
+                <blockquote className="my-8 p-8 border-y border-border-subtle bg-brand-ivory text-center rounded-xs shadow-md">
+                  <p className="font-serif text-xl sm:text-2xl text-brand-dark font-light italic leading-relaxed">
                     &ldquo;{section.quote}&rdquo;
                   </p>
                 </blockquote>
@@ -169,7 +169,7 @@ export default function BlogDetailsPage({ params }: BlogDetailsProps) {
 
         {/* Section 8: Newsletter CTA */}
         <div className="mt-16 p-8 border border-border-subtle bg-brand-espresso/60 rounded-xs text-center space-y-4">
-          <Sparkles size={18} className="text-gold-primary mx-auto" />
+          <Feather size={18} strokeWidth={1.25} className="text-gold-primary mx-auto" />
           <h4 className="font-serif text-2xl font-light text-neutral-ivory">
             Receive The Next Monograph
           </h4>

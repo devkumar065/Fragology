@@ -2,168 +2,257 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Lock, Mail, ArrowRight, AlertCircle } from "lucide-react";
+import {
+  ArrowRight,
+  AlertCircle,
+  Crown,
+  Package,
+  Boxes,
+  Truck,
+  UserCheck,
+  Megaphone,
+  Feather,
+  RefreshCw,
+  Lock,
+  Mail,
+} from "lucide-react";
 import { AdminAuthProvider, useAdminAuth } from "@/context/admin-auth-context";
+import { AdminRole } from "@/lib/admin/types";
+
+interface DemoAccount {
+  role: AdminRole;
+  title: string;
+  name: string;
+  email: string;
+  password: string;
+  icon: React.ComponentType<{ size?: number; className?: string }>;
+}
+
+const DEMO_ACCOUNTS: DemoAccount[] = [
+  {
+    role: "super_admin",
+    title: "Super Administrator",
+    name: "Dev Kumar",
+    email: "admin@fragology.com",
+    password: "haute-admin-2026",
+    icon: Crown,
+  },
+  {
+    role: "product_manager",
+    title: "Product Manager",
+    name: "Genevieve Vane",
+    email: "products@fragology.com",
+    password: "haute-admin-2026",
+    icon: Package,
+  },
+  {
+    role: "inventory_manager",
+    title: "Inventory Manager",
+    name: "Marcus Vance",
+    email: "inventory@fragology.com",
+    password: "haute-admin-2026",
+    icon: Boxes,
+  },
+  {
+    role: "order_manager",
+    title: "Order Manager",
+    name: "Claire Delacroix",
+    email: "orders@fragology.com",
+    password: "haute-admin-2026",
+    icon: Truck,
+  },
+  {
+    role: "customer_support",
+    title: "Customer Support",
+    name: "Sophie Laurent",
+    email: "concierge@fragology.com",
+    password: "haute-admin-2026",
+    icon: UserCheck,
+  },
+  {
+    role: "marketing_manager",
+    title: "Marketing Director",
+    name: "Julian Thorne",
+    email: "marketing@fragology.com",
+    password: "haute-admin-2026",
+    icon: Megaphone,
+  },
+  {
+    role: "content_manager",
+    title: "Content Manager",
+    name: "Eleanor Rousseau",
+    email: "editorial@fragology.com",
+    password: "haute-admin-2026",
+    icon: Feather,
+  },
+];
 
 function AdminLoginForm() {
   const router = useRouter();
   const { login } = useAdminAuth();
 
+  const [selectedRole, setSelectedRole] = useState<AdminRole>("super_admin");
   const [email, setEmail] = useState("admin@fragology.com");
   const [password, setPassword] = useState("haute-admin-2026");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  const handleSelectRole = (acc: DemoAccount) => {
+    setSelectedRole(acc.role);
+    setEmail(acc.email);
+    setPassword(acc.password);
+    setError(null);
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
     setLoading(true);
-
     const res = await login(email, password);
     setLoading(false);
-
     if (res.success) {
       router.push("/admin");
     } else {
-      setError(res.error || "Authentication failed. Invalid staff credentials.");
+      setError(res.error || "Invalid credentials. Please try again.");
     }
   };
 
-  const setTestRole = (targetEmail: string) => {
-    setEmail(targetEmail);
-    setPassword("haute-admin-2026");
-    setError(null);
-  };
-
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 sm:p-6 bg-brand-deep relative">
-      {/* Ambient background lighting */}
-      <div className="absolute inset-0 bg-radial-luxury opacity-60 pointer-events-none" />
-
-      <div className="w-full max-w-md bg-brand-rich border border-gold-primary/40 p-8 sm:p-10 rounded-xs text-neutral-ivory shadow-2xl relative z-10">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-48 h-[1px] bg-gradient-to-r from-transparent via-gold-primary to-transparent" />
-
-        {/* Brand Header */}
-        <div className="text-center mb-8 space-y-1">
-          <span className="text-[10px] font-mono uppercase tracking-[0.35em] text-gold-primary block">
-            Executive Control Plane
+    <div className="min-h-screen bg-brand-deep flex items-center justify-center px-4 py-10">
+      <div className="w-full max-w-4xl">
+        {/* Logo */}
+        <div className="text-center mb-10">
+          <span className="font-serif text-2xl tracking-[0.3em] text-neutral-ivory uppercase">
+            Fragology
           </span>
-          <h1 className="text-2xl sm:text-3xl font-serif font-light text-neutral-ivory tracking-wider mt-1">
-            FRAGOLOGY
-          </h1>
-          <p className="text-xs text-neutral-muted font-light">
-            Haute Parfumerie Business Operations
+          <p className="text-xs text-neutral-muted mt-1 tracking-widest uppercase font-sans">
+            Admin Panel
           </p>
         </div>
 
-        {error && (
-          <div className="mb-6 p-3 bg-red-950/40 border border-red-500/40 rounded-xs flex items-center space-x-2 text-xs text-red-200">
-            <AlertCircle size={14} className="shrink-0 text-red-400" />
-            <span>{error}</span>
-          </div>
-        )}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+          {/* Left: Role Selection */}
+          <div className="space-y-3">
+            <p className="text-xs text-neutral-muted font-sans mb-4">
+              Select your role to continue — credentials will fill automatically.
+            </p>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label className="block text-[11px] uppercase tracking-wider font-sans text-neutral-muted mb-1.5">
-              Staff Email Address
-            </label>
-            <div className="relative">
-              <input
-                type="email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="staff@fragology.com"
-                className="w-full bg-brand-espresso border border-border-subtle px-4 py-3 pl-10 text-xs text-neutral-ivory focus:outline-hidden focus:border-gold-primary transition-colors"
-              />
-              <Mail size={16} className="absolute left-3.5 top-3.5 text-neutral-muted" />
+            {DEMO_ACCOUNTS.map((acc) => {
+              const isSelected = selectedRole === acc.role;
+              const Icon = acc.icon;
+              return (
+                <button
+                  key={acc.role}
+                  type="button"
+                  onClick={() => handleSelectRole(acc)}
+                  className={`w-full flex items-center space-x-3 p-3.5 border text-left transition-all duration-150 ${
+                    isSelected
+                      ? "border-gold-primary bg-brand-rich text-neutral-ivory"
+                      : "border-border-subtle bg-brand-espresso/60 text-neutral-muted hover:border-gold-primary/50 hover:text-neutral-ivory"
+                  }`}
+                >
+                  <div
+                    className={`w-8 h-8 flex items-center justify-center shrink-0 ${
+                      isSelected
+                        ? "text-gold-champagne"
+                        : "text-neutral-muted"
+                    }`}
+                  >
+                    <Icon size={18} />
+                  </div>
+                  <div className="min-w-0">
+                    <span className="block text-sm font-sans font-medium truncate">
+                      {acc.title}
+                    </span>
+                    <span className="block text-[11px] text-neutral-muted truncate">
+                      {acc.name} · {acc.email}
+                    </span>
+                  </div>
+                  {isSelected && (
+                    <span className="ml-auto shrink-0 w-2 h-2 rounded-full bg-gold-primary" />
+                  )}
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Right: Login Form */}
+          <div className="bg-brand-rich border border-border-subtle p-7 space-y-5">
+            <div>
+              <h2 className="text-xl font-sans font-semibold text-neutral-ivory">
+                Sign In
+              </h2>
+              <p className="text-xs text-neutral-muted mt-0.5">
+                Logged in as:{" "}
+                <span className="text-gold-champagne">
+                  {DEMO_ACCOUNTS.find((a) => a.role === selectedRole)?.title}
+                </span>
+              </p>
             </div>
+
+            {error && (
+              <div className="p-3 bg-red-950/40 border border-red-500/40 flex items-center space-x-2 text-xs text-red-200">
+                <AlertCircle size={14} className="shrink-0 text-red-400" />
+                <span>{error}</span>
+              </div>
+            )}
+
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div>
+                <label className="block text-xs text-neutral-muted mb-1.5 font-sans">
+                  Email
+                </label>
+                <div className="relative">
+                  <input
+                    type="email"
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="w-full bg-brand-espresso border border-border-subtle px-4 py-2.5 pl-9 text-sm text-neutral-ivory font-sans focus:outline-none focus:border-gold-primary transition-colors"
+                  />
+                  <Mail size={14} className="absolute left-3 top-3.5 text-neutral-muted" />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-xs text-neutral-muted mb-1.5 font-sans">
+                  Password
+                </label>
+                <div className="relative">
+                  <input
+                    type="password"
+                    required
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="w-full bg-brand-espresso border border-border-subtle px-4 py-2.5 pl-9 text-sm text-neutral-ivory font-sans focus:outline-none focus:border-gold-primary transition-colors"
+                  />
+                  <Lock size={14} className="absolute left-3 top-3.5 text-neutral-muted" />
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full py-3 bg-gold-primary text-brand-deep font-sans text-sm font-semibold hover:bg-gold-champagne disabled:opacity-50 transition-colors flex items-center justify-center space-x-2 mt-2"
+              >
+                {loading ? (
+                  <>
+                    <RefreshCw size={14} className="animate-spin" />
+                    <span>Signing in...</span>
+                  </>
+                ) : (
+                  <>
+                    <span>Sign In</span>
+                    <ArrowRight size={14} />
+                  </>
+                )}
+              </button>
+            </form>
+
+            <p className="text-[10px] text-neutral-muted/60 text-center font-sans pt-2">
+              Demo password: haute-admin-2026
+            </p>
           </div>
-
-          <div>
-            <label className="block text-[11px] uppercase tracking-wider font-sans text-neutral-muted mb-1.5">
-              Encrypted Key / Password
-            </label>
-            <div className="relative">
-              <input
-                type="password"
-                required
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="••••••••••••"
-                className="w-full bg-brand-espresso border border-border-subtle px-4 py-3 pl-10 text-xs text-neutral-ivory focus:outline-hidden focus:border-gold-primary transition-colors"
-              />
-              <Lock size={16} className="absolute left-3.5 top-3.5 text-neutral-muted" />
-            </div>
-          </div>
-
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full py-3.5 bg-gold-primary text-brand-deep font-sans text-xs uppercase tracking-[0.2em] font-medium hover:bg-gold-champagne disabled:opacity-50 transition-colors flex items-center justify-center space-x-2 mt-6 shadow-gold-subtle"
-          >
-            <span>{loading ? "Verifying Clearance..." : "Enter Operations Center"}</span>
-            <ArrowRight size={14} />
-          </button>
-        </form>
-
-        {/* Rapid Role Testing Selector */}
-        <div className="mt-8 pt-6 border-t border-border-subtle/50 space-y-2 text-center">
-          <span className="text-[10px] uppercase font-mono tracking-wider text-gold-muted block">
-            Rapid Role Testing Credentials:
-          </span>
-          <div className="grid grid-cols-2 gap-2 text-[10px] font-mono">
-            <button
-              type="button"
-              onClick={() => setTestRole("admin@fragology.com")}
-              className="px-2 py-1.5 bg-brand-espresso border border-border-subtle hover:border-gold-primary text-gold-champagne rounded-xs text-left truncate"
-            >
-              Super Admin
-            </button>
-            <button
-              type="button"
-              onClick={() => setTestRole("products@fragology.com")}
-              className="px-2 py-1.5 bg-brand-espresso border border-border-subtle hover:border-gold-primary text-neutral-soft rounded-xs text-left truncate"
-            >
-              Product Manager
-            </button>
-            <button
-              type="button"
-              onClick={() => setTestRole("inventory@fragology.com")}
-              className="px-2 py-1.5 bg-brand-espresso border border-border-subtle hover:border-gold-primary text-neutral-soft rounded-xs text-left truncate"
-            >
-              Inventory Manager
-            </button>
-            <button
-              type="button"
-              onClick={() => setTestRole("orders@fragology.com")}
-              className="px-2 py-1.5 bg-brand-espresso border border-border-subtle hover:border-gold-primary text-neutral-soft rounded-xs text-left truncate"
-            >
-              Order Manager
-            </button>
-            <button
-              type="button"
-              onClick={() => setTestRole("concierge@fragology.com")}
-              className="px-2 py-1.5 bg-brand-espresso border border-border-subtle hover:border-gold-primary text-neutral-soft rounded-xs text-left truncate"
-            >
-              Customer Support
-            </button>
-            <button
-              type="button"
-              onClick={() => setTestRole("marketing@fragology.com")}
-              className="px-2 py-1.5 bg-brand-espresso border border-border-subtle hover:border-gold-primary text-neutral-soft rounded-xs text-left truncate"
-            >
-              Marketing Director
-            </button>
-          </div>
-        </div>
-
-        {/* Security Warning */}
-        <div className="mt-6 pt-4 border-t border-border-subtle/30 text-center">
-          <p className="text-[10px] text-neutral-muted leading-relaxed font-light">
-            Public administrative signup is permanently disabled. Access is provisioned strictly through Super Admin invitation.
-          </p>
         </div>
       </div>
     </div>

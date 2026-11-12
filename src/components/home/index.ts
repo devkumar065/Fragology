@@ -1,5 +1,5 @@
 export * from "./hero-section";
-export * from "./benefits-strip";
+export * from "./nature-title";
 export * from "./featured-fragrances";
 export * from "./scent-families";
 export * from "./brand-story";

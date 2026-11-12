@@ -19,7 +19,7 @@ export class StripeAdapter implements PaymentGatewayAdapter {
         orderNumber: order.orderNumber,
         clientSecret: `mock_pi_${order.orderNumber}_secret_test`,
         amount: order.totalAmount,
-        currency: order.currency || "USD",
+        currency: order.currency || "INR",
         error: undefined,
       };
     }
@@ -28,7 +28,7 @@ export class StripeAdapter implements PaymentGatewayAdapter {
       // Use standard fetch to Stripe API to avoid extra heavy dependencies
       const body = new URLSearchParams({
         amount: amountInCents.toString(),
-        currency: (order.currency || "usd").toLowerCase(),
+        currency: (order.currency || "inr").toLowerCase(),
         "metadata[order_number]": order.orderNumber,
         "metadata[customer_email]": order.customerEmail,
         description: `Fragology Haute Parfumerie Order ${order.orderNumber}`,

@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
+import { motion, AnimatePresence } from "framer-motion";
 import { ProductCard } from "@/components/product/product-card";
 import { PRODUCTS_CATALOG } from "@/data/products";
 import { Product } from "@/types/product";
@@ -260,51 +261,62 @@ export default function ScentFinderPage() {
               </div>
             </div>
 
-            {/* Question Text */}
-            <div className="space-y-2">
-              <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-light text-neutral-ivory leading-tight">
-                {currentQuestion.question}
-              </h2>
-              <p className="text-xs sm:text-sm text-neutral-muted font-light">
-                {currentQuestion.subtitle}
-              </p>
-            </div>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentStep}
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                className="space-y-8"
+              >
+                {/* Question Text */}
+                <div className="space-y-2">
+                  <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-light text-neutral-ivory leading-tight">
+                    {currentQuestion.question}
+                  </h2>
+                  <p className="text-xs sm:text-sm text-neutral-muted font-light">
+                    {currentQuestion.subtitle}
+                  </p>
+                </div>
 
-            {/* Options List */}
-            <div className="space-y-3">
-              {currentQuestion.options.map((opt) => {
-                const isSelected = answers[currentQuestion.id] === opt.value;
-                return (
-                  <button
-                    key={opt.label}
-                    onClick={() => handleSelectOption(opt.value)}
-                    className={`w-full p-5 text-left border rounded-xs transition-all flex items-start justify-between space-x-4 ${
-                      isSelected
-                        ? "border-gold-primary bg-gold-primary/10 text-neutral-ivory shadow-gold-subtle"
-                        : "border-border-subtle bg-brand-rich/60 text-neutral-soft hover:border-gold-primary/50 hover:bg-brand-rich"
-                    }`}
-                  >
-                    <div className="space-y-1">
-                      <span className="font-serif text-lg text-neutral-ivory font-light block">
-                        {opt.label}
-                      </span>
-                      <span className="text-xs text-neutral-muted font-light leading-relaxed block">
-                        {opt.description}
-                      </span>
-                    </div>
-                    <div
-                      className={`h-5 w-5 rounded-full border flex items-center justify-center flex-shrink-0 mt-1 transition-colors ${
-                        isSelected
-                          ? "border-gold-primary bg-gold-primary text-brand-deep"
-                          : "border-border-subtle bg-brand-deep"
-                      }`}
-                    >
-                      {isSelected && <Check size={12} strokeWidth={2.5} />}
-                    </div>
-                  </button>
-                );
-              })}
-            </div>
+                {/* Options List */}
+                <div className="space-y-3">
+                  {currentQuestion.options.map((opt) => {
+                    const isSelected = answers[currentQuestion.id] === opt.value;
+                    return (
+                      <button
+                        key={opt.label}
+                        onClick={() => handleSelectOption(opt.value)}
+                        className={`w-full p-5 text-left border rounded-xs transition-all flex items-start justify-between space-x-4 ${
+                          isSelected
+                            ? "border-gold-primary bg-gold-primary/10 text-neutral-ivory shadow-gold-subtle"
+                            : "border-border-subtle bg-brand-rich/60 text-neutral-soft hover:border-gold-primary/50 hover:bg-brand-rich"
+                        }`}
+                      >
+                        <div className="space-y-1">
+                          <span className="font-serif text-lg text-neutral-ivory font-light block">
+                            {opt.label}
+                          </span>
+                          <span className="text-xs text-neutral-muted font-light leading-relaxed block">
+                            {opt.description}
+                          </span>
+                        </div>
+                        <div
+                          className={`h-5 w-5 rounded-full border flex items-center justify-center flex-shrink-0 mt-1 transition-colors ${
+                            isSelected
+                              ? "border-gold-primary bg-gold-primary text-brand-deep"
+                              : "border-border-subtle bg-brand-deep"
+                          }`}
+                        >
+                          {isSelected && <Check size={12} strokeWidth={2.5} />}
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
+              </motion.div>
+            </AnimatePresence>
 
             {/* Navigation Buttons */}
             <div className="flex items-center justify-between pt-4 border-t border-border-subtle">
@@ -349,7 +361,7 @@ export default function ScentFinderPage() {
               </p>
 
               <div className="p-3 bg-brand-espresso/60 border border-border-subtle text-[11px] text-neutral-muted max-w-lg mx-auto">
-                <span className="text-gold-primary">Diagnostic Note:</span> Matches are computed deterministically against our demonstration fragrance attributes.
+                <span className="text-gold-primary">Diagnostic Note:</span> Matches are computed deterministically from our artisanal olfactive formulation matrix.
               </div>
             </div>
 

@@ -37,6 +37,19 @@ export interface AdminMember {
   createdAt: string;
 }
 
+export interface StaffLoginRecord {
+  id: string;
+  adminId: string;
+  email: string;
+  fullName: string;
+  role: AdminRole;
+  roleLabel: string;
+  timestamp: string;
+  ipAddress: string;
+  device?: string;
+  status: "active" | "signed_out";
+}
+
 export interface AuditLogEntry {
   id: string;
   adminId: string;

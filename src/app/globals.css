@@ -1,42 +1,66 @@
+@import url('https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cinzel:wght@400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Manrope:wght@300;400;500;600;700;800&family=Pinyon+Script&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+
+/* Clean, modern, highly legible numbers font subset */
+@font-face {
+  font-family: 'CleanNumbers';
+  src: local('Manrope'), local('Inter'), local('-apple-system'), local('BlinkMacSystemFont'), local('Segoe UI'), local('Roboto'), sans-serif;
+  unicode-range: U+0030-0039, U+0024, U+0025, U+002C, U+002E, U+002B, U+2212, U+002D, U+002F, U+20AC, U+00A3, U+20B9;
+  font-display: swap;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  /* Primary Dark Palette */
-  --color-deep-black: #080706;
-  --color-rich-black: #0D0B09;
+  /* Primary Dark Palette - Warm Dark Brown (75%) */
+  --color-main-bg: #17110C;
+  --color-alternate-bg: #241A12;
+  --color-product-card: #33251A;
+  --color-deep-black: #17110C;
+  --color-rich-black: #241A12;
   --color-dark-espresso: #17110C;
-  --color-chocolate-black: #21160E;
+  --color-chocolate-black: #33251A;
 
-  /* Gold Tokens */
-  --color-gold-primary: #C8A45D;
-  --color-gold-champagne: #E2C78D;
-  --color-gold-soft: #AE8847;
+  /* Gold Tokens (5%) */
+  --color-gold-primary: #C6A467;
+  --color-gold-champagne: #E0C99A;
+  --color-gold-soft: #AC8B50;
   --color-gold-muted: #80633B;
 
-  /* Neutral Tokens */
-  --color-warm-ivory: #F4EFE5;
-  --color-soft-white: #EAE4D9;
-  --color-muted-text: #AFA497;
-  --color-subtle-border: rgba(200, 164, 93, 0.22);
-  --color-gold-glow: rgba(200, 164, 93, 0.18);
+  /* Neutral & Heading Tokens (20%) */
+  --color-main-heading: #F1E8DA;
+  --color-paragraph-text: #CBBDAA;
+  --color-warm-ivory: #F1E8DA;
+  --color-editorial-ivory: #EDE3D4;
+  --color-soft-white: #EDE3D4;
+  --color-muted-text: #CBBDAA;
+  --color-subtle-border: #57432B;
+  --color-gold-glow: rgba(198, 164, 103, 0.2);
 
   /* App Canvas Defaults */
-  --background: var(--color-deep-black);
-  --foreground: var(--color-warm-ivory);
+  --background: #17110C;
+  --foreground: #F1E8DA;
 }
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+    text-rendering: optimizeLegibility;
+  }
+
   * {
-    border-color: var(--color-subtle-border);
+    border-color: #57432B;
+    font-variant-numeric: lining-nums tabular-nums;
+    -webkit-font-feature-settings: "lnum" 1, "tnum" 1;
+    font-feature-settings: "lnum" 1, "tnum" 1;
   }
 
   body {
-    background-color: var(--color-deep-black);
-    color: var(--color-warm-ivory);
-    font-family: var(--font-sans), sans-serif;
-    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    background-color: #17110C;
+    color: #F1E8DA;
+    font-family: 'CleanNumbers', var(--font-sans), sans-serif;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11", "lnum" 1, "tnum" 1;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
@@ -44,14 +68,20 @@
 
   /* Selection styling with gold sheen */
   ::selection {
-    background-color: rgba(200, 164, 93, 0.3);
-    color: #F4EFE5;
+    background-color: rgba(198, 164, 103, 0.35);
+    color: #F1E8DA;
   }
 
-  /* Headings inherit luxury serif */
+  /* Headings inherit luxury serif for letters, but clean lining figures for any numbers */
   h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-serif), serif;
+    font-family: 'CleanNumbers', var(--font-serif), serif;
     letter-spacing: -0.01em;
+    font-variant-numeric: lining-nums tabular-nums;
+    color: #F1E8DA;
+  }
+
+  p {
+    color: #CBBDAA;
   }
 }
 
@@ -62,29 +92,29 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #080706;
+  background: #17110C;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #21160E;
+  background: #33251A;
   border-radius: 3px;
-  border: 1px solid rgba(200, 164, 93, 0.2);
+  border: 1px solid #57432B;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #C8A45D;
+  background: #C6A467;
 }
 
 /* Luxury Utilities */
 @layer utilities {
   .text-gold-gradient {
-    background: linear-gradient(135deg, #E2C78D 0%, #C8A45D 50%, #AE8847 100%);
+    background: linear-gradient(135deg, #E0C99A 0%, #C6A467 50%, #AC8B50 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
 
   .border-gold-subtle {
-    border-color: rgba(200, 164, 93, 0.22);
+    border-color: #57432B;
   }
 
   .bg-ambient-glow {
@@ -93,5 +123,21 @@
 
   .bg-vignette {
     box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.8);
+  }
+
+  .font-flowing-italic {
+    font-family: 'Pinyon Script', 'Alex Brush', cursive;
+  }
+
+  .font-luxury-serif {
+    font-family: 'CleanNumbers', var(--font-serif), 'Cormorant Garamond', 'Cinzel', serif;
+  }
+
+  .font-numbers {
+    font-family: 'CleanNumbers', var(--font-sans), Inter, system-ui, -apple-system, sans-serif;
+    font-variant-numeric: lining-nums tabular-nums;
+    -webkit-font-feature-settings: "lnum" 1, "tnum" 1;
+    font-feature-settings: "lnum" 1, "tnum" 1;
+    letter-spacing: normal;
   }
 }

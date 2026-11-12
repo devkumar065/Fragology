@@ -99,7 +99,7 @@ export async function POST(req: NextRequest) {
     }
 
     // 4. Shipping & Tax Calculation
-    const shippingFee = authoritativeSubtotal >= 150 ? 0 : 25;
+    const shippingFee = authoritativeSubtotal >= 1999 ? 0 : 99;
     const taxableAmount = Math.max(0, authoritativeSubtotal - authoritativeDiscount);
     const taxAmount = Math.round(taxableAmount * 0.08 * 100) / 100;
     const grandTotal = Math.round((authoritativeSubtotal - authoritativeDiscount + shippingFee + taxAmount) * 100) / 100;
@@ -121,7 +121,7 @@ export async function POST(req: NextRequest) {
       status: "confirmed",
       paymentStatus: paymentProvider === "concierge_transfer" ? "processing" : "pending",
       paymentProvider,
-      currency: "USD",
+      currency: "INR",
       subtotal: authoritativeSubtotal,
       discountAmount: authoritativeDiscount,
       shippingFee,
@@ -161,7 +161,7 @@ export async function POST(req: NextRequest) {
       success: true,
       orderNumber,
       totalAmount: grandTotal,
-      currency: "USD",
+      currency: "INR",
       payment: paymentInit,
       order: newOrder,
     });
