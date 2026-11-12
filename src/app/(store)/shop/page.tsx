@@ -257,10 +257,14 @@ export default function ShopPage() {
         ) : (
           <div className="my-16">
             <EmptyState
-              heading="No Fragrances Found"
-              description="No formulations in our catalogue match your selected search or filter parameters. Try broadening your accord criteria."
-              actionLabel="Reset All Filters"
-              onAction={clearAllFilters}
+              heading={PRODUCTS_CATALOG.length === 0 ? "New Collection Coming Soon" : "No Fragrances Found"}
+              description={
+                PRODUCTS_CATALOG.length === 0
+                  ? "Our boutique is currently curating a new selection of bespoke fragrance formulations. Please check back shortly or consult our concierge."
+                  : "No formulations in our catalogue match your selected search or filter parameters. Try broadening your accord criteria."
+              }
+              actionLabel={PRODUCTS_CATALOG.length === 0 ? undefined : "Reset All Filters"}
+              onAction={PRODUCTS_CATALOG.length === 0 ? undefined : clearAllFilters}
             />
           </div>
         )}

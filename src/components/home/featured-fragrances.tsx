@@ -6,6 +6,10 @@ import { FEATURED_FRAGRANCES } from "@/data/products";
 import { MotionFadeIn } from "@/components/ui/motion-reveal";
 
 export function FeaturedFragrances() {
+  if (!FEATURED_FRAGRANCES || FEATURED_FRAGRANCES.length === 0) {
+    return null;
+  }
+
   return (
     <section
       id="featured"

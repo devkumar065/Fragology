@@ -259,36 +259,38 @@ export function Header() {
                         </div>
 
                         {/* Featured Flacon Card */}
-                        <div className="col-span-4 flex flex-col justify-between bg-brand-deep/80 border border-border-subtle/60 p-3 rounded-xs">
-                          <div>
-                            <span className="text-[8px] font-mono uppercase tracking-[0.25em] text-gold-muted block mb-1.5">
-                              Featured Flacon
-                            </span>
-                            <div className="relative aspect-square w-full rounded-xs overflow-hidden bg-brand-espresso mb-2">
-                              <Image
-                                src={featuredProduct.images?.[0] || "/images/products/golden-reverie-bottle.jpg"}
-                                alt={featuredProduct.name}
-                                fill
-                                className="object-cover"
-                                sizes="140px"
-                              />
+                        {featuredProduct && (
+                          <div className="col-span-4 flex flex-col justify-between bg-brand-deep/80 border border-border-subtle/60 p-3 rounded-xs">
+                            <div>
+                              <span className="text-[8px] font-mono uppercase tracking-[0.25em] text-gold-muted block mb-1.5">
+                                Featured Flacon
+                              </span>
+                              <div className="relative aspect-square w-full rounded-xs overflow-hidden bg-brand-espresso mb-2">
+                                <Image
+                                  src={featuredProduct.images?.[0] || "/images/products/golden-reverie-bottle.jpg"}
+                                  alt={featuredProduct.name}
+                                  fill
+                                  className="object-cover"
+                                  sizes="140px"
+                                />
+                              </div>
+                              <span className="block font-serif text-sm font-light text-neutral-ivory line-clamp-1">
+                                {featuredProduct.name}
+                              </span>
+                              <span className="block font-numbers text-xs text-gold-champagne font-medium mt-0.5">
+                                {featuredProduct.price}
+                              </span>
                             </div>
-                            <span className="block font-serif text-sm font-light text-neutral-ivory line-clamp-1">
-                              {featuredProduct.name}
-                            </span>
-                            <span className="block font-numbers text-xs text-gold-champagne font-medium mt-0.5">
-                              {featuredProduct.price}
-                            </span>
+                            <Link
+                              href={`/products/${featuredProduct.slug}`}
+                              onClick={() => setFragranceMenuOpen(false)}
+                              className="mt-2 text-[10px] font-sans uppercase tracking-widest text-gold-primary hover:text-gold-champagne inline-flex items-center gap-1 font-medium"
+                            >
+                              <span>View Flacon</span>
+                              <ArrowRight size={10} />
+                            </Link>
                           </div>
-                          <Link
-                            href={`/products/${featuredProduct.slug}`}
-                            onClick={() => setFragranceMenuOpen(false)}
-                            className="mt-2 text-[10px] font-sans uppercase tracking-widest text-gold-primary hover:text-gold-champagne inline-flex items-center gap-1 font-medium"
-                          >
-                            <span>View Flacon</span>
-                            <ArrowRight size={10} />
-                          </Link>
-                        </div>
+                        )}
                       </div>
                     </motion.div>
                   )}
