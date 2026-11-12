@@ -21,7 +21,7 @@ export function HeroSection() {
         className="absolute inset-0"
       >
         <Image
-          src="/images/hero/fragology-hero-bg.png"
+          src="/images/hero/fragology-hero.jpg"
           alt="Fragology Haute Parfumerie"
           fill
           priority
@@ -29,6 +29,9 @@ export function HeroSection() {
           className="object-cover object-center"
         />
       </motion.div>
+
+      {/* Subtle Cinematic Contrast Overlay for Typographic Elegance */}
+      <div className="absolute inset-0 bg-gradient-to-r from-brand-deep/80 via-brand-deep/35 to-transparent pointer-events-none" />
 
       {/* Hero Editorial Typography & CTA */}
       <div className="absolute inset-0 flex items-center">
@@ -65,15 +68,15 @@ export function HeroSection() {
             >
               <Link
                 href="/shop"
-                className="group inline-flex items-center justify-between gap-7 sm:gap-8 border border-[#C8A45D]/80 bg-transparent px-7 py-3 sm:px-8 sm:py-3.5 transition-all duration-300 hover:border-[#F5E0B3] hover:bg-gold-primary hover:text-brand-deep active:scale-95"
+                className="group inline-flex items-center justify-between gap-7 sm:gap-8 border border-gold-primary/80 bg-transparent px-7 py-3 sm:px-8 sm:py-3.5 transition-all duration-300 hover:border-gold-champagne hover:bg-gold-primary hover:text-brand-deep active:scale-95"
               >
-                <span className="font-sans text-[11px] sm:text-xs font-medium uppercase tracking-[0.42em] text-[#E8D19F] transition-colors group-hover:text-brand-deep">
+                <span className="font-sans text-[11px] sm:text-xs font-medium uppercase tracking-[0.42em] text-gold-champagne transition-colors group-hover:text-brand-deep">
                   EXPLORE
                 </span>
                 <ArrowRight
                   size={14}
                   strokeWidth={1.3}
-                  className="text-[#C8A45D] transition-all duration-300 group-hover:translate-x-1 group-hover:text-brand-deep"
+                  className="text-gold-primary transition-all duration-300 group-hover:translate-x-1 group-hover:text-brand-deep"
                 />
               </Link>
             </motion.div>
