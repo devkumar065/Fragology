@@ -21,7 +21,7 @@ export function HeroSection() {
         className="absolute inset-0"
       >
         <Image
-          src="/images/hero/fragology-hero.jpg"
+          src="/images/hero/new-hero.png"
           alt="Fragology Haute Parfumerie"
           fill
           priority

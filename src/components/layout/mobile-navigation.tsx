@@ -139,7 +139,7 @@ export function MobileNavigation({
                 <Heart size={16} strokeWidth={1.25} />
               </div>
               {wishlistCount > 0 && (
-                <span className="absolute top-1 right-2 w-4 h-4 bg-gradient-to-r from-gold-primary to-gold-champagne text-brand-deep rounded-full text-[9px] font-bold flex items-center justify-center shadow-gold-subtle font-numbers">
+                <span className="absolute top-1 right-2 w-4 h-4 bg-gold-primary text-brand-deep rounded-full text-[9px] font-bold flex items-center justify-center ring-1.5 ring-brand-deep shadow-gold-subtle font-numbers">
                   {wishlistCount}
                 </span>
               )}
@@ -172,7 +172,7 @@ export function MobileNavigation({
                 <ShoppingBag size={16} strokeWidth={1.25} />
               </div>
               {cartCount > 0 && (
-                <span className="absolute top-1 right-2 w-4 h-4 bg-gradient-to-r from-gold-primary to-gold-champagne text-brand-deep rounded-full text-[9px] font-bold flex items-center justify-center shadow-gold-subtle font-numbers">
+                <span className="absolute top-1 right-2 w-4 h-4 bg-gold-primary text-brand-deep rounded-full text-[9px] font-bold flex items-center justify-center ring-1.5 ring-brand-deep shadow-gold-subtle font-numbers">
                   {cartCount}
                 </span>
               )}
