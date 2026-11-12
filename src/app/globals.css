@@ -13,6 +13,10 @@
 @tailwind utilities;
 
 :root {
+  /* Typography Variables (Offline/CI Safe) */
+  --font-serif: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+  --font-sans: 'Manrope', Inter, system-ui, -apple-system, sans-serif;
+
   /* Primary Dark Palette - Warm Dark Brown (75%) */
   --color-main-bg: #17110C;
   --color-alternate-bg: #241A12;
