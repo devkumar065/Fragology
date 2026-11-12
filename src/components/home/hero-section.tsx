@@ -49,20 +49,20 @@ export function HeroSection() {
               initial={{ opacity: 0, y: 22 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.9, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-              className="font-serif text-[clamp(2.1rem,4.4vw,4.2rem)] font-light tracking-[0.03em] leading-none text-[#F6EFEA] drop-shadow-[0_2px_16px_rgba(0,0,0,0.85)]"
+              className="font-serif text-[clamp(2.1rem,4.2vw,3.8rem)] font-light tracking-[0.03em] leading-normal text-[#F6EFEA] drop-shadow-[0_2px_16px_rgba(0,0,0,0.85)] mb-1 sm:mb-2"
             >
               The Art of
             </motion.h1>
 
-            {/* Line 2: Fragrance (Flowing Champagne Gold Cursive Typography) */}
+            {/* Line 2: Fragrance (Flowing Champagne Gold Cursive Typography — Generous Box, Zero Clipping) */}
             <motion.div
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
-              className="-mt-1 sm:-mt-2 lg:-mt-3 filter drop-shadow-[0_4px_24px_rgba(198,164,103,0.35)] select-none"
+              className="overflow-visible px-6 sm:px-10 my-1 sm:my-2 filter drop-shadow-[0_4px_24px_rgba(198,164,103,0.35)] select-none"
             >
               <span
-                className="font-script text-[clamp(3.6rem,7.5vw,6.8rem)] font-normal leading-[0.88] tracking-[0.02em] block"
+                className="font-script text-[clamp(3.4rem,7.2vw,6.2rem)] font-normal leading-[1.3] sm:leading-[1.35] tracking-[0.02em] block overflow-visible py-2 px-2"
                 style={{
                   backgroundImage:
                     "linear-gradient(135deg, #FAF1DF 0%, #E8CD96 35%, #CFA558 75%, #A98036 100%)",
@@ -79,7 +79,7 @@ export function HeroSection() {
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.9, delay: 0.65, ease: [0.16, 1, 0.3, 1] }}
-              className="font-sans text-[10px] sm:text-xs lg:text-[13px] uppercase tracking-[0.32em] sm:tracking-[0.4em] text-[#D9CBC0] font-light mt-4 sm:mt-5 lg:mt-6 mb-7 sm:mb-9 lg:mb-10 text-center drop-shadow-[0_1px_8px_rgba(0,0,0,0.8)]"
+              className="font-sans text-[10px] sm:text-xs lg:text-[13px] uppercase tracking-[0.32em] sm:tracking-[0.4em] text-[#D9CBC0] font-light mt-3 sm:mt-4 lg:mt-5 mb-8 sm:mb-9 lg:mb-10 text-center drop-shadow-[0_1px_8px_rgba(0,0,0,0.8)]"
             >
               NATURE <span className="text-[#C6A467] mx-1.5 sm:mx-2">•</span> ELEGANCE{" "}
               <span className="text-[#C6A467] mx-1.5 sm:mx-2">•</span> INDIVIDUALITY

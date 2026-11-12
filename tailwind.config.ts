@@ -46,7 +46,7 @@ const config: Config = {
         serif: ["'CleanNumbers'", "var(--font-serif)", "Playfair Display", "Georgia", "serif"],
         sans: ["'CleanNumbers'", "var(--font-sans)", "Inter", "system-ui", "-apple-system", "sans-serif"],
         numbers: ["'CleanNumbers'", "var(--font-sans)", "Inter", "system-ui", "-apple-system", "sans-serif"],
-        script: ["'Pinyon Script'", "'Alex Brush'", "'Great Vibes'", "cursive"],
+        script: ["'Snell Roundhand'", "'Great Vibes'", "'Alex Brush'", "cursive"],
       },
       letterSpacing: {
         luxury: "0.25em",
